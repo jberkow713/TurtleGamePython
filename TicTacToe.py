@@ -66,7 +66,7 @@ computer.color("blue")
 computer.shape("square")
 computer.penup()
 computer.speed(0)
-computer.setposition(0, 0)
+computer.setposition(222, 222)
 
 
 speed = 222
@@ -145,6 +145,9 @@ def draw_x():
 
 #once the initial computer move has been made, then we implement the other loop, which moves along highest count lines, based 
 # on proximity, this will mean computer is really smart
+
+# in the weird option that human is trying to trick computer, computer will always try to finish his own line, if hes at 2,
+# before trying to block humans 2
 
 
 
