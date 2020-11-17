@@ -61,29 +61,37 @@ player.speed(0)
 player.setposition(0, 0)
 player.setheading(90)
 
-playerspeed = 222
+computer = turtle.Turtle()
+computer.color("blue")
+computer.shape("square")
+computer.penup()
+computer.speed(0)
+computer.setposition(222, 222)
+
+
+speed = 222
 
 def move_left():
     x = player.xcor()
-    x -= playerspeed
+    x -= speed
     if x < -222:
         x = -222
     player.setx(x)
 def move_right():
     x = player.xcor()
-    x += playerspeed
+    x += speed
     if x > 222:
         x = 222
     player.setx(x)
 def move_up():
     y = player.ycor()
-    y += playerspeed
+    y += speed
     if y >  222:
         y = 222
     player.sety(y)
 def move_down():
     y = player.ycor()
-    y -= playerspeed
+    y -= speed
     if y < -222:
         y = -222
     player.sety(y)   
