@@ -149,9 +149,49 @@ def draw_x():
 # in the weird option that human is trying to trick computer, computer will always try to finish his own line, if hes at 2,
 # before trying to block humans 2
 
+#start with random roll from 0-1, x = random.randint(0,1), if 0, computer starts, if 1, player starts
+# Computer, if he goes first , will place a piece at random, otherwise, 
 
 
+Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222], [0,-222], [222,-222]]
+Name_of_Spots = ["TL", "TM", "TR", "ML", "MM", "MR", "BL", "BM", "BR"]
 
+TicTacdict = dict(zip(Name_of_Spots, Coords))
+print(TicTacdict)
+Winning_Lines = [("TL", "TM", "TR"), ("ML", "MM", "MR"), ("BL", "BM", "BR"), ("TL", "ML", "BL"),\
+    ("TM", "MM", "BM",), ("TR", "MR", "BR"), ("TL", "MM", "BR"), ("BL", "MM", "TR")]
+Count = [3,3,3,3,3,3,3,3]
+
+#Shows how many moves are needed to win, using this specific path
+Remaining_dict = dict(zip(Winning_Lines, Count))
+print(Remaining_dict)
+ #When a player or computer draws, the coordinates at which they draw will be taken in.
+
+ # From those coordinates, a key in the TicTacdict will be referred to. 
+ # Once we have the name of the spot, Access the Remaining_dict, and 
+ # ALL Winning lines with the name in it, will have their Count reduced by 1, and updated
+# Then, delete the key from the Tictacdict and replace with a new dictionary
+
+# Then, before the computer moves, it will access the values in the Remaining dict, and aside from the fringe cases,
+# It will find the winning line arrays with the lowest counts...
+# It will then access the TicTacdict and basically randomly choose a key from the lowest counts keys, move to that spot,
+# and the process will repeat
+# 
+# obviously, this is only relevant when the computer is choosing, the player will make up his own mind
+# 
+# If the computer is first to act, it will find that all values in the remaining dict are the same, and so it should
+# randomly select a key from the Tictacdict, choose one of the lists, and check to see if the value is a key in the TicTacDict...
+# if it finds that it is a key, it will move to the coordinates, and draw...just going to randomly select, and outside while loop, 
+# if its choice is 0, it will draw 0s, if its random int is 1, it will draw X's. 
+
+# For every x or o that is drawn, increment the count, the while loop will run until the count is not < 9...
+# When the count is 9, we just clear the board somehow
+
+  
+def removekey(d, key):
+    r = dict(d)
+    del r[key]
+    return r
 
 
 
