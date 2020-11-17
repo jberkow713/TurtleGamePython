@@ -94,13 +94,50 @@ def move_down():
     y -= speed
     if y < -222:
         y = -222
-    player.sety(y)   
+    player.sety(y)
+def draw_circle():
+    turtle.pensize(2.5)
+    a = player.xcor()
+    b = player.ycor()
+    # x = player.position(a, (b-50))
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.setpos(a, (b-60))
+
+    turtle.pendown()
+    turtle.circle(60)
+    turtle.hideturtle()
+def draw_x():
+    turtle.pensize(2.5)
+    a = player.xcor()
+    b = player.ycor()
+    turtle.hideturtle()
+    turtle.penup()
+    
+    
+    turtle.setposition(a-50,b+50)
+    turtle.pendown()
+    turtle.setposition(a+50,b-50)
+    turtle.penup()
+    turtle.setposition(a-50,b-50)
+    turtle.pendown()
+    turtle.setposition(a+50,b+ 50)
+
+
+
+
+
+
+
+
 
 turtle.listen()
 turtle.onkey(move_left, "Left") 
 turtle.onkey(move_right, "Right")
 turtle.onkey(move_up, "Up") 
-turtle.onkey(move_down, "Down")       
+turtle.onkey(move_down, "Down")
+turtle.onkey(draw_circle, "o") 
+turtle.onkey(draw_x, "x")      
 
 
 delay = input("Press enter to finish.")
