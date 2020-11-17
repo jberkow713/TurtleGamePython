@@ -31,18 +31,6 @@ border_pen1.setheading(270)
 border_pen1.fd(667)
 border_pen1.hideturtle()
 
-
-# border_pen2 = turtle.Turtle()
-# border_pen2.speed(0)
-# border_pen2.color("black")
-# border_pen2.penup()
-# border_pen2.setposition(300,300)
-# border_pen2.pendown()
-# border_pen2.pensize(2.5)
-# border_pen2.setheading(270)
-# border_pen2.fd(600)
-# border_pen2.hideturtle()
-
 border_pen3 = turtle.Turtle()
 border_pen3.speed(0)
 border_pen3.color("black")
@@ -65,9 +53,46 @@ border_pen4.pensize(2.5)
 border_pen4.fd(666)
 border_pen4.hideturtle()
 
+player = turtle.Turtle()
+player.color("red")
+player.shape("triangle")
+player.penup()
+player.speed(0)
+player.setposition(0, 0)
+player.setheading(90)
 
+playerspeed = 222
 
+def move_left():
+    x = player.xcor()
+    x -= playerspeed
+    if x < -222:
+        x = -222
+    player.setx(x)
+def move_right():
+    x = player.xcor()
+    x += playerspeed
+    if x > 222:
+        x = 222
+    player.setx(x)
+def move_up():
+    y = player.ycor()
+    y += playerspeed
+    if y >  222:
+        y = 222
+    player.sety(y)
+def move_down():
+    y = player.ycor()
+    y -= playerspeed
+    if y < -222:
+        y = -222
+    player.sety(y)   
 
+turtle.listen()
+turtle.onkey(move_left, "Left") 
+turtle.onkey(move_right, "Right")
+turtle.onkey(move_up, "Up") 
+turtle.onkey(move_down, "Down")       
 
 
 delay = input("Press enter to finish.")
