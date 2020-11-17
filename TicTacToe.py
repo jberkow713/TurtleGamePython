@@ -66,7 +66,7 @@ computer.color("blue")
 computer.shape("square")
 computer.penup()
 computer.speed(0)
-computer.setposition(222, 222)
+computer.setposition(0, 0)
 
 
 speed = 222
@@ -95,6 +95,7 @@ def move_down():
     if y < -222:
         y = -222
     player.sety(y)
+
 def draw_circle():
     turtle.pensize(2.5)
     a = player.xcor()
@@ -107,6 +108,7 @@ def draw_circle():
     turtle.pendown()
     turtle.circle(60)
     turtle.hideturtle()
+
 def draw_x():
     turtle.pensize(2.5)
     a = player.xcor()
@@ -123,7 +125,26 @@ def draw_x():
     turtle.pendown()
     turtle.setposition(a+50,b+ 50)
 
+#Need to instruct the computer square, where to go, once i draw a shape
+# It then needs to move there, and draw the opposite shape
+# there are 8 possible lines to win tic tac toe, 3 across, 3 down, 2 diagonal,
+# when the player draws on a specific line, that line count gets incremented, from 0->1->2->3
+# so basically, the computer will move to a spot with the highest count, and place the opposite drawing
+# in the case of a tie, the computer will choose randomly among the tied lines, move to a spot on one of them, and draw
 
+# so basically, we have to program 8 coordinate systems, each line has 3, and the computer will move to a spot 
+# on one of those lines, as long as we program his movement correctly...does not matter how computer reaches proper coordinate
+# computer could take the shortest route to coordinate system, in case of a tie, if there is a tie, and choices are same distance, 
+# computer will choose randomly
+
+# when a line is not able to reach 3 in count, it is crossed off of a list, so the computer will not be able to move back to it
+# once it has originally moved there
+
+# if player chooses the first spot in the middle, computer has to randomly choose a corner option to move to
+#if players first move is in middle, computer needs to first go to opposite corner
+
+#once the initial computer move has been made, then we implement the other loop, which moves along highest count lines, based 
+# on proximity, this will mean computer is really smart
 
 
 
