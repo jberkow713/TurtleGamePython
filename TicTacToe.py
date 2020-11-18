@@ -66,7 +66,8 @@ computer.color("blue")
 computer.shape("square")
 computer.penup()
 computer.speed(0)
-computer.setposition(222, 222)
+computer.setposition(0, 0)
+computer.hideturtle()
 
 
 speed = 222
@@ -116,7 +117,7 @@ def draw_x():
     turtle.hideturtle()
     turtle.penup()
     
-    
+   
     turtle.setposition(a-50,b+50)
     turtle.pendown()
     turtle.setposition(a+50,b-50)
@@ -124,6 +125,38 @@ def draw_x():
     turtle.setposition(a-50,b-50)
     turtle.pendown()
     turtle.setposition(a+50,b+ 50)
+
+def comp_draw_x():
+    turtle.pensize(2.5)
+    a = computer.xcor()
+    b = computer.ycor()
+    turtle.hideturtle()
+    turtle.penup()
+
+    turtle.setposition(a-50,b+50)
+    turtle.pendown()
+    turtle.setposition(a+50,b-50)
+    turtle.penup()
+    turtle.setposition(a-50,b-50)
+    turtle.pendown()
+    turtle.setposition(a+50,b+ 50)
+def computer_draw_circle():
+
+    turtle.pensize(2.5)
+    a = computer.xcor()
+    b = computer.ycor()
+    # x = player.position(a, (b-50))
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.setpos(a, (b-60))
+
+    turtle.pendown()
+    turtle.circle(60)
+    turtle.hideturtle()
+
+#All function are made
+
+
 
 #Need to instruct the computer square, where to go, once i draw a shape
 # It then needs to move there, and draw the opposite shape
@@ -165,6 +198,52 @@ Count = [3,3,3,3,3,3,3,3]
 #Shows how many moves are needed to win, using this specific path
 Remaining_dict = dict(zip(Winning_Lines, Count))
 print(Remaining_dict)
+
+
+def set_comp_position():
+    #This function will find the lowest value in the dictionary, choose a random position in 
+    # those values, in case of a tie, choose random spot, and move the computer to that spot
+    value_list = []
+    possible_spots = set()
+    position_list = []
+    
+    for key, value in Remaining_dict.items():
+        value_list.append(value)
+    for key, value in Remaining_dict.items():
+        if value == min(value_list):
+            for spot in key:
+                possible_spots.add(spot)
+    for position in possible_spots:
+        position_list.append(position)
+    
+    Spot_key = False
+    
+    while Spot_key == False:
+        
+        random_index = random.randint(0, (len(position_list)-1))
+        #random position represents list of possible positions computer can move to, their name, TL, MM, etc...
+        random_position = position_list[random_index]
+
+        if random_position in TicTacdict.keys():
+            for position, coord in TicTacdict.items():
+                if random_position == position:
+                    coordinates = coord
+                    Spot_key = True 
+        elif random_position not in TicTacdict.keys():
+            #this is removing an element from the list so that when you run the randomizer again, it cant be selected
+            position_list.remove(random_position)
+            
+        
+
+    #set the position of the computer at the random spot it needs to move to if spot exists
+    computer.setpos(coordinates[0],coordinates[1]) 
+    # return coordinates
+
+
+(set_comp_position())
+computer_draw_circle()
+
+
  #When a player or computer draws, the coordinates at which they draw will be taken in.
 
  # From those coordinates, a key in the TicTacdict will be referred to. 
