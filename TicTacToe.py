@@ -200,14 +200,14 @@ Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222
 Name_of_Spots = ["TL", "TM", "TR", "ML", "MM", "MR", "BL", "BM", "BR"]
 
 TicTacdict = dict(zip(Name_of_Spots, Coords))
-print(TicTacdict)
+# print(TicTacdict)
 Winning_Lines = [("TL", "TM", "TR"), ("ML", "MM", "MR"), ("BL", "BM", "BR"), ("TL", "ML", "BL"),\
     ("TM", "MM", "BM",), ("TR", "MR", "BR"), ("TL", "MM", "BR"), ("BL", "MM", "TR")]
 Count = [3,3,3,3,3,3,3,3]
 
 #Shows how many moves are needed to win, using this specific path
 Remaining_dict = dict(zip(Winning_Lines, Count))
-print(Remaining_dict)
+# print(Remaining_dict)
 
 
 def set_comp_position():
@@ -262,13 +262,13 @@ def comp_pos_if_first_center():
     computer.setpos(coordinates[0],coordinates[1]) 
 
 # (set_comp_position())
-comp_pos_if_first_center()
+# comp_pos_if_first_center()
 # The drawing functions themselves, return a coordinate, based on where the player, or computer was, before it drew
 # This way, you can remove the coordinate after drawing, so that when the computer goes to check a position in the dictionary,
 # it won't check already drawn positions
 
-x = (computer_draw_circle())
-print(x)
+# x = (computer_draw_circle())
+# print(x)
 #Find the key associated with the coordinates of the marked X, or O
 def key_name(dictionary, coordinate):
     for key, value in dictionary.items():
@@ -276,7 +276,7 @@ def key_name(dictionary, coordinate):
             position = key
     return position        
 
-print(key_name(TicTacdict, x))
+# print(key_name(TicTacdict, x))
 
 #This function will decrease the count in a dictionary if one part of one of its keys is triggered
 def decrease_values(dictionary, key_name):
@@ -292,11 +292,11 @@ def decrease_values(dictionary, key_name):
     return dictionary                       
 
 #Find the key associated with the coordinates of the marked X, or O
-key =(key_name(TicTacdict, x))
-print(key)
+# key =(key_name(TicTacdict, x))
+# print(key)
 #Plug the key into the remaining dictionary, to update the values of particular winning lines, to reflect how many more are needed
 #To win the game, for a particular line
-print(decrease_values(Remaining_dict, key))
+# print(decrease_values(Remaining_dict, key))
 
 
 #Created function that will remove a key, value pair from a dictionary, based on the dictionary, and a coordinate given 
@@ -307,8 +307,15 @@ def remove_dict(dictionary, coordinate):
             storedvalue = key
     dictionary.pop(storedvalue)
     return dictionary
-print(remove_dict(TicTacdict, x))
-print(len(TicTacdict))    
+# print(remove_dict(TicTacdict, x))
+# print(len(TicTacdict))
+def check_if_over(dictionary):
+    for key, value in dictionary.items():
+        if value == 0:
+            return True 
+        else:
+            return False     
+
 
 
 #Lets go over the order:
@@ -346,6 +353,88 @@ turtle.onkey(move_up, "Up")
 turtle.onkey(move_down, "Down")
 turtle.onkey(draw_circle, "o") 
 turtle.onkey(draw_x, "x")      
+
+
+Game_Over = False
+while Game_Over == False:
+    Roll_to_choose_o_or_x = random.randint(0,1)
+    if Roll_to_choose_o_or_x == 0:
+            #Computer goes first as O    
+        while len(TicTacdict)> 0 and check_if_over(Remaining_dict) == False:
+                
+            Computer_turn = True
+            while Computer_turn == True:
+                                       
+                if len(TicTacdict) == 9:
+
+            #Move to opening position:    
+                    comp_pos_if_first_center()
+                    coords = computer_draw_circle()
+                    key =(key_name(TicTacdict, coords))
+                    decrease_values(Remaining_dict, key)
+                    remove_dict(TicTacdict, coords)
+                    
+                    Computer_turn = False
+
+                              
+                elif len(TicTacdict) < 9 and len(TicTacdict) > 0:
+
+                    set_comp_position()
+                    coords = computer_draw_circle()
+                    key =(key_name(TicTacdict, coords))
+                    decrease_values(Remaining_dict, key)
+                    remove_dict(TicTacdict, coords)
+
+                    Computer_turn = False
+
+                else:
+                    Game_Over = True
+                    break       
+    if Roll_to_choose_o_or_x == 1:
+            #Computer goes first as X    
+        while len(TicTacdict)> 0 and check_if_over(Remaining_dict) == False:
+                
+            
+            Computer_turn = True
+            while Computer_turn == True:
+                                    
+                if len(TicTacdict) == 9:
+
+        #Move to opening position:    
+                    comp_pos_if_first_center()
+                    coords = comp_draw_x()
+                    key =(key_name(TicTacdict, coords))
+                    decrease_values(Remaining_dict, key)
+                    remove_dict(TicTacdict, coords)
+                    
+                    Computer_turn = False
+
+
+
+
+
+                               
+                elif len(TicTacdict) < 9 and len(TicTacdict) > 0:
+
+                    set_comp_position()
+                    coords = comp_draw_x()
+                    key =(key_name(TicTacdict, coords))
+                    decrease_values(Remaining_dict, key)
+                    remove_dict(TicTacdict, coords)
+
+                    Computer_turn = False
+
+                    if len(TicTacdict) == 0:
+                        Game_Over = True 
+                else:
+                    Game_Over = True
+                    break                       
+                    
+
+
+
+
+
 
 
 delay = input("Press enter to finish.")
