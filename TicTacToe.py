@@ -182,24 +182,18 @@ def computer_draw_circle():
 
 #STUFF LEFT TO DO, before making the Loop
 
-#Make a function that reduces the count in the RemainingDict everytime one of the positions drawn is in the WinningLines list,
-# in other words, if an element is a part of a WinningLines list, if that element is drawn, then the count goes down in the 
-# winning lines list....
-#When the count goes down in the winning lines list, the computer targets that particular list, and blocks , and on and on it goes
 
-
+#Advanced, will do later 
 # when a line is not able to reach 3 in count, it is crossed off of a list, so the computer will not be able to move back to it
 # once it has originally moved there
 
-
+# Also advanced, computer has to know his moves, will update later
 # in the weird option that human is trying to trick computer, computer will always try to finish his own line, if hes at 2,
 # before trying to block humans 2
 
 #start with random roll from 0-1, x = random.randint(0,1), if 0, computer starts, if 1, player starts
 # Computer, if he goes first , will place a piece at random, otherwise, 
 
-# For every x or o that is drawn, increment the count, the while loop will run until the TicTacDict is empty, meaning every key has 
-# been marked
 
 
 Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222], [0,-222], [222,-222]]
@@ -275,16 +269,35 @@ comp_pos_if_first_center()
 
 x = (computer_draw_circle())
 print(x)
+#Find the key associated with the coordinates of the marked X, or O
 def key_name(dictionary, coordinate):
     for key, value in dictionary.items():
         if value == coordinate:
-            return(key)
+            position = key
+    return position        
 
 print(key_name(TicTacdict, x))
 
-# A = deepcopy(TicTacdict)
-# for key, value in 
-# print(A)
+#This function will decrease the count in a dictionary if one part of one of its keys is triggered
+def decrease_values(dictionary, key_name):
+    list_of_keys = []
+    for key, value in dictionary.items():
+        for keys in key:
+            if key_name == keys:
+                list_of_keys.append(key)
+    for winning_line in list_of_keys:
+        for key in dictionary.keys():
+            if winning_line == key:
+                dictionary[winning_line] = dictionary[winning_line]-1
+    return dictionary                       
+
+#Find the key associated with the coordinates of the marked X, or O
+key =(key_name(TicTacdict, x))
+print(key)
+#Plug the key into the remaining dictionary, to update the values of particular winning lines, to reflect how many more are needed
+#To win the game, for a particular line
+print(decrease_values(Remaining_dict, key))
+
 
 #Created function that will remove a key, value pair from a dictionary, based on the dictionary, and a coordinate given 
 def remove_dict(dictionary, coordinate):
@@ -294,9 +307,25 @@ def remove_dict(dictionary, coordinate):
             storedvalue = key
     dictionary.pop(storedvalue)
     return dictionary
-print(remove_dict(TicTacdict, x))    
-#In case of the while loop, when you remove, you simply set TicTacdict = remove(TicTacdict, coordinate)
-# So that everytime something draws, the dictionary is updated
+print(remove_dict(TicTacdict, x))
+print(len(TicTacdict))    
+
+
+#Lets go over the order:
+
+#start with random roll from 0-1, x = random.randint(0,1), if 0, computer starts, if 1, player starts
+# Computer, if he goes first , will place a piece at random, otherwise, 
+
+# Computer will choose location based on the count in the Remaining Dict, or the player will just choose on his own
+# At this point, the player, or the computer, will draw, an X or an O
+# A coordinate is returned, that coordinate reflects a key in the TicTacdict keys, and also in the RemainingDict keys
+# First, we remove the key from TicTacdict, 
+# Then we decrease the value associated with the key and all of it's winning lines in the RemainingDict,
+
+#The process then repeats, the player will choose on its own, and the computer will choose based on where the Player has chosen
+# There are two ways in which the while loop ends...
+# One way, if any value in the RemainingDict == 0, the game is over
+# The other way, if the length of TicTacDict == 0, that means all the different boxes have been filled
 
 
 
