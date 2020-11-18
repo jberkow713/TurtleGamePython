@@ -2,6 +2,8 @@ import turtle
 import os
 import math
 import random 
+from copy import deepcopy
+
 
 screen = turtle.Screen()
 screen.screensize(800,800)
@@ -105,7 +107,10 @@ def draw_circle():
     turtle.pensize(2.5)
     a = player.xcor()
     b = player.ycor()
-    # x = player.position(a, (b-50))
+    
+    coord_value = [a, b]
+    
+    
     turtle.hideturtle()
     turtle.penup()
     turtle.setpos(a, (b-60))
@@ -114,12 +119,17 @@ def draw_circle():
     turtle.circle(60)
     turtle.hideturtle()
 
+    return coord_value 
+    
+
 def draw_x():
     turtle.pensize(2.5)
     a = player.xcor()
     b = player.ycor()
     turtle.hideturtle()
     turtle.penup()
+    
+    coord_value = [a, b]
     
    
     turtle.setposition(a-50,b+50)
@@ -130,12 +140,17 @@ def draw_x():
     turtle.pendown()
     turtle.setposition(a+50,b+ 50)
 
+    return coord_value 
+
 def comp_draw_x():
     turtle.pensize(2.5)
     a = computer.xcor()
     b = computer.ycor()
     turtle.hideturtle()
     turtle.penup()
+
+    coord_value = [a, b]
+    
 
     turtle.setposition(a-50,b+50)
     turtle.pendown()
@@ -144,11 +159,16 @@ def comp_draw_x():
     turtle.setposition(a-50,b-50)
     turtle.pendown()
     turtle.setposition(a+50,b+ 50)
+
+    return coord_value 
+
 def computer_draw_circle():
 
     turtle.pensize(2.5)
     a = computer.xcor()
     b = computer.ycor()
+
+    coord_value = [a, b]
     # x = player.position(a, (b-50))
     turtle.hideturtle()
     turtle.penup()
@@ -158,36 +178,30 @@ def computer_draw_circle():
     turtle.circle(60)
     turtle.hideturtle()
 
-#All function are made
+    return coord_value 
 
 
 
-#Need to instruct the computer square, where to go, once i draw a shape
-# It then needs to move there, and draw the opposite shape
-# there are 8 possible lines to win tic tac toe, 3 across, 3 down, 2 diagonal,
-# when the player draws on a specific line, that line count gets incremented, from 0->1->2->3
-# so basically, the computer will move to a spot with the highest count, and place the opposite drawing
-# in the case of a tie, the computer will choose randomly among the tied lines, move to a spot on one of them, and draw
 
-# so basically, we have to program 8 coordinate systems, each line has 3, and the computer will move to a spot 
-# on one of those lines, as long as we program his movement correctly...does not matter how computer reaches proper coordinate
-# computer could take the shortest route to coordinate system, in case of a tie, if there is a tie, and choices are same distance, 
-# computer will choose randomly
+
+#When a player or computer draws, the coordinates at which they draw will be taken in.
+# From those coordinates, a key in the TicTacdict will be referred to. 
+# Once we have the name of the spot, Access the Remaining_dict, and 
+# ALL Winning lines with the name in it, will have their Count reduced by 1, and updated
+# Then, delete the key from the Tictacdict and replace with a new dictionary
 
 # when a line is not able to reach 3 in count, it is crossed off of a list, so the computer will not be able to move back to it
 # once it has originally moved there
 
-# if player chooses the first spot in the middle, computer has to randomly choose a corner option to move to
-#if players first move is in middle, computer needs to first go to opposite corner
-
-#once the initial computer move has been made, then we implement the other loop, which moves along highest count lines, based 
-# on proximity, this will mean computer is really smart
 
 # in the weird option that human is trying to trick computer, computer will always try to finish his own line, if hes at 2,
 # before trying to block humans 2
 
 #start with random roll from 0-1, x = random.randint(0,1), if 0, computer starts, if 1, player starts
 # Computer, if he goes first , will place a piece at random, otherwise, 
+
+# For every x or o that is drawn, increment the count, the while loop will run until the TicTacDict is empty, meaning every key has 
+# been marked
 
 
 Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222], [0,-222], [222,-222]]
@@ -255,46 +269,25 @@ def comp_pos_if_first_center():
 
     computer.setpos(coordinates[0],coordinates[1]) 
 
-
-
 # (set_comp_position())
 comp_pos_if_first_center()
-computer_draw_circle()
+x = (computer_draw_circle())
+print(x)
 
-#Now, have to actually remove an item temporarily from the TictacDict , if it has been marked with an X or an O by player,
-# or by computer
+# A = deepcopy(TicTacdict)
+# for key, value in 
+# print(A)
 
+#Created function that will remove a key, value pair from a dictionary, based on the dictionary, and a coordinate given 
+def remove_dict(dictionary, coordinate):
+        
+    for key,value in TicTacdict.items():
+        if value == coordinate:
+            storedvalue = key
+    dictionary.pop(storedvalue)
+    return dictionary
+print(remove_dict(TicTacdict, x))    
 
-
-
-
- #When a player or computer draws, the coordinates at which they draw will be taken in.
-
- # From those coordinates, a key in the TicTacdict will be referred to. 
- # Once we have the name of the spot, Access the Remaining_dict, and 
- # ALL Winning lines with the name in it, will have their Count reduced by 1, and updated
-# Then, delete the key from the Tictacdict and replace with a new dictionary
-
-# Then, before the computer moves, it will access the values in the Remaining dict, and aside from the fringe cases,
-# It will find the winning line arrays with the lowest counts...
-# It will then access the TicTacdict and basically randomly choose a key from the lowest counts keys, move to that spot,
-# and the process will repeat
-# 
-# obviously, this is only relevant when the computer is choosing, the player will make up his own mind
-# 
-# If the computer is first to act, it will find that all values in the remaining dict are the same, and so it should
-# randomly select a key from the Tictacdict, choose one of the lists, and check to see if the value is a key in the TicTacDict...
-# if it finds that it is a key, it will move to the coordinates, and draw...just going to randomly select, and outside while loop, 
-# if its choice is 0, it will draw 0s, if its random int is 1, it will draw X's. 
-
-# For every x or o that is drawn, increment the count, the while loop will run until the count is not < 9...
-# When the count is 9, we just clear the board somehow
-
-  
-def removekey(d, key):
-    r = dict(d)
-    del r[key]
-    return r
 
 
 
