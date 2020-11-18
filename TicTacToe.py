@@ -314,7 +314,16 @@ print(len(TicTacdict))
 #Lets go over the order:
 
 #start with random roll from 0-1, x = random.randint(0,1), if 0, computer starts, if 1, player starts
-# Computer, if he goes first , will place a piece at random, otherwise, 
+
+# Computer, if it goes first , it will roll 0,1 and O if 0, 1 if x, 
+# If the computer is going first, the human will obviously place the opposite piece,
+# based on what the computer rolls, for the entirety of that game, it will only place those pieces
+
+#If the initial roll lets human go first, human will just choose whatever O or X, and be forced to choose that
+# for the rest of the game, and the computer will be forced to choose the opposite of the human for the rest of the game
+
+# So after first roll, if human moves, human is forced into drawing only that type the rest of the game, and as is computer
+# And vice versa
 
 # Computer will choose location based on the count in the Remaining Dict, or the player will just choose on his own
 # At this point, the player, or the computer, will draw, an X or an O
