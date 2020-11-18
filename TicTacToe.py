@@ -97,6 +97,10 @@ def move_down():
         y = -222
     player.sety(y)
 
+
+#Once something gets drawn, the keys in the 
+
+
 def draw_circle():
     turtle.pensize(2.5)
     a = player.xcor()
@@ -239,9 +243,29 @@ def set_comp_position():
     computer.setpos(coordinates[0],coordinates[1]) 
     # return coordinates
 
+# This is in the case of player going first, forcing computer into one of the corner spots
+def comp_pos_if_first_center():
+    possible_spots = ["TL", "TR", "BL", "BR"]
+    random_index = random.randint(0, (len(possible_spots)-1))
+    random_position = possible_spots[random_index]
 
-(set_comp_position())
+    for position, coord in TicTacdict.items():
+        if random_position == position:
+            coordinates = coord 
+
+    computer.setpos(coordinates[0],coordinates[1]) 
+
+
+
+# (set_comp_position())
+comp_pos_if_first_center()
 computer_draw_circle()
+
+#Now, have to actually remove an item temporarily from the TictacDict , if it has been marked with an X or an O by player,
+# or by computer
+
+
+
 
 
  #When a player or computer draws, the coordinates at which they draw will be taken in.
