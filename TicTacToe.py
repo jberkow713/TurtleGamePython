@@ -271,6 +271,9 @@ def comp_pos_if_first_center():
 
 # (set_comp_position())
 comp_pos_if_first_center()
+# The drawing functions themselves, return a coordinate, based on where the player, or computer was, before it drew
+# This way, you can remove the coordinate after drawing, so that when the computer goes to check a position in the dictionary,
+# it won't check already drawn positions
 x = (computer_draw_circle())
 print(x)
 
