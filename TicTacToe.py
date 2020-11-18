@@ -180,15 +180,7 @@ def computer_draw_circle():
 
     return coord_value 
 
-
-
-
-
-#When a player or computer draws, the coordinates at which they draw will be taken in.
-# From those coordinates, a key in the TicTacdict will be referred to. 
-# Once we have the name of the spot, Access the Remaining_dict, and 
-# ALL Winning lines with the name in it, will have their Count reduced by 1, and updated
-# Then, delete the key from the Tictacdict and replace with a new dictionary
+#STUFF LEFT TO DO, before making the Loop
 
 # when a line is not able to reach 3 in count, it is crossed off of a list, so the computer will not be able to move back to it
 # once it has originally moved there
@@ -274,6 +266,7 @@ comp_pos_if_first_center()
 # The drawing functions themselves, return a coordinate, based on where the player, or computer was, before it drew
 # This way, you can remove the coordinate after drawing, so that when the computer goes to check a position in the dictionary,
 # it won't check already drawn positions
+
 x = (computer_draw_circle())
 print(x)
 
@@ -290,6 +283,8 @@ def remove_dict(dictionary, coordinate):
     dictionary.pop(storedvalue)
     return dictionary
 print(remove_dict(TicTacdict, x))    
+#In case of the while loop, when you remove, you simply set TicTacdict = remove(TicTacdict, coordinate)
+# So that everytime something draws, the dictionary is updated
 
 
 
