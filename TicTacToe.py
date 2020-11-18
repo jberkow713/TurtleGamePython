@@ -182,6 +182,12 @@ def computer_draw_circle():
 
 #STUFF LEFT TO DO, before making the Loop
 
+#Make a function that reduces the count in the RemainingDict everytime one of the positions drawn is in the WinningLines list,
+# in other words, if an element is a part of a WinningLines list, if that element is drawn, then the count goes down in the 
+# winning lines list....
+#When the count goes down in the winning lines list, the computer targets that particular list, and blocks , and on and on it goes
+
+
 # when a line is not able to reach 3 in count, it is crossed off of a list, so the computer will not be able to move back to it
 # once it has originally moved there
 
@@ -269,6 +275,12 @@ comp_pos_if_first_center()
 
 x = (computer_draw_circle())
 print(x)
+def key_name(dictionary, coordinate):
+    for key, value in dictionary.items():
+        if value == coordinate:
+            return(key)
+
+print(key_name(TicTacdict, x))
 
 # A = deepcopy(TicTacdict)
 # for key, value in 
