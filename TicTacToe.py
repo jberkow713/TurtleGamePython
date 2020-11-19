@@ -206,7 +206,8 @@ Winning_Lines = [("TL", "TM", "TR"), ("ML", "MM", "MR"), ("BL", "BM", "BR"), ("T
 Count = [3,3,3,3,3,3,3,3]
 
 #Shows how many moves are needed to win, using this specific path
-Remaining_dict = dict(zip(Winning_Lines, Count))
+Remaining_dict_X = dict(zip(Winning_Lines, Count))
+Remaining_dict_O = dict(zip(Winning_Lines, Count))
 # print(Remaining_dict)
 
 
@@ -269,7 +270,7 @@ def comp_pos_if_first_center():
 # This way, you can remove the coordinate after drawing, so that when the computer goes to check a position in the dictionary,
 # it won't check already drawn positions
 
-# x = (computer_draw_circle())
+
 # print(x)
 #Find the key associated with the coordinates of the marked X, or O
 def key_name(dictionary, coordinate):
@@ -315,12 +316,6 @@ def remove_dict(dictionary, coordinate):
 # print(remove_dict(TicTacdict, x))
 # print(len(TicTacdict))
 
-def check_if_over(dictionary):
-    for key, value in dictionary.items():
-        if value == 0:
-            return True 
-        else:
-            return False     
 
 def random_move(dictionary):
     random_list = []
@@ -342,9 +337,25 @@ def random_move(dictionary):
 
     computer.setpos(coordinates[0],coordinates[1])
     remove_dict(dictionary, coordinates)
-    
-    
+        
     return dictionary
+
+#So this is how we reduce values in particular dictionaries
+x = (computer_draw_circle())
+key = (key_name(TicTacdict, x))
+print(remove_dict(TicTacdict, x))
+print(decrease_values(Remaining_dict_O, key))
+
+
+
+
+
+
+
+
+
+
+
 
 
 #To do
@@ -382,34 +393,34 @@ turtle.onkey(draw_x, "x")
 
 
 
-Count = 0
+# Count = 0
 
-random_start = random.randint(0,1)
-if random_start == 0:
-    Variable = 1
-else:
-    Variable = -1  
+# random_start = random.randint(0,1)
+# if random_start == 0:
+#     Variable = 1
+# else:
+#     Variable = -1  
 
-while Count <9 :
+# while Count <9 :
      
     
-    while Variable  == 1:
-        random_move(TicTacdict)
-        computer_draw_circle()
-        Variable *= -1
-        Count +=1
-        if Count == 9:
-            break 
+#     while Variable  == 1:
+#         random_move(TicTacdict)
+#         computer_draw_circle()
+#         Variable *= -1
+#         Count +=1
+#         if Count == 9:
+#             break 
 
-    while Variable == -1:
+#     while Variable == -1:
 
-        random_move(TicTacdict)
-        comp_draw_x()
-        Variable *=-1
-        Count +=1
+#         random_move(TicTacdict)
+#         comp_draw_x()
+#         Variable *=-1
+#         Count +=1
 
-        if Count == 9:
-            break 
+#         if Count == 9:
+#             break 
 
                      
                     
