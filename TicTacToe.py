@@ -348,6 +348,10 @@ def random_move(dictionary):
     
     return dictionary
 
+# First move will be random,
+# Every time a move is made, 
+
+
 
 turtle.listen()
 turtle.onkey(move_left, "Left") 
@@ -357,18 +361,29 @@ turtle.onkey(move_down, "Down")
 turtle.onkey(draw_circle, "o") 
 turtle.onkey(draw_x, "x")      
 
-
+Variable = 1
 Count = 0
+
 while Count <9 :
 
-    random_move(TicTacdict)
-    computer_draw_circle()
-    random_move(TicTacdict)
-    comp_draw_x()
-    random_move(TicTacdict)
-    computer_draw_circle()
+    
+    while Variable  == 1:
+        random_move(TicTacdict)
+        computer_draw_circle()
+        Variable *= -1
+        Count +=1
+        if Count == 9:
+            break 
 
-    Count +=3
+    while Variable == -1:
+
+        random_move(TicTacdict)
+        comp_draw_x()
+        Variable *=-1
+        Count +=1
+
+        if Count == 9:
+            break 
 
                      
                     
