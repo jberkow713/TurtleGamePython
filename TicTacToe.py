@@ -366,18 +366,26 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                             Keys_to_Remove.append(keys)
     #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
     if len(Keys_to_Remove)> 0:
-        if len(Keys_to_Remove) >=2:
-            random_to_remove = random.randint(0, (len(Keys_to_Remove)-1) )
-            return Keys_to_Remove[random_to_remove]
-        else:
-            random_to_remove = 0
-            return Keys_to_Remove[0]
+        for position, coord in TicTacdict.items():
+            if Keys_to_Remove[0] == position:
+                coordinates = coord
+        computer.setpos(coordinates[0],coordinates[1])
+        return         
+
+                
+        # if len(Keys_to_Remove) >=2:
+        #     random_to_remove = random.randint(0, (len(Keys_to_Remove)-1) )
+        #     return Keys_to_Remove[random_to_remove]
+        # else:
+        #     random_to_remove = 0
+        #     return Keys_to_Remove[0]
     
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
     Winning_lines_Containers = []
     Count = 0
     index = 0
+    
     while Keys_Remaining > 0:
         
         key = Remaining_Keys[index]
@@ -398,9 +406,17 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Winning_lines_Containers.clear()        
         index +=1
         Keys_Remaining -=1
-    
+    #Dictionary of remaining keys, and their values, higher = better spot
     Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
-    return Best_Choice 
+    Best_Key = max(Best_Choice, key=Best_Choice.get)
+    for position, coord in TicTacdict.items():
+        if Best_Key == position:
+            coordinates = coord 
+
+    computer.setpos(coordinates[0],coordinates[1])
+    return 
+
+
     
 
 
@@ -415,7 +431,9 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
 
 #This is how X decides which key to move to on the map((Yours, Theirs, KeyDict))
-print(Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3 ))                    
+# Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3)
+# comp_draw_x()
+
 
         
 
@@ -486,34 +504,42 @@ turtle.onkey(draw_x, "x")
 
 
 
-# Count = 0
+Count = 0
 
-# random_start = random.randint(0,1)
-# if random_start == 0:
-#     Variable = 1
-# else:
-#     Variable = -1  
+random_start = random.randint(0,1)
+if random_start == 0:
+    Variable = 1
+else:
+    Variable = -1  
 
-# while Count <9 :
+while Count <9 :
      
     
-#     while Variable  == 1:
-#         random_move(TicTacdict)
-#         computer_draw_circle()
-#         Variable *= -1
-#         Count +=1
-#         if Count == 9:
-#             break 
+    while Variable  == 1:
+        Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3)
+        Coordinat = (computer_draw_circle())
+        key = (key_name(TicTacdict, Coordinat))
+        
+        decrease_values(Remaining_dict_O, key)
+        remove_dict(TicTacdict, Coordinat)
+        Variable *= -1
+        Count +=1
+        if Count == 9:
+            break 
 
-#     while Variable == -1:
+    while Variable == -1:
 
-#         random_move(TicTacdict)
-#         comp_draw_x()
-#         Variable *=-1
-#         Count +=1
+        Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3)
+        Coordinat = (comp_draw_x())
+        key = (key_name(TicTacdict, Coordinat))
+        
+        decrease_values(Remaining_dict_X, key)
+        remove_dict(TicTacdict, Coordinat)
+        Variable *=-1
+        Count +=1
 
-#         if Count == 9:
-#             break 
+        if Count == 9:
+            break 
 
                      
                     
