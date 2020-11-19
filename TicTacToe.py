@@ -235,7 +235,7 @@ def decrease_values(dictionary, key_name):
     for value in dictionary.values():
         Values.append(value)
 
-    print(min(Values))           
+    # print(min(Values))           
     if min(Values) == 0:
         return 0 
     else:
@@ -372,17 +372,6 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     # print(Random_Key)
     return 
 
-def Game_Over(Your_Dictionary):
-
-
-    Values = []
-    for value in Your_Dictionary.values():
-        Values.append(value)
-
-    # print(min(Values))
-    return min(Values)  
-    
-
 turtle.listen()
 turtle.onkey(move_left, "Left") 
 turtle.onkey(move_right, "Right")
@@ -412,6 +401,7 @@ while Count <9 and Game_over == False:
         
         # decrease_values(Remaining_dict_O, key)
         if decrease_values(Remaining_dict_O, key) == 0:
+            print("O WINS!!!")
             Game_over = True 
             break
             
@@ -425,10 +415,7 @@ while Count <9 and Game_over == False:
         if Count == 9:
             break
 
-         
-
-
-
+    
     while Variable == -1:
         if Count == 9:
             break 
@@ -438,6 +425,7 @@ while Count <9 and Game_over == False:
         key = (key_name(TicTacdict, Coordinat))
         # decrease_values(Remaining_dict_X, key)
         if decrease_values(Remaining_dict_X, key) == 0:
+            print("X WINS!!!")
             Game_over = True 
             break
              
