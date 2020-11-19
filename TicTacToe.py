@@ -100,9 +100,6 @@ def move_down():
     player.sety(y)
 
 
-#Once something gets drawn, the keys in the 
-
-
 def draw_circle():
     turtle.pensize(2.5)
     a = player.xcor()
@@ -180,21 +177,6 @@ def computer_draw_circle():
 
     return coord_value 
 
-#STUFF LEFT TO DO, before making the Loop
-
-
-#Advanced, will do later 
-# when a line is not able to reach 3 in count, it is crossed off of a list, so the computer will not be able to move back to it
-# once it has originally moved there
-
-# Also advanced, computer has to know his moves, will update later
-# in the weird option that human is trying to trick computer, computer will always try to finish his own line, if hes at 2,
-# before trying to block humans 2
-
-#start with random roll from 0-1, x = random.randint(0,1), if 0, computer starts, if 1, player starts
-# Computer, if he goes first , will place a piece at random, otherwise, 
-
-
 
 Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222], [0,-222], [222,-222]]
 Name_of_Spots = [ "TL","TM", "TR", "ML", "MM", "MR", "BL", "BM", "BR"]
@@ -215,46 +197,6 @@ Remaining_dict_O = dict(zip(Winning_Lines2, Count2))
 # print(Remaining_dict)
 
 
-def set_comp_position():
-    #This function will find the lowest value in the dictionary, choose a random position in 
-    # those values, in case of a tie, choose random spot, and move the computer to that spot
-    value_list = []
-    possible_spots = set()
-    position_list = []
-    
-    for key, value in Remaining_dict.items():
-        value_list.append(value)
-    for key, value in Remaining_dict.items():
-        if min(value_list):
-            for spot in key:
-                possible_spots.add(spot)
-                
-    for position in possible_spots:
-        position_list.append(position)
-    
-    Spot_key = False
-    
-    while Spot_key == False:
-        
-        random_index = random.randint(0, max(1,(len(position_list)-1)))
-        #random position represents list of possible positions computer can move to, their name, TL, MM, etc...
-        random_position = position_list[random_index]
-
-        if random_position in TicTacdict.keys():
-            for position, coord in TicTacdict.items():
-                if random_position == position:
-                    coordinates = coord
-                    Spot_key = True 
-        elif random_position not in TicTacdict.keys():
-            #this is removing an element from the list so that when you run the randomizer again, it cant be selected
-            position_list.remove(random_position)
-            
-        
-
-    #set the position of the computer at the random spot it needs to move to if spot exists
-    computer.setpos(coordinates[0],coordinates[1]) 
-    # return coordinates
-
 # This is in the case of player going first, forcing computer into one of the corner spots
 def comp_pos_if_first_center():
     possible_spots = ["TL", "TR", "BL", "BR"]
@@ -266,13 +208,6 @@ def comp_pos_if_first_center():
             coordinates = coord 
 
     computer.setpos(coordinates[0],coordinates[1]) 
-
-# (set_comp_position())
-# comp_draw_x()
-# comp_pos_if_first_center()
-# The drawing functions themselves, return a coordinate, based on where the player, or computer was, before it drew
-# This way, you can remove the coordinate after drawing, so that when the computer goes to check a position in the dictionary,
-# it won't check already drawn positions
 
 
 # print(x)
@@ -300,13 +235,6 @@ def decrease_values(dictionary, key_name):
             dictionary.pop(winning_line)
 
     return dictionary                       
-
-#Find the key associated with the coordinates of the marked X, or O
-# key =(key_name(TicTacdict, x))
-# print(key)
-#Plug the key into the remaining dictionary, to update the values of particular winning lines, to reflect how many more are needed
-#To win the game, for a particular line
-# print(decrease_values(Remaining_dict, key))
 
 
 #Created function that will remove a key, value pair from a dictionary, based on the dictionary, and a coordinate given 
@@ -419,79 +347,6 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
     
 
-
-                                    
-
-                    
-
-
-
-
-
-
-
-#This is how X decides which key to move to on the map((Yours, Theirs, KeyDict))
-# Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3)
-# comp_draw_x()
-
-
-        
-
-
-
-
-
-
-
-
-    #Output the Key that gives highest points
-
-
-
-
-
-
-#This happens after you have drawn a circle, and decrease from other remaining_dict after you have drawn an x
-# Coordinat = (computer_draw_circle())
-# key = (key_name(TicTacdict, Coordinat))
-# print(remove_dict(TicTacdict, Coordinat))
-# print(decrease_values(Remaining_dict_O, key))
-
-
-
-
-
-
-
-
-
-
-
-
-
-#To do
-# There will be an X and an O Remaining Dict, with possible winning lines, and counts for those lines
-# There will be ONE shared TicTacdict , that already is in place, with possible spots to move to 
-# Each turn, player will check the possible remaining keys in TicTacDict, 
-# Then, you check to see, for each key, how many winning lines in your RemainingDict use that key, and how many of those lines
-# have your opponents count at the starting count...in this case 3...a line that uses the key, and has corresponding opponents count
-# at starting count, gives you ONE point...
-# You tally up the points for that given Key, put in new dictionary, Called Winning lines, and return the key, with the highest
-# value
-
-#This is in general how you choose...
-# In the case of a tie, you choose the key that makes the difference between one of your lines and their lines, the highest
-# basically, you take the tied cases, and you check to see if you put it at those different spots, what is the max difference
-# between a count on that line for you, and for your opponent, in a case of a tie there, randomly choose
-
-# Every turn, you need to check your dictionary, before you choose, to see if they have a value of 1, and you have a value of 
-# starting count, for any given line...in that case, you MUST move to that line, and obviously, to the only remaining key, 
-# block them, erase key, erase the winning line from BOTH yours and opponents dictionary
-
-# In the case of a scenario where there are no more winning lines, and all keys give 0 points, such as near the end of the game,
-# randomly choose a tile, and with one tile left, force into that tile
-
-
 turtle.listen()
 turtle.onkey(move_left, "Left") 
 turtle.onkey(move_right, "Right")
@@ -499,8 +354,6 @@ turtle.onkey(move_up, "Up")
 turtle.onkey(move_down, "Down")
 turtle.onkey(draw_circle, "o") 
 turtle.onkey(draw_x, "x")      
-
-
 
 
 
@@ -513,7 +366,7 @@ else:
     Variable = -1  
 
 while Count <9 :
-     
+    
     
     while Variable  == 1:
         Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3)
@@ -525,9 +378,12 @@ while Count <9 :
         Variable *= -1
         Count +=1
         if Count == 9:
-            break 
+            break
+            
 
     while Variable == -1:
+        if Count == 9:
+            break 
 
         Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3)
         Coordinat = (comp_draw_x())
@@ -541,13 +397,6 @@ while Count <9 :
         if Count == 9:
             break 
 
-                     
-                    
 
-
-
-
-
-
-
+          
 delay = input("Press enter to finish.")
