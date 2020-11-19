@@ -231,10 +231,15 @@ def decrease_values(dictionary, key_name):
         for key in dictionary.keys():
             if winning_line == key:
                 dictionary[winning_line] = dictionary[winning_line]-1
-        if dictionary[winning_line] == 0:
-            dictionary.pop(winning_line)
+    Values = []
+    for value in dictionary.values():
+        Values.append(value)
 
-    return dictionary                       
+    print(min(Values))           
+    if min(Values) == 0:
+        return 0 
+    else:
+        return dictionary                       
 
 
 #Created function that will remove a key, value pair from a dictionary, based on the dictionary, and a coordinate given 
@@ -355,7 +360,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 coordinates = coord 
 
                 computer.setpos(coordinates[0],coordinates[1])
-                print(Random_Key)
+                # print(Random_Key)
                 return 
 
     Best_Key = max(Best_Choice, key=Best_Choice.get)
@@ -364,10 +369,18 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             coordinates = coord 
 
     computer.setpos(coordinates[0],coordinates[1])
-    print(Random_Key)
+    # print(Random_Key)
     return 
 
+def Game_Over(Your_Dictionary):
 
+
+    Values = []
+    for value in Your_Dictionary.values():
+        Values.append(value)
+
+    # print(min(Values))
+    return min(Values)  
     
 
 turtle.listen()
@@ -387,22 +400,34 @@ if random_start == 0:
     Variable = 1
 else:
     Variable = -1  
-
-while Count <9 :
+Game_over = False
+while Count <9 and Game_over == False:
     
+       
     
     while Variable  == 1:
         Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict, Coordinat))
         
-        decrease_values(Remaining_dict_O, key)
-        remove_dict(TicTacdict, Coordinat)
-        Variable *= -1
-        Count +=1
-        if Count == 9:
+        # decrease_values(Remaining_dict_O, key)
+        if decrease_values(Remaining_dict_O, key) == 0:
+            Game_over = True 
             break
             
+            
+        remove_dict(TicTacdict, Coordinat)
+        
+                
+        Variable *= -1
+        Count +=1
+        
+        if Count == 9:
+            break
+
+         
+
+
 
     while Variable == -1:
         if Count == 9:
@@ -411,15 +436,20 @@ while Count <9 :
         Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3)
         Coordinat = (comp_draw_x())
         key = (key_name(TicTacdict, Coordinat))
-        
-        decrease_values(Remaining_dict_X, key)
+        # decrease_values(Remaining_dict_X, key)
+        if decrease_values(Remaining_dict_X, key) == 0:
+            Game_over = True 
+            break
+             
         remove_dict(TicTacdict, Coordinat)
+        
+        
         Variable *=-1
         Count +=1
 
         if Count == 9:
             break 
-
+             
 
           
 delay = input("Press enter to finish.")
