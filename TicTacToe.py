@@ -349,7 +349,25 @@ def random_move(dictionary):
     return dictionary
 
 
+#To do
+# There will be an X and an O Remaining Dict, with possible winning lines, and counts for those lines
+# There will be ONE shared TicTacdict , that already is in place, with possible spots to move to 
+# Each turn, player will check the possible remaining keys in TicTacDict, 
+# Then, you check to see, for each key, how many winning lines in your RemainingDict use that key, and how many of those lines
+# have your opponents count at the starting count...in this case 3...a line that uses the key, and has corresponding opponents count
+# at starting count, gives you ONE point...
+# You tally up the points for that given Key, put in new dictionary, Called Winning lines, and return the key, with the highest
+# value
 
+#This is in general how you choose...
+# In the case of a tie, you choose the key that makes the difference between one of your lines and their lines, the highest
+
+# Every turn, you need to check your dictionary, before you choose, to see if they have a value of 1, and you have a value of 
+# starting count, for any given line...in that case, you MUST move to that line, and obviously, to the only remaining key, 
+# block them, erase key, erase the winning line from BOTH yours and opponents dictionary
+
+# In the case of a scenario where there are no more winning lines, and all keys give 0 points, such as near the end of the game,
+# randomly choose a tile, and with one tile left, force into that tile
 
 
 turtle.listen()
