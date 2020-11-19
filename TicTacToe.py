@@ -321,34 +321,32 @@ def check_if_over(dictionary):
         else:
             return False     
 
+def random_move(dictionary):
+    random_list = []
+    if len(dictionary)>0:
 
+        for key in dictionary.keys():
+            random_list.append(key)
+        dict_len = len(random_list) -1
+        if dict_len > 0:
+            random_choice = random.randint(0, dict_len)
+        else:
+            random_choice = 0    
+    #Random value in the list
+    random_position = random_list[random_choice]
+    
+    for key, value in dictionary.items():
+        if random_position == key:
+            coordinates = value
 
-#Lets go over the order:
-
-#start with random roll from 0-1, x = random.randint(0,1), if 0, computer starts, if 1, player starts
-
-# Computer, if it goes first , it will roll 0,1 and O if 0, 1 if x, 
-# If the computer is going first, the human will obviously place the opposite piece,
-# based on what the computer rolls, for the entirety of that game, it will only place those pieces
-
-#If the initial roll lets human go first, human will just choose whatever O or X, and be forced to choose that
-# for the rest of the game, and the computer will be forced to choose the opposite of the human for the rest of the game
-
-# So after first roll, if human moves, human is forced into drawing only that type the rest of the game, and as is computer
-# And vice versa
-
-# Computer will choose location based on the count in the Remaining Dict, or the player will just choose on his own
-# At this point, the player, or the computer, will draw, an X or an O
-# A coordinate is returned, that coordinate reflects a key in the TicTacdict keys, and also in the RemainingDict keys
-# First, we remove the key from TicTacdict, 
-# Then we decrease the value associated with the key and all of it's winning lines in the RemainingDict,
-
-#The process then repeats, the player will choose on its own, and the computer will choose based on where the Player has chosen
-# There are two ways in which the while loop ends...
-# One way, if any value in the RemainingDict == 0, the game is over
-# The other way, if the length of TicTacDict == 0, that means all the different boxes have been filled
-
-
+    computer.setpos(coordinates[0],coordinates[1])
+   
+    for key,value in dictionary.items():
+        if value == coordinates:
+            storedvalue = key
+    dictionary.pop(storedvalue)
+    
+    return dictionary
 
 
 turtle.listen()
@@ -362,28 +360,15 @@ turtle.onkey(draw_x, "x")
 
 Count = 0
 while Count <9 :
-    
-                                  
-        # if len(TicTacdict) == 9:
 
-    #Move to opening position:    
-        set_comp_position()
-        coords = computer_draw_circle()
-        key =(key_name(TicTacdict, coords))
-        decrease_values(Remaining_dict, key)
-        remove_dict(TicTacdict, coords)
-        Count +=1
+    random_move(TicTacdict)
+    computer_draw_circle()
+    random_move(TicTacdict)
+    comp_draw_x()
 
-        set_comp_position()
-        coords = comp_draw_x()
-        key =(key_name(TicTacdict, coords))
-        decrease_values(Remaining_dict, key)
-        remove_dict(TicTacdict, coords)
-        Count+=1        
-                    
 
-        if Count == 9:
-            break                     
+    if Count == 9:
+        break                     
                     
 
 
