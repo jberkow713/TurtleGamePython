@@ -365,10 +365,12 @@ while Count <9 :
     computer_draw_circle()
     random_move(TicTacdict)
     comp_draw_x()
+    random_move(TicTacdict)
+    computer_draw_circle()
 
+    Count +=3
 
-    if Count == 9:
-        break                     
+                     
                     
 
 
