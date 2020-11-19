@@ -336,12 +336,35 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Keys_Remaining -=1
     #Dictionary of remaining keys, and their values, higher = better spot
     Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
+
+    Random_Best_Choice = []
+    Random_Key = []    
+    for key, value in Best_Choice.items():
+        Random_Best_Choice.append(value)
+    max_val = max(Random_Best_Choice)
+    for key, value in Best_Choice.items():
+        if value == max_val:
+            Random_Key.append(key)
+    Random_Final_Choice = []
+    #Creating Randomized games 
+    if len(Random_Key) > 1:
+        random_guy = random.randint(0, (len(Random_Key)-1))
+        Random_Final_Choice.append(Random_Key[random_guy])
+        for position, coord in TicTacdict.items():
+            if Random_Final_Choice[0] == position:
+                coordinates = coord 
+
+                computer.setpos(coordinates[0],coordinates[1])
+                print(Random_Key)
+                return 
+
     Best_Key = max(Best_Choice, key=Best_Choice.get)
     for position, coord in TicTacdict.items():
         if Best_Key == position:
             coordinates = coord 
 
     computer.setpos(coordinates[0],coordinates[1])
+    print(Random_Key)
     return 
 
 
