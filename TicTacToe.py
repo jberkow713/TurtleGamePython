@@ -314,6 +314,7 @@ def remove_dict(dictionary, coordinate):
     return dictionary
 # print(remove_dict(TicTacdict, x))
 # print(len(TicTacdict))
+
 def check_if_over(dictionary):
     for key, value in dictionary.items():
         if value == 0:
@@ -323,7 +324,7 @@ def check_if_over(dictionary):
 
 def random_move(dictionary):
     random_list = []
-    if len(dictionary)>0:
+    if len(dictionary)>=0:
 
         for key in dictionary.keys():
             random_list.append(key)
@@ -333,18 +334,15 @@ def random_move(dictionary):
         else:
             random_choice = 0    
     #Random value in the list
-    random_position = random_list[random_choice]
+        random_position = random_list[random_choice]
     
     for key, value in dictionary.items():
         if random_position == key:
             coordinates = value
 
     computer.setpos(coordinates[0],coordinates[1])
-   
-    for key,value in dictionary.items():
-        if value == coordinates:
-            storedvalue = key
-    dictionary.pop(storedvalue)
+    remove_dict(dictionary, coordinates)
+    
     
     return dictionary
 
