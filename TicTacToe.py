@@ -197,7 +197,7 @@ def computer_draw_circle():
 
 
 Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222], [0,-222], [222,-222]]
-Name_of_Spots = ["TL", "TM", "TR", "ML", "MM", "MR", "BL", "BM", "BR"]
+Name_of_Spots = [ "TL","TM", "TR", "ML", "MM", "MR", "BL", "BM", "BR"]
 
 TicTacdict = dict(zip(Name_of_Spots, Coords))
 # print(TicTacdict)
@@ -205,9 +205,13 @@ Winning_Lines = [("TL", "TM", "TR"), ("ML", "MM", "MR"), ("BL", "BM", "BR"), ("T
     ("TM", "MM", "BM",), ("TR", "MR", "BR"), ("TL", "MM", "BR"), ("BL", "MM", "TR")]
 Count = [3,3,3,3,3,3,3,3]
 
+Winning_Lines2 = [("TL", "TM", "TR"), ("ML", "MM", "MR"), ("BL", "BM", "BR"), ("TL", "ML", "BL"),\
+    ("TM", "MM", "BM",), ("TR", "MR", "BR"), ("TL", "MM", "BR"), ("BL", "MM", "TR")]
+Count2 = [3,3,3,3,3,3,3,3]
+
 #Shows how many moves are needed to win, using this specific path
 Remaining_dict_X = dict(zip(Winning_Lines, Count))
-Remaining_dict_O = dict(zip(Winning_Lines, Count))
+Remaining_dict_O = dict(zip(Winning_Lines2, Count2))
 # print(Remaining_dict)
 
 
@@ -340,11 +344,66 @@ def random_move(dictionary):
         
     return dictionary
 
-#So this is how we reduce values in particular dictionaries
-x = (computer_draw_circle())
-key = (key_name(TicTacdict, x))
-print(remove_dict(TicTacdict, x))
-print(decrease_values(Remaining_dict_O, key))
+def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count):
+    '''
+    Your Dictionary is your Dictionary of Winning Lines and their counts
+    Opponent Dictionary is their Dictionary of Winning Lines and their counts
+    Key Dictionary is a list of remaining Keys, and their coordinates
+    Starting Count is how many spots in a row you need to win a given game
+    '''
+    #Get list of remaining keys
+    Remaining_Keys = []
+    for key in Key_Dictionary.keys():
+        Remaining_Keys.append(key)
+    #This check makes sure, first, that you block opponent's move, puts key to remove in Keys_to_Remove list
+    Keys_to_Remove = []
+    for winning_line, count in Opponent_Dictionary.items():
+        for Line, Count in Your_Dictionary.items():
+            if winning_line == Line:
+                if count == 1 and Count ==starting_count:
+                    for keys in Line:
+                        if keys in Remaining_Keys:
+                            Keys_to_Remove.append(keys)
+    #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
+    if len(Keys_to_Remove)> 0:
+        if len(Keys_to_Remove) >=2:
+            random_to_remove = random.randint(0, (len(Keys_to_Remove)-1) )
+            return Keys_to_Remove[random_to_remove]
+        else:
+            random_to_remove = 0
+            return Keys_to_Remove[0]
+    Count = 0 
+    for key in Remaining_Keys:
+        for 
+
+
+
+
+
+#This is how X decides which key to move to on the map((Yours, Theirs, KeyDict))
+print(Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3 ))                    
+
+        
+
+
+
+
+
+
+
+
+    #Output the Key that gives highest points
+
+
+
+
+
+
+#This happens after you have drawn a circle, and decrease from other remaining_dict after you have drawn an x
+# Coordinat = (computer_draw_circle())
+# key = (key_name(TicTacdict, Coordinat))
+# print(remove_dict(TicTacdict, Coordinat))
+# print(decrease_values(Remaining_dict_O, key))
 
 
 
