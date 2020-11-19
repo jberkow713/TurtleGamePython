@@ -361,6 +361,8 @@ def random_move(dictionary):
 
 #This is in general how you choose...
 # In the case of a tie, you choose the key that makes the difference between one of your lines and their lines, the highest
+# basically, you take the tied cases, and you check to see if you put it at those different spots, what is the max difference
+# between a count on that line for you, and for your opponent, in a case of a tie there, randomly choose
 
 # Every turn, you need to check your dictionary, before you choose, to see if they have a value of 1, and you have a value of 
 # starting count, for any given line...in that case, you MUST move to that line, and obviously, to the only remaining key, 
