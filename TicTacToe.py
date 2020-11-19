@@ -360,7 +360,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     for winning_line, count in Opponent_Dictionary.items():
         for Line, Count in Your_Dictionary.items():
             if winning_line == Line:
-                if count == 1 and Count ==starting_count:
+                if count == 1 and Count == Starting_count:
                     for keys in Line:
                         if keys in Remaining_Keys:
                             Keys_to_Remove.append(keys)
@@ -372,9 +372,43 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         else:
             random_to_remove = 0
             return Keys_to_Remove[0]
-    Count = 0 
-    for key in Remaining_Keys:
-        for 
+    
+    Keys_Remaining = len(Remaining_Keys)
+    Winning_Line_Count = []
+    Winning_lines_Containers = []
+    Count = 0
+    index = 0
+    while Keys_Remaining > 0:
+        
+        key = Remaining_Keys[index]
+
+        for winning_lines in Your_Dictionary.keys():
+            if key in winning_lines:
+                Winning_lines_Containers.append(winning_lines)
+
+        for line in Winning_lines_Containers:
+            for key, value in Opponent_Dictionary.items():
+                if line == key:
+                    if value == Starting_count:
+                        Count +=1
+
+        Winning_Line_Count.append(Count)
+
+        Count = 0 
+        Winning_lines_Containers.clear()        
+        index +=1
+        Keys_Remaining -=1
+    
+    Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
+    return Best_Choice 
+    
+
+
+                                    
+
+                    
+
+
 
 
 
