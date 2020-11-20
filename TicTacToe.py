@@ -387,6 +387,69 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         print(max_val)
         if max_val == 0:
             Your_Updated_Dic["Can_lower_opponent_lines"] = False
+            
+            Keys_Remaining = len(Remaining_Keys)
+            Max_Point_Reduction_Count = []
+            Winning_lines_Containers = []
+            Count = 0
+            index = 0
+
+        #You are taking your winning lines, and opponent winning lines, and adding the value together...if the value > Starting value
+        # append that line to Winning_lines_Container, then check every key to see if it is in one of those lines
+            for winning_line, count in Your_Dictionary.items():
+                for Winning_Line, Count in Opponent_Dictionary.items():
+                    if winning_line == Winning_Line:
+                        if count + Count > Starting_count:
+                            Winning_lines_Containers.append(winning_line)
+
+            while Keys_Remaining > 0:
+
+                key = Remaining_Keys[index]
+
+                for winning_line in Winning_lines_Containers:
+                    for keys in winning_line:
+                        if key in keys:
+                            Count +=1
+                
+                Max_Point_Reduction_Count.append(Count)
+                Count = 0 
+                index +=1
+                Keys_Remaining -=1
+            
+            Best_Choice = dict(zip(Remaining_Keys, Max_Point_Reduction_Count))
+
+            Random_Best_Choice = []
+            
+            Random_Key = []    
+            for key, value in Best_Choice.items():
+                Random_Best_Choice.append(value)
+            max_val = max(0, max(Random_Best_Choice))
+            
+            for key, value in Best_Choice.items():
+                if value == max_val:
+                    Random_Key.append(key)
+            Random_Final_Choice = []
+            #Creating Randomized choice
+            if len(Random_Key) > 1:
+                random_guy = random.randint(0, (len(Random_Key)-1))
+                Random_Final_Choice.append(Random_Key[random_guy])
+                for position, coord in TicTacdict.items():
+                    if Random_Final_Choice[0] == position:
+                        coordinates = coord 
+
+                        computer.setpos(coordinates[0],coordinates[1])
+                        # print(Random_Key)
+                        return 
+
+            Best_Key = max(Best_Choice, key=Best_Choice.get)
+            for position, coord in TicTacdict.items():
+                if Best_Key == position:
+                    coordinates = coord 
+
+                computer.setpos(coordinates[0],coordinates[1])
+            # print(Random_Key)
+                return
+        
 
         for key, value in Best_Destroyer.items():
             if value == max_val:
@@ -417,8 +480,68 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             return 
     #TODO 
     #Finally, we need a condition if you can not improve your winning lines, and you can not decrease opponent winning lines
-    # if Your_Updated_Dic["Can_lower_opponent_lines"] == False and Your_Updated_Dic["Can_increase_winning_lines"] == False:
+    if Your_Updated_Dic["Can_lower_opponent_lines"] == False and Your_Updated_Dic["Can_increase_winning_lines"] == False:
+        Keys_Remaining = len(Remaining_Keys)
+        Max_Point_Reduction_Count = []
+        Winning_lines_Containers = []
+        Count = 0
+        index = 0
 
+        #You are taking your winning lines, and opponent winning lines, and adding the value together...if the value > Starting value
+        # append that line to Winning_lines_Container, then check every key to see if it is in one of those lines
+        for winning_line, count in Your_Dictionary.items():
+            for Winning_Line, Count in Opponent_Dictionary.items():
+                if winning_line == Winning_Line:
+                    if count + Count > Starting_count:
+                        Winning_lines_Containers.append(winning_line)
+
+        while Keys_Remaining > 0:
+
+            key = Remaining_Keys[index]
+
+            for winning_line in Winning_lines_Containers:
+                for keys in winning_line:
+                    if key in keys:
+                        Count +=1
+            
+            Max_Point_Reduction_Count.append(Count)
+            Count = 0 
+            index +=1
+            Keys_Remaining -=1
+        
+        Best_Choice = dict(zip(Remaining_Keys, Max_Point_Reduction_Count))
+
+        Random_Best_Choice = []
+        
+        Random_Key = []    
+        for key, value in Best_Choice.items():
+            Random_Best_Choice.append(value)
+        max_val = max(0, max(Random_Best_Choice))
+        
+        for key, value in Best_Choice.items():
+            if value == max_val:
+                Random_Key.append(key)
+        Random_Final_Choice = []
+        #Creating Randomized choice
+        if len(Random_Key) > 1:
+            random_guy = random.randint(0, (len(Random_Key)-1))
+            Random_Final_Choice.append(Random_Key[random_guy])
+            for position, coord in TicTacdict.items():
+                if Random_Final_Choice[0] == position:
+                    coordinates = coord 
+
+                    computer.setpos(coordinates[0],coordinates[1])
+                    # print(Random_Key)
+                    return 
+
+        Best_Key = max(Best_Choice, key=Best_Choice.get)
+        for position, coord in TicTacdict.items():
+            if Best_Key == position:
+                coordinates = coord 
+
+            computer.setpos(coordinates[0],coordinates[1])
+        # print(Random_Key)
+            return 
          
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
