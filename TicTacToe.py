@@ -250,7 +250,7 @@ def decrease_values(dictionary, key_name, updated_dictionary):
     for values in dictionary.values():
         Count +=values 
     updated_dictionary["sum_of_remaining_lines"] = Count 
-    print(updated_dictionary["sum_of_remaining_lines"])    
+    # print(updated_dictionary["sum_of_remaining_lines"])    
 
     Values = []
     for value in dictionary.values():
@@ -388,9 +388,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Keys_Remaining -=1
     #Dictionary of remaining keys, and their values, higher = better spot
     
-
-
-    print(max(Winning_Line_Count))
+    
     Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
 
     Random_Best_Choice = []
@@ -398,11 +396,18 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     for key, value in Best_Choice.items():
         Random_Best_Choice.append(value)
     
-    max_val = max(Random_Best_Choice)
+    max_val = max(0, max(Random_Best_Choice))
+    print(max_val)
+    
+    # Have to figure out a way to increase the winning_lines value in your dict, by max val
+
+    
     #Taking the initial maximum value from first move, putting it in your updated max winning lines, and 
     #Opponent updated max winning lines 
-    Your_Updated_Dic['winning_lines'] = max_val 
-    Opponent_Updated_Dic['winning_lines'] = max_val
+    # Your_Updated_Dic['winning_lines'] = Your_Updated_Dic['winning_lines'] + max_val 
+    # Opponent_Updated_Dic['winning_lines'] = Your_Updated_Dic['winning_lines']
+    # print(Your_Updated_Dic['winning_lines'])
+    #Were adding the max value here to see if it increases
 
     
     for key, value in Best_Choice.items():
