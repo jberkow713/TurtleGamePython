@@ -196,6 +196,18 @@ Remaining_dict_X = dict(zip(Winning_Lines, Count))
 Remaining_dict_O = dict(zip(Winning_Lines2, Count2))
 # print(Remaining_dict)
 
+Starting_Count = 3
+X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+X_list2 = [0, 0, (len(Remaining_dict_X)*Starting_Count), True, True]
+O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+O_list2 = [0, 0, (len(Remaining_dict_O)*Starting_Count), True, True]
+
+Updated_X_Dict = dict(zip(X_list, X_list2))
+Updated_O_Dict = dict(zip(O_list, O_list2))
+# print(Updated_X_Dict)
+# print(Updated_O_Dict)
+
+
 
 # This is in the case of player going first, forcing computer into one of the corner spots
 def comp_pos_if_first_center():
@@ -221,7 +233,7 @@ def key_name(dictionary, coordinate):
 # print(key_name(TicTacdict, x))
 
 #This function will decrease the count in a dictionary if one part of one of its keys is triggered
-def decrease_values(dictionary, key_name):
+def decrease_values(dictionary, key_name, updated_dictionary):
     list_of_keys = []
     for key, value in dictionary.items():
         for keys in key:
@@ -231,6 +243,15 @@ def decrease_values(dictionary, key_name):
         for key in dictionary.keys():
             if winning_line == key:
                 dictionary[winning_line] = dictionary[winning_line]-1
+    #We are updating the overall count of each dictionary, and sending it to corresponding updated dictionary
+    #This will only matter if a player can not improve his amount of own winning lines, and can not lower opponents winning lines
+    # Then, player will pick spot that maximizes his current count - new count 
+    Count = 0
+    for values in dictionary.values():
+        Count +=values 
+    updated_dictionary["sum_of_remaining_lines"] = Count 
+    print(updated_dictionary["sum_of_remaining_lines"])    
+
     Values = []
     for value in dictionary.values():
         Values.append(value)
@@ -277,7 +298,7 @@ def random_move(dictionary):
         
     return dictionary
 
-def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count):
+def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic):
     '''
     Your Dictionary is your Dictionary of Winning Lines and their counts
     Opponent Dictionary is their Dictionary of Winning Lines and their counts
@@ -297,15 +318,35 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     for keys in Line:
                         if keys in Remaining_Keys:
                             Keys_to_Remove.append(keys)
+       
+    #Setting up winning move if possible:
+    Keys_to_win = []
+    for winning_line, count in Opponent_Dictionary.items():
+        for Line, Count in Your_Dictionary.items():
+            if Line == winning_line:
+                if Count == 1 and count == Starting_count:
+                    for keys in Line:
+                        if keys in Remaining_Keys:
+                            Keys_to_win.append(keys)
+    
+    if len(Keys_to_win)> 0:
+        for position, coord in TicTacdict.items():
+            if Keys_to_win[0] == position:
+                coordinates = coord
+        computer.setpos(coordinates[0],coordinates[1])
+        return                          
+    
     #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
     if len(Keys_to_Remove)> 0:
         for position, coord in TicTacdict.items():
             if Keys_to_Remove[0] == position:
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
-        return         
+        return   
 
-                
+
+
+
         # if len(Keys_to_Remove) >=2:
         #     random_to_remove = random.randint(0, (len(Keys_to_Remove)-1) )
         #     return Keys_to_Remove[random_to_remove]
@@ -332,21 +373,38 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if line == key:
                     if value == Starting_count:
                         Count +=1
+        
+        for winning_lines, current_count in Your_Dictionary.items():
+            for line in Winning_lines_Containers:
+                if winning_lines == line:
+                    if current_count < Starting_Count:
+                        Count -=1 
 
         Winning_Line_Count.append(Count)
-
+        
         Count = 0 
         Winning_lines_Containers.clear()        
         index +=1
         Keys_Remaining -=1
     #Dictionary of remaining keys, and their values, higher = better spot
+    
+
+
+    print(max(Winning_Line_Count))
     Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
 
     Random_Best_Choice = []
     Random_Key = []    
     for key, value in Best_Choice.items():
         Random_Best_Choice.append(value)
+    
     max_val = max(Random_Best_Choice)
+    #Taking the initial maximum value from first move, putting it in your updated max winning lines, and 
+    #Opponent updated max winning lines 
+    Your_Updated_Dic['winning_lines'] = max_val 
+    Opponent_Updated_Dic['winning_lines'] = max_val
+
+    
     for key, value in Best_Choice.items():
         if value == max_val:
             Random_Key.append(key)
@@ -372,16 +430,10 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     # print(Random_Key)
     return 
 
-Starting_Count = 3
-X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_lines", "Can_lower_opponent_lines"]
-X_list2 = [0, 0, (len(Remaining_dict_X)*Starting_Count), True, True]
-O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_lines", "Can_lower_opponent_lines"]
-O_list2 = [0, 0, (len(Remaining_dict_O)*Starting_Count), True, True]
 
-Updated_X_Dict = dict(zip(X_list, X_list2))
-Updated_O_Dict = dict(zip(O_list, O_list2))
-print(Updated_X_Dict)
-print(Updated_O_Dict)
+
+# Updated_X_Dict['winning_lines']  =  4
+# print(Updated_X_Dict)
 
 #These dictionaries will be used in the new function, to decide how the player moves his pieces
 
@@ -409,12 +461,12 @@ while Count <9 and Game_over == False:
        
     
     while Variable  == 1:
-        Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3)
+        Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3, Updated_O_Dict, Updated_X_Dict)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict, Coordinat))
         
         # decrease_values(Remaining_dict_O, key)
-        if decrease_values(Remaining_dict_O, key) == 0:
+        if decrease_values(Remaining_dict_O, key, Updated_O_Dict) == 0:
             print("O WINS!!!")
             Game_over = True 
             break
@@ -434,11 +486,11 @@ while Count <9 and Game_over == False:
         if Count == 9:
             break 
 
-        Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3)
+        Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3, Updated_X_Dict, Updated_O_Dict)
         Coordinat = (comp_draw_x())
         key = (key_name(TicTacdict, Coordinat))
         # decrease_values(Remaining_dict_X, key)
-        if decrease_values(Remaining_dict_X, key) == 0:
+        if decrease_values(Remaining_dict_X, key, Updated_X_Dict) == 0:
             print("X WINS!!!")
             Game_over = True 
             break
