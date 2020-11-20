@@ -372,6 +372,20 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     # print(Random_Key)
     return 
 
+Starting_Count = 3
+X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_lines", "Can_lower_opponent_lines"]
+X_list2 = [0, 0, (len(Remaining_dict_X)*Starting_Count), True, True]
+O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_lines", "Can_lower_opponent_lines"]
+O_list2 = [0, 0, (len(Remaining_dict_O)*Starting_Count), True, True]
+
+Updated_X_Dict = dict(zip(X_list, X_list2))
+Updated_O_Dict = dict(zip(O_list, O_list2))
+print(Updated_X_Dict)
+print(Updated_O_Dict)
+
+#These dictionaries will be used in the new function, to decide how the player moves his pieces
+
+
 turtle.listen()
 turtle.onkey(move_left, "Left") 
 turtle.onkey(move_right, "Right")
