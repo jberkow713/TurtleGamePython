@@ -343,16 +343,82 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
         return   
+    
     #Check here to see if you can no longer increase winning possible lines, and we can lower opponents lines, 
-    # We alter the while loop for keys to see how many opponent lines we can block instead
+    # We alter the while loop for keys to see how many opponent lines we can block instead...This exists after Flag is turned on
 
     #TO DO: 
-    # if Your_Updated_Dic["Can_increase_winning_lines"] == False and Your_Updated_Dic["Can_lower_opponent_lines"] == True :
-        #Do stuff here
+    if Your_Updated_Dic["Can_increase_winning_lines"] == False and Your_Updated_Dic["Can_lower_opponent_lines"] == True :
+        Keys_Remaining = len(Remaining_Keys)
+        Lower_Line_Count = []
+        Winning_lines_Container = []
+        Count = 0
+        index = 0
+                
+        #Checking how many lines in our dictionary that have 3 for a count, have opponent count < 3
+        #Lower_Line_Count will represent each key, and their effect on lowering opponents winning_lines
+        for winning_line, count in Opponent_Dictionary.items():
+            for Winning_line, Count in Your_Dictionary.items():
+                if winning_line == Winning_line:
+                    if count < Starting_Count and Count == Starting_Count:
+                        Winning_lines_Container.append(winning_line)
+        #The opponents winning lines are in the Winning_line_container
+        #So we want the key that intersects as many of these lines as possible
+        while Keys_Remaining > 0:
+            key = Remaining_Keys[index]
 
+            for winning_line in Winning_lines_Container:
+                if key in winning_line:
+                    Count +=1
+            #This should append the amount of opponent winning lines each key intersects
+            Lower_Line_Count.append(Count)
+           
+            Count = 0 
+            index +=1
+            Keys_Remaining -=1        
 
+        Best_Destroyer = dict(zip(Remaining_Keys, Lower_Line_Count))
 
+        Random_Best_Choice = []
+        Random_Key = []    
+        for key, value in Best_Destroyer.items():
+            Random_Best_Choice.append(value)
     
+        max_val = max(Random_Best_Choice)
+        print(max_val)
+        if max_val == 0:
+            Your_Updated_Dic["Can_lower_opponent_lines"] = False
+
+        for key, value in Best_Destroyer.items():
+            if value == max_val:
+                Random_Key.append(key)
+        
+        Random_Final_Choice = []
+
+    #Creating Randomized guess 
+        if len(Random_Key) > 1:
+            random_guy = random.randint(0, (len(Random_Key)-1))
+            Random_Final_Choice.append(Random_Key[random_guy])
+        
+            for position, coord in TicTacdict.items():
+                if Random_Final_Choice[0] == position:
+                    coordinates = coord 
+
+                computer.setpos(coordinates[0],coordinates[1])
+                # print(Random_Key)
+                return         
+        
+        Best_Key = max(Best_Destroyer, key=Best_Destroyer.get)
+        for position, coord in TicTacdict.items():
+            if Best_Key == position:
+                coordinates = coord 
+
+            computer.setpos(coordinates[0],coordinates[1])
+    # print(Random_Key)
+            return 
+
+    #Finally, we need a condition if you can not improve your winning lines, and you can not decrease opponent winning lines
+         
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
     Winning_lines_Containers = []
@@ -399,9 +465,82 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     # print(max_val)
     #Setting Can increase winning_lines to False if your max value per key is 0,
     #Then we will check above to see if it is false, and if so, run a different while loop
-    # To instead lower opponent's winning_lines 
+    # To instead lower opponent's winning_lines ...In the very first case where this is triggered, we need it to run the loop
+    # It would have run above, had it known, so we put this in the loop...The second time around, it will simply start at the above 
+    #loop instead of running this loop first...But this is done in order to make the move in which the lines gained = 0, change
+    # into a more optimal move
     if max_val == 0:
+        
         Your_Updated_Dic["Can_increase_winning_lines"] = False 
+
+        Keys_Remaining = len(Remaining_Keys)
+        Lower_Line_Count = []
+        Winning_lines_Container = []
+        Count = 0
+        index = 0
+                
+        #Checking how many lines in our dictionary that have 3 for a count, have opponent count < 3
+        #Lower_Line_Count will represent each key, and their effect on lowering opponents winning_lines
+        for winning_line, count in Opponent_Dictionary.items():
+            for Winning_line, Count in Your_Dictionary.items():
+                if winning_line == Winning_line:
+                    if count < Starting_Count and Count == Starting_Count:
+                        Winning_lines_Container.append(winning_line)
+        #The opponents winning lines are in the Winning_line_container
+        #So we want the key that intersects as many of these lines as possible
+        while Keys_Remaining > 0:
+            key = Remaining_Keys[index]
+
+            for winning_line in Winning_lines_Container:
+                if key in winning_line:
+                    Count +=1
+            #This should append the amount of opponent winning lines each key intersects
+            Lower_Line_Count.append(Count)
+           
+            Count = 0 
+            index +=1
+            Keys_Remaining -=1        
+
+        Best_Destroyer = dict(zip(Remaining_Keys, Lower_Line_Count))
+
+        Random_Best_Choice = []
+        Random_Key = []    
+        for key, value in Best_Destroyer.items():
+            Random_Best_Choice.append(value)
+    
+        max_val = max(Random_Best_Choice)
+        print(max_val)
+        if max_val == 0:
+            Your_Updated_Dic["Can_lower_opponent_lines"] = False
+             
+        for key, value in Best_Destroyer.items():
+            if value == max_val:
+                Random_Key.append(key)
+        
+        Random_Final_Choice = []
+
+    #Creating Randomized guess 
+        if len(Random_Key) > 1:
+            random_guy = random.randint(0, (len(Random_Key)-1))
+            Random_Final_Choice.append(Random_Key[random_guy])
+        
+            for position, coord in TicTacdict.items():
+                if Random_Final_Choice[0] == position:
+                    coordinates = coord 
+
+                computer.setpos(coordinates[0],coordinates[1])
+                # print(Random_Key)
+                return         
+        
+        Best_Key = max(Best_Destroyer, key=Best_Destroyer.get)
+        for position, coord in TicTacdict.items():
+            if Best_Key == position:
+                coordinates = coord 
+
+            computer.setpos(coordinates[0],coordinates[1])
+    # print(Random_Key)
+            return 
+        
    
     for key, value in Best_Choice.items():
         if value == max_val:
