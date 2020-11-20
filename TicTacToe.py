@@ -357,19 +357,18 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 
         #Checking how many lines in our dictionary that have 3 for a count, have opponent count < 3
         #Lower_Line_Count will represent each key, and their effect on lowering opponents winning_lines
-        for winning_line, count in Opponent_Dictionary.items():
-            for Winning_line, Count in Your_Dictionary.items():
-                if winning_line == Winning_line:
-                    if count < Starting_Count and Count == Starting_Count:
-                        Winning_lines_Container.append(winning_line)
+        for winning_line, count in Your_Dictionary.items():
+            if count == Starting_Count:
+                Winning_lines_Container.append(winning_line)
         #The opponents winning lines are in the Winning_line_container
         #So we want the key that intersects as many of these lines as possible
         while Keys_Remaining > 0:
             key = Remaining_Keys[index]
 
             for winning_line in Winning_lines_Container:
-                if key in winning_line:
-                    Count +=1
+                for keys in winning_line:
+                    if key in keys:
+                        Count +=1
             #This should append the amount of opponent winning lines each key intersects
             Lower_Line_Count.append(Count)
            
@@ -378,7 +377,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             Keys_Remaining -=1        
 
         Best_Destroyer = dict(zip(Remaining_Keys, Lower_Line_Count))
-
+        print(Best_Destroyer)
         Random_Best_Choice = []
         Random_Key = []    
         for key, value in Best_Destroyer.items():
@@ -416,8 +415,10 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             computer.setpos(coordinates[0],coordinates[1])
     # print(Random_Key)
             return 
-
+    #TODO 
     #Finally, we need a condition if you can not improve your winning lines, and you can not decrease opponent winning lines
+    # if Your_Updated_Dic["Can_lower_opponent_lines"] == False and Your_Updated_Dic["Can_increase_winning_lines"] == False:
+
          
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
@@ -481,19 +482,18 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 
         #Checking how many lines in our dictionary that have 3 for a count, have opponent count < 3
         #Lower_Line_Count will represent each key, and their effect on lowering opponents winning_lines
-        for winning_line, count in Opponent_Dictionary.items():
-            for Winning_line, Count in Your_Dictionary.items():
-                if winning_line == Winning_line:
-                    if count < Starting_Count and Count == Starting_Count:
-                        Winning_lines_Container.append(winning_line)
+        for winning_line, count in Your_Dictionary.items():
+            if count == Starting_Count:
+                Winning_lines_Container.append(winning_line)
         #The opponents winning lines are in the Winning_line_container
         #So we want the key that intersects as many of these lines as possible
         while Keys_Remaining > 0:
             key = Remaining_Keys[index]
 
             for winning_line in Winning_lines_Container:
-                if key in winning_line:
-                    Count +=1
+                for keys in winning_line:
+                    if key in keys:
+                        Count +=1
             #This should append the amount of opponent winning lines each key intersects
             Lower_Line_Count.append(Count)
            
@@ -502,6 +502,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             Keys_Remaining -=1        
 
         Best_Destroyer = dict(zip(Remaining_Keys, Lower_Line_Count))
+        print(Best_Destroyer)
 
         Random_Best_Choice = []
         Random_Key = []    
@@ -528,18 +529,18 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if Random_Final_Choice[0] == position:
                     coordinates = coord 
 
-                computer.setpos(coordinates[0],coordinates[1])
+                    computer.setpos(coordinates[0],coordinates[1])
                 # print(Random_Key)
-                return         
+                    return         
         
         Best_Key = max(Best_Destroyer, key=Best_Destroyer.get)
         for position, coord in TicTacdict.items():
             if Best_Key == position:
                 coordinates = coord 
 
-            computer.setpos(coordinates[0],coordinates[1])
+                computer.setpos(coordinates[0],coordinates[1])
     # print(Random_Key)
-            return 
+                return 
         
    
     for key, value in Best_Choice.items():
