@@ -343,16 +343,15 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
         return   
+    #Check here to see if you can no longer increase winning possible lines, and we can lower opponents lines, 
+    # We alter the while loop for keys to see how many opponent lines we can block instead
+
+    #TO DO: 
+    # if Your_Updated_Dic["Can_increase_winning_lines"] == False and Your_Updated_Dic["Can_lower_opponent_lines"] == True :
+        #Do stuff here
 
 
 
-
-        # if len(Keys_to_Remove) >=2:
-        #     random_to_remove = random.randint(0, (len(Keys_to_Remove)-1) )
-        #     return Keys_to_Remove[random_to_remove]
-        # else:
-        #     random_to_remove = 0
-        #     return Keys_to_Remove[0]
     
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
@@ -397,19 +396,13 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Random_Best_Choice.append(value)
     
     max_val = max(0, max(Random_Best_Choice))
-    print(max_val)
-    
-    # Have to figure out a way to increase the winning_lines value in your dict, by max val
-
-    
-    #Taking the initial maximum value from first move, putting it in your updated max winning lines, and 
-    #Opponent updated max winning lines 
-    # Your_Updated_Dic['winning_lines'] = Your_Updated_Dic['winning_lines'] + max_val 
-    # Opponent_Updated_Dic['winning_lines'] = Your_Updated_Dic['winning_lines']
-    # print(Your_Updated_Dic['winning_lines'])
-    #Were adding the max value here to see if it increases
-
-    
+    # print(max_val)
+    #Setting Can increase winning_lines to False if your max value per key is 0,
+    #Then we will check above to see if it is false, and if so, run a different while loop
+    # To instead lower opponent's winning_lines 
+    if max_val == 0:
+        Your_Updated_Dic["Can_increase_winning_lines"] = False 
+   
     for key, value in Best_Choice.items():
         if value == max_val:
             Random_Key.append(key)
@@ -509,6 +502,7 @@ while Count <9 and Game_over == False:
         if Count == 9:
             break 
              
-
+print(Updated_O_Dict)
+print(Updated_X_Dict)
           
 delay = input("Press enter to finish.")
