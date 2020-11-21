@@ -672,15 +672,69 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Random_Final_Choice = []
     #Creating Randomized games 
     if len(Random_Key) > 1:
-        random_guy = random.randint(0, (len(Random_Key)-1))
-        Random_Final_Choice.append(Random_Key[random_guy])
-        for position, coord in TicTacdict.items():
-            if Random_Final_Choice[0] == position:
-                coordinates = coord 
 
-                computer.setpos(coordinates[0],coordinates[1])
+        Keys_Remaining = len(Random_Key)
+        Lower_Line_Count = []
+        Winning_lines_Container = []
+        Count = 0
+        index = 0
+                
+        #Checking how many lines in our dictionary that have 3 for a count, have opponent count < 3
+        #Lower_Line_Count will represent each key, and their effect on lowering opponents winning_lines
+        for winning_line, count in Your_Dictionary.items():
+            if count == Starting_Count:
+                Winning_lines_Container.append(winning_line)
+        #The opponents winning lines are in the Winning_line_container
+        #So we want the key that intersects as many of these lines as possible
+        while Keys_Remaining > 0:
+            key = Random_Key[index]
+
+            for winning_line in Winning_lines_Container:
+                for keys in winning_line:
+                    if key in keys:
+                        Count +=1
+            #This should append the amount of opponent winning lines each key intersects
+            Lower_Line_Count.append(Count)
+           
+            Count = 0 
+            index +=1
+            Keys_Remaining -=1        
+
+        Best_Destroyer = dict(zip(Random_Key, Lower_Line_Count))
+        # print(Best_Destroyer)
+        Random_Best_Choice = []
+        Best_Choice_Final = []
+        Random_Best_Choice_Final = []    
+        for key, value in Best_Destroyer.items():
+            Random_Best_Choice.append(value)
+        
+        # print(Random_Best_Choice)
+        max_val = max(Random_Best_Choice)
+        for key, val in Best_Destroyer.items():
+            if val == max_val:
+                Best_Choice_Final.append(key)
+                # print(Best_Choice_Final)
+        
+        if len(Best_Choice_Final) > 1:
+            random_guy = random.randint(0, (len(Best_Choice_Final)-1))
+            Random_Best_Choice_Final.append(Best_Choice_Final[random_guy])
+            
+            for position, coord in TicTacdict.items():
+                if Random_Best_Choice_Final[0] == position:
+                    coordinates = coord 
+
+                    computer.setpos(coordinates[0],coordinates[1])
+                    # print(Random_Key)
+                    return 
+        
+        if len(Best_Choice_Final) == 1:
+            for position, coord in TicTacdict.items():
+                if Best_Choice_Final[0] == position:
+                    coordinates = coord 
+
+                    computer.setpos(coordinates[0],coordinates[1])
                 # print(Random_Key)
-                return 
+                    return 
 
     Best_Key = max(Best_Choice, key=Best_Choice.get)
     for position, coord in TicTacdict.items():
