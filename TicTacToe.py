@@ -191,6 +191,27 @@ Winning_Lines2 = [("TL", "TM", "TR"), ("ML", "MM", "MR"), ("BL", "BM", "BR"), ("
     ("TM", "MM", "BM",), ("TR", "MR", "BR"), ("TL", "MM", "BR"), ("BL", "MM", "TR")]
 Count2 = [3,3,3,3,3,3,3,3]
 
+#Bigger Board, 5X5
+#Column by Column, 00 is First Column, First Row
+# Grid will be matrix like so:
+#[[00, 01, 02, 03, 04,
+#  10, 11, 12, 13, 14,   
+#  20, 21, 22, 23, 24,
+#  30, 31, 32, 33, 34, 
+#  40, 41, 42, 43, 44
+# 
+# # ]]
+Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
+    "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
+
+# Need Coordinates now, need to make the board
+
+
+
+
+
+
+
 #Shows how many moves are needed to win, using this specific path
 Remaining_dict_X = dict(zip(Winning_Lines, Count))
 Remaining_dict_O = dict(zip(Winning_Lines2, Count2))
@@ -558,7 +579,8 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if winning_lines == Winning_Lines and value == Starting_count:
                     Winning_lines_Containers.append(winning_lines)
 
-                
+        
+        
         for actual_winning_lines in Winning_lines_Containers:
             for keys in actual_winning_lines:
                 if key in keys:
