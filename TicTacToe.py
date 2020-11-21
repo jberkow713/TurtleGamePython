@@ -5,6 +5,12 @@ import random
 from copy import deepcopy
 
 
+# screen = turtle.Screen()
+# screen.screensize(800,800)
+# screen.bgcolor("white")
+# screen.title("Tic-Tac-Toe")
+
+#Bigger Board
 screen = turtle.Screen()
 screen.screensize(800,800)
 screen.bgcolor("white")
@@ -14,46 +20,93 @@ border_pen = turtle.Turtle()
 border_pen.speed(0)
 border_pen.color("black")
 border_pen.penup()
-border_pen.setposition(-111,333)
+border_pen.setposition(-300,350)
 border_pen.pendown()
 border_pen.pensize(2.5)
 border_pen.setheading(270)
-border_pen.fd(667)
+border_pen.fd(700)
 border_pen.hideturtle()
 
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(-100,350)
+border_pen.pendown()
+border_pen.pensize(2.5)
+border_pen.setheading(270)
+border_pen.fd(700)
+border_pen.hideturtle()
 
-border_pen1 = turtle.Turtle()
-border_pen1.speed(0)
-border_pen1.color("black")
-border_pen1.penup()
-border_pen1.setposition(111,333)
-border_pen1.pendown()
-border_pen1.pensize(2.5)
-border_pen1.setheading(270)
-border_pen1.fd(667)
-border_pen1.hideturtle()
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(100,350)
+border_pen.pendown()
+border_pen.pensize(2.5)
+border_pen.setheading(270)
+border_pen.fd(700)
+border_pen.hideturtle()
 
-border_pen3 = turtle.Turtle()
-border_pen3.speed(0)
-border_pen3.color("black")
-border_pen3.penup()
-border_pen3.setposition(-333,111)
-border_pen3.pendown()
-border_pen3.pensize(2.5)
-# border_pen3.setheading(270)
-border_pen3.fd(666)
-border_pen3.hideturtle()
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(300,350)
+border_pen.pendown()
+border_pen.pensize(2.5)
+border_pen.setheading(270)
+border_pen.fd(700)
+border_pen.hideturtle()
 
-border_pen4 = turtle.Turtle()
-border_pen4.speed(0)
-border_pen4.color("black")
-border_pen4.penup()
-border_pen4.setposition(-333,-111)
-border_pen4.pendown()
-border_pen4.pensize(2.5)
-# border_pen4.setheading(270)
-border_pen4.fd(666)
-border_pen4.hideturtle()
+#Horizontal Lines
+
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(-500,210)
+border_pen.pendown()
+border_pen.pensize(2.5)
+border_pen.setheading(0)
+border_pen.fd(1000)
+border_pen.hideturtle()
+
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(-500,70)
+border_pen.pendown()
+border_pen.pensize(2.5)
+border_pen.setheading(0)
+border_pen.fd(1000)
+border_pen.hideturtle()
+
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(-500,-70)
+border_pen.pendown()
+border_pen.pensize(2.5)
+border_pen.setheading(0)
+border_pen.fd(1000)
+border_pen.hideturtle()
+
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(-500,-210)
+border_pen.pendown()
+border_pen.pensize(2.5)
+border_pen.setheading(0)
+border_pen.fd(1000)
+border_pen.hideturtle()
+
+#Drawing Smaller circles and Squares now
 
 player = turtle.Turtle()
 player.color("red")
@@ -63,40 +116,32 @@ player.speed(0)
 player.setposition(0, 0)
 player.setheading(90)
 
-computer = turtle.Turtle()
-computer.color("blue")
-computer.shape("square")
-computer.penup()
-computer.speed(0)
-computer.setposition(0, 0)
-computer.hideturtle()
-
-
-speed = 222
+speed = 200
+yspeed = 140
 
 def move_left():
     x = player.xcor()
     x -= speed
-    if x < -222:
-        x = -222
+    # if x < -222:
+    #     x = -222
     player.setx(x)
 def move_right():
     x = player.xcor()
     x += speed
-    if x > 222:
-        x = 222
+    # if x > 222:
+    #     x = 222
     player.setx(x)
 def move_up():
     y = player.ycor()
-    y += speed
-    if y >  222:
-        y = 222
+    y += yspeed
+    # if y >  222:
+    #     y = 222
     player.sety(y)
 def move_down():
     y = player.ycor()
-    y -= speed
-    if y < -222:
-        y = -222
+    y -= yspeed
+    # if y < -222:
+    #     y = -222
     player.sety(y)
 
 
@@ -138,6 +183,135 @@ def draw_x():
     turtle.setposition(a+50,b+ 50)
 
     return coord_value 
+
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-111,333)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(270)
+# border_pen.fd(667)
+# border_pen.hideturtle()
+
+
+# border_pen1 = turtle.Turtle()
+# border_pen1.speed(0)
+# border_pen1.color("black")
+# border_pen1.penup()
+# border_pen1.setposition(111,333)
+# border_pen1.pendown()
+# border_pen1.pensize(2.5)
+# border_pen1.setheading(270)
+# border_pen1.fd(667)
+# border_pen1.hideturtle()
+
+# border_pen3 = turtle.Turtle()
+# border_pen3.speed(0)
+# border_pen3.color("black")
+# border_pen3.penup()
+# border_pen3.setposition(-333,111)
+# border_pen3.pendown()
+# border_pen3.pensize(2.5)
+# # border_pen3.setheading(270)
+# border_pen3.fd(666)
+# border_pen3.hideturtle()
+
+# border_pen4 = turtle.Turtle()
+# border_pen4.speed(0)
+# border_pen4.color("black")
+# border_pen4.penup()
+# border_pen4.setposition(-333,-111)
+# border_pen4.pendown()
+# border_pen4.pensize(2.5)
+# # border_pen4.setheading(270)
+# border_pen4.fd(666)
+# border_pen4.hideturtle()
+
+# player = turtle.Turtle()
+# player.color("red")
+# player.shape("triangle")
+# player.penup()
+# player.speed(0)
+# player.setposition(0, 0)
+# player.setheading(90)
+
+# computer = turtle.Turtle()
+# computer.color("blue")
+# computer.shape("square")
+# computer.penup()
+# computer.speed(0)
+# computer.setposition(0, 0)
+# computer.hideturtle()
+
+
+# speed = 222
+
+# def move_left():
+#     x = player.xcor()
+#     x -= speed
+#     if x < -222:
+#         x = -222
+#     player.setx(x)
+# def move_right():
+#     x = player.xcor()
+#     x += speed
+#     if x > 222:
+#         x = 222
+#     player.setx(x)
+# def move_up():
+#     y = player.ycor()
+#     y += speed
+#     if y >  222:
+#         y = 222
+#     player.sety(y)
+# def move_down():
+#     y = player.ycor()
+#     y -= speed
+#     if y < -222:
+#         y = -222
+#     player.sety(y)
+
+
+# def draw_circle():
+#     turtle.pensize(2.5)
+#     a = player.xcor()
+#     b = player.ycor()
+    
+#     coord_value = [a, b]
+    
+    
+#     turtle.hideturtle()
+#     turtle.penup()
+#     turtle.setpos(a, (b-60))
+
+#     turtle.pendown()
+#     turtle.circle(60)
+#     turtle.hideturtle()
+
+#     return coord_value 
+    
+
+# def draw_x():
+#     turtle.pensize(2.5)
+#     a = player.xcor()
+#     b = player.ycor()
+#     turtle.hideturtle()
+#     turtle.penup()
+    
+#     coord_value = [a, b]
+    
+   
+#     turtle.setposition(a-50,b+50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b-50)
+#     turtle.penup()
+#     turtle.setposition(a-50,b-50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b+ 50)
+
+#     return coord_value 
 
 def comp_draw_x():
     turtle.pensize(2.5)
@@ -203,6 +377,8 @@ Count2 = [3,3,3,3,3,3,3,3]
 # # ]]
 Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
     "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
+
+Bigger_Board_Coords = []
 
 # Need Coordinates now, need to make the board
 
@@ -732,63 +908,63 @@ turtle.onkey(draw_x, "x")
 
 
 
-Count = 0
+# Count = 0
 
-random_start = random.randint(0,1)
-if random_start == 0:
-    Variable = 1
-else:
-    Variable = -1  
-Game_over = False
-while Count <9 and Game_over == False:
+# random_start = random.randint(0,1)
+# if random_start == 0:
+#     Variable = 1
+# else:
+#     Variable = -1  
+# Game_over = False
+# while Count <9 and Game_over == False:
     
        
     
-    while Variable  == 1:
-        Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3, Updated_O_Dict, Updated_X_Dict)
-        Coordinat = (computer_draw_circle())
-        key = (key_name(TicTacdict, Coordinat))
+#     while Variable  == 1:
+#         Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3, Updated_O_Dict, Updated_X_Dict)
+#         Coordinat = (computer_draw_circle())
+#         key = (key_name(TicTacdict, Coordinat))
         
-        # decrease_values(Remaining_dict_O, key)
-        if decrease_values(Remaining_dict_O, key, Updated_O_Dict) == 0:
-            print("O WINS!!!")
-            Game_over = True 
-            break
+#         # decrease_values(Remaining_dict_O, key)
+#         if decrease_values(Remaining_dict_O, key, Updated_O_Dict) == 0:
+#             print("O WINS!!!")
+#             Game_over = True 
+#             break
             
             
-        remove_dict(TicTacdict, Coordinat)
+#         remove_dict(TicTacdict, Coordinat)
         
                 
-        Variable *= -1
-        Count +=1
+#         Variable *= -1
+#         Count +=1
         
-        if Count == 9:
-            break
+#         if Count == 9:
+#             break
 
     
-    while Variable == -1:
-        if Count == 9:
-            break 
+#     while Variable == -1:
+#         if Count == 9:
+#             break 
 
-        Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3, Updated_X_Dict, Updated_O_Dict)
-        Coordinat = (comp_draw_x())
-        key = (key_name(TicTacdict, Coordinat))
-        # decrease_values(Remaining_dict_X, key)
-        if decrease_values(Remaining_dict_X, key, Updated_X_Dict) == 0:
-            print("X WINS!!!")
-            Game_over = True 
-            break
+#         Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3, Updated_X_Dict, Updated_O_Dict)
+#         Coordinat = (comp_draw_x())
+#         key = (key_name(TicTacdict, Coordinat))
+#         # decrease_values(Remaining_dict_X, key)
+#         if decrease_values(Remaining_dict_X, key, Updated_X_Dict) == 0:
+#             print("X WINS!!!")
+#             Game_over = True 
+#             break
              
-        remove_dict(TicTacdict, Coordinat)
+#         remove_dict(TicTacdict, Coordinat)
         
         
-        Variable *=-1
-        Count +=1
+#         Variable *=-1
+#         Count +=1
 
-        if Count == 9:
-            break 
+#         if Count == 9:
+#             break 
              
-print(Updated_O_Dict)
-print(Updated_X_Dict)
+# print(Updated_O_Dict)
+# print(Updated_X_Dict)
           
 delay = input("Press enter to finish.")
