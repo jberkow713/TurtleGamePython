@@ -625,7 +625,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             Keys_Remaining -=1        
 
         Best_Destroyer = dict(zip(Remaining_Keys, Lower_Line_Count))
-        print(Best_Destroyer)
+        # print(Best_Destroyer)
 
         Random_Best_Choice = []
         Random_Key = []    
@@ -633,7 +633,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             Random_Best_Choice.append(value)
     
         max_val = max(Random_Best_Choice)
-        print(max_val)
+        # print(max_val)
         if max_val == 0:
             Your_Updated_Dic["Can_lower_opponent_lines"] = False
              
@@ -713,8 +713,9 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for key, val in Best_Destroyer.items():
             if val == max_val:
                 Best_Choice_Final.append(key)
+                
                 # print(Best_Choice_Final)
-        
+        print(Best_Choice_Final)
         if len(Best_Choice_Final) > 1:
             random_guy = random.randint(0, (len(Best_Choice_Final)-1))
             Random_Best_Choice_Final.append(Best_Choice_Final[random_guy])
@@ -728,6 +729,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     return 
         
         if len(Best_Choice_Final) == 1:
+            print(Best_Choice_Final)
             for position, coord in TicTacdict.items():
                 if Best_Choice_Final[0] == position:
                     coordinates = coord 
