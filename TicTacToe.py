@@ -558,12 +558,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if winning_lines == Winning_Lines and value == Starting_count:
                     Winning_lines_Containers.append(winning_lines)
 
-        # for line in Winning_lines_Containers:
-        #     for key, value in Opponent_Dictionary.items():
-        #         if line == key:
-        #             if value == Starting_count:
-        #                 Count +=1
-        
+                
         for actual_winning_lines in Winning_lines_Containers:
             for keys in actual_winning_lines:
                 if key in keys:
