@@ -1057,7 +1057,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Blocking_lines_Containers = []
     Count = 0
     index = 0
-    
+    Adjacency_list = []
     while Keys_Remaining > 0:
         
         key = Remaining_Keys[index]
@@ -1087,7 +1087,24 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             for values in LINES:
                 if key in values:
                     Count +=1
-        # 4)Incentivize moving at a diagonal as well
+        #4)Use adjacency values, and subtract current keys in list of opponent moves and your moves
+        # Add that value to the count 
+        for keys, adjacency_list in Connected_Dict.items():
+            if key == keys:
+                adjacent_to_key = adjacency_list
+        
+        for keys in List_of_Opponent_Moves:
+            if keys in adjacent_to_key:
+                Adjacency_list.append(keys)
+        for keys in List_of_your_moves:
+            if keys in adjacent_to_key:
+                Adjacency_list.append(keys)
+
+        Total_near = len(adjacent_to_key) - len(Adjacency_list)
+        Count += Total_near                 
+                     
+                
+
 
 
 
@@ -1095,6 +1112,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
         Winning_Line_Count.append(Count)
         Count = 0 
+        Adjacency_list.clear()
         Winning_lines_Containers.clear()        
         index +=1
         Keys_Remaining -=1
