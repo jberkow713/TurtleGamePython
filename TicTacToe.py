@@ -1103,13 +1103,6 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Total_near = len(adjacent_to_key) - len(Adjacency_list)
         Count += Total_near                 
                      
-                
-
-
-
-
-
-
         Winning_Line_Count.append(Count)
         Count = 0 
         Adjacency_list.clear()
@@ -1155,51 +1148,6 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     # print(Random_Key)
     return 
 
-    
-                
-
-                
-
-
-
-    #1) Most possible lines +1 points
-
-
-    #2) Blocking lines of opponent +1 point
-    #3) Blocking Diagonal lines of Opponent +1....Need a list of diagonal lines, #Diagonal_line_list
-    #4) Attempt to connect your positions-Connected_Dict +1 
-
-
-
-    #Now, want to implement functionality, to make it move smarter....Thinking...Thinking...
-    #You can not allow 3 in a row, on an uncontested line, if there are 2 open spots on either end,
-    #Because at this point, you lose, you can not block both side
-    # SO, 
-    # If opponent has 2 pieces oF  a line, if a third potential spot can be placed by the opponent, and once
-    # that is done, there are open spots on both sides of the line of 3, then you must prevent the line of 3...
-
-    # When you block it, since there will be two choices, 
-    #  you want to block it in the spot, that connects to as many other winning lines as possible
-
-    #First players best move is to move to the center, spot with most possible lines
-    # 2nd player has to move to a spot diagonally connected to the center move, or it's already over
-
-
-
-
-
-
-    #So, first player point with most possible empty lines of opponent, PLUS how many lines he can take away
-    # from opponent, PLUS extra value for blocking a diagonal winning line...
-    # Let's start by coding this, and see where it takes us!
-    
-    #Eventually have to implement more technical stuff, but to start, we try this and see if it works
-    
-
-    #1) Most possible lines +1 points
-    #2) Blocking lines of opponent +1 point
-    #3) Blocking Diagonal lines of Opponent +1....Need a list of diagonal lines, #Diagonal_line_list
-    #4) Attempt to connect your positions-Connected_Dict +1 
 
 # Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
 #    "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
@@ -1223,15 +1171,6 @@ Connected_List = [("01", "10", "11"), ("00", "02", "10", "11", "12"), ("01", "11
 
 Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
 print(Connected_Dict)
-
-
-
-
-            
-
-
-
-
 
 
 turtle.listen()
