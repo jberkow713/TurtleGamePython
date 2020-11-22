@@ -108,13 +108,13 @@ border_pen.hideturtle()
 
 #Drawing Smaller circles and Squares now
 
-player = turtle.Turtle()
-player.color("red")
-player.shape("triangle")
-player.penup()
-player.speed(0)
-player.setposition(0, 0)
-player.setheading(90)
+# player = turtle.Turtle()
+# player.color("red")
+# player.shape("triangle")
+# player.penup()
+# player.speed(0)
+# player.setposition(0, 0)
+# player.setheading(90)
 
 speed = 200
 yspeed = 140
@@ -237,13 +237,13 @@ def draw_x():
 # player.setposition(0, 0)
 # player.setheading(90)
 
-# computer = turtle.Turtle()
-# computer.color("blue")
-# computer.shape("square")
-# computer.penup()
-# computer.speed(0)
-# computer.setposition(0, 0)
-# computer.hideturtle()
+computer = turtle.Turtle()
+computer.color("blue")
+computer.shape("square")
+computer.penup()
+computer.speed(0)
+computer.setposition(0, 0)
+computer.hideturtle()
 
 
 # speed = 222
@@ -378,14 +378,48 @@ Count2 = [3,3,3,3,3,3,3,3]
 Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
     "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
 
-Bigger_Board_Coords = []
+Bigger_Board_Coords = [[-400, 280], [-200, 280], [0, 280], [200, 280], [400, 280],\
+    [-400, 140], [-200, 140], [0, 140], [200, 140], [400, 140], \
+        [-400, 0], [-200, 0], [0, 0], [200, 0], [400, 0],\
+            [-400, -140], [-200, -140], [0, -140], [200, -140], [400, -140],\
+                [-400, -280], [-200, -280], [0, -280], [200, -280], [400, -280]
+    ]
 
-# Need Coordinates now, need to make the board
+TicTacdict_5X5 = dict(zip(Name_of_Bigger_Spots, Bigger_Board_Coords))
+print(TicTacdict_5X5)
+
+#Need Winning Possible Lines
+
+Winning_Lines_5X5_X = [("00", "01", "02", "03", "04"), ("10", "11", "12", "13", "14"), ("20", "21", "22", "23", "24"),\
+    ("30", "31", "32", "33", "34"), ("40", "41", "42", "43", "44"), \
+        ("00", "10", "20", "30", "40"),  ("01", "11", "21", "31", "41"), ("02", "12", "22", "32", "42"), \
+            ("03", "13", "23", "33", "43"), ("04", "14", "24", "34", "44"), ("00", "11", "22", "33", "44"), \
+                ("40", "31", "22", "13", "04")
+     ]
+Winning_Lines_5X5_O = [("00", "01", "02", "03", "04"), ("10", "11", "12", "13", "14"), ("20", "21", "22", "23", "24"),\
+    ("30", "31", "32", "33", "34"), ("40", "41", "42", "43", "44"), \
+        ("00", "10", "20", "30", "40"),  ("01", "11", "21", "31", "41"), ("02", "12", "22", "32", "42"), \
+            ("03", "13", "23", "33", "43"), ("04", "14", "24", "34", "44"), ("00", "11", "22", "33", "44"), \
+                ("40", "31", "22", "13", "04")
+     ]
+Count_5X5 = [5,5,5,5,5,5,5,5,5,5,5,5]
+
+Remaining_dict_X_5X5 = dict(zip(Winning_Lines_5X5_X, Count_5X5))
+Remaining_dict_O_5X5 = dict(zip(Winning_Lines_5X5_O, Count_5X5))
+
+Starting_Count2 = 5
+X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+X_list2 = [0, 0, (len(Remaining_dict_X_5X5)*Starting_Count2), True, True]
+O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+O_list2 = [0, 0, (len(Remaining_dict_O_5X5)*Starting_Count2), True, True]
 
 
-
-
-
+Updated_X_Dict_5X5 = dict(zip(X_list, X_list2))
+Updated_O_Dict_5X5 = dict(zip(O_list, O_list2))
+# print(Remaining_dict_X_5X5)
+# print(Remaining_dict_O_5X5)
+print(Updated_X_Dict_5X5)
+print(Updated_O_Dict_5X5)
 
 
 #Shows how many moves are needed to win, using this specific path
@@ -461,13 +495,13 @@ def decrease_values(dictionary, key_name, updated_dictionary):
 
 
 #Created function that will remove a key, value pair from a dictionary, based on the dictionary, and a coordinate given 
-def remove_dict(dictionary, coordinate):
+def remove_dict(Key_Dictionary,  coordinate):
         
-    for key,value in TicTacdict.items():
+    for key,value in Key_Dictionary.items():
         if value == coordinate:
             storedvalue = key
-    dictionary.pop(storedvalue)
-    return dictionary
+    Key_Dictionary.pop(storedvalue)
+    return Key_Dictionary
 # print(remove_dict(TicTacdict, x))
 # print(len(TicTacdict))
 
@@ -527,7 +561,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                             Keys_to_win.append(keys)
     
     if len(Keys_to_win)> 0:
-        for position, coord in TicTacdict.items():
+        for position, coord in Key_Dictionary.items():
             if Keys_to_win[0] == position:
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
@@ -535,7 +569,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     
     #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
     if len(Keys_to_Remove)> 0:
-        for position, coord in TicTacdict.items():
+        for position, coord in Key_Dictionary.items():
             if Keys_to_Remove[0] == position:
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
@@ -630,7 +664,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             if len(Random_Key) > 1:
                 random_guy = random.randint(0, (len(Random_Key)-1))
                 Random_Final_Choice.append(Random_Key[random_guy])
-                for position, coord in TicTacdict.items():
+                for position, coord in Key_Dictionary.items():
                     if Random_Final_Choice[0] == position:
                         coordinates = coord 
 
@@ -639,7 +673,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         return 
 
             Best_Key = max(Best_Choice, key=Best_Choice.get)
-            for position, coord in TicTacdict.items():
+            for position, coord in Key_Dictionary.items():
                 if Best_Key == position:
                     coordinates = coord 
 
@@ -659,7 +693,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             random_guy = random.randint(0, (len(Random_Key)-1))
             Random_Final_Choice.append(Random_Key[random_guy])
         
-            for position, coord in TicTacdict.items():
+            for position, coord in Key_Dictionary.items():
                 if Random_Final_Choice[0] == position:
                     coordinates = coord 
 
@@ -668,13 +702,13 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             return         
         
         Best_Key = max(Best_Destroyer, key=Best_Destroyer.get)
-        for position, coord in TicTacdict.items():
+        for position, coord in Key_Dictionary.items():
             if Best_Key == position:
                 coordinates = coord 
 
-            computer.setpos(coordinates[0],coordinates[1])
+        computer.setpos(coordinates[0],coordinates[1])
     # print(Random_Key)
-            return 
+        return 
     #TODO 
     #Finally, we need a condition if you can not improve your winning lines, and you can not decrease opponent winning lines
     if Your_Updated_Dic["Can_lower_opponent_lines"] == False and Your_Updated_Dic["Can_increase_winning_lines"] == False:
@@ -723,7 +757,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         if len(Random_Key) > 1:
             random_guy = random.randint(0, (len(Random_Key)-1))
             Random_Final_Choice.append(Random_Key[random_guy])
-            for position, coord in TicTacdict.items():
+            for position, coord in Key_Dictionary.items():
                 if Random_Final_Choice[0] == position:
                     coordinates = coord 
 
@@ -732,7 +766,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     return 
 
         Best_Key = max(Best_Choice, key=Best_Choice.get)
-        for position, coord in TicTacdict.items():
+        for position, coord in Key_Dictionary.items():
             if Best_Key == position:
                 coordinates = coord 
 
@@ -845,7 +879,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         print(Random_Keyz)        
         
         if len(Random_Keyz) == 1:
-            for position, coord in TicTacdict.items():
+            for position, coord in Key_Dictionary.items():
                 if Random_Keyz[0] == position:
                     coordinates = coord 
 
@@ -856,7 +890,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             random_guy = random.randint(0, (len(Random_Keyz)-1))
             Random_Final_Choizes.append(Random_Keyz[random_guy])
         
-            for position, coord in TicTacdict.items():
+            for position, coord in Key_Dictionary.items():
                 if Random_Final_Choizes[0] == position:
                     coordinates = coord 
 
@@ -872,7 +906,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         random_guy = random.randint(0, (len(Random_Key)-1))
         Random_Final_Choiz.append(Random_Key[random_guy])
         
-        for position, coord in TicTacdict.items():
+        for position, coord in Key_Dictionary.items():
             if Random_Final_Choiz[0] == position:
                 coordinates = coord 
 
@@ -882,7 +916,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     
 
     Best_Key = max(Best_Choice, key=Best_Choice.get)
-    for position, coord in TicTacdict.items():
+    for position, coord in Key_Dictionary.items():
         if Best_Key == position:
             coordinates = coord 
 
@@ -908,63 +942,64 @@ turtle.onkey(draw_x, "x")
 
 
 
-# Count = 0
+Count = 0
 
-# random_start = random.randint(0,1)
-# if random_start == 0:
-#     Variable = 1
-# else:
-#     Variable = -1  
-# Game_over = False
-# while Count <9 and Game_over == False:
+random_start = random.randint(0,1)
+if random_start == 0:
+    Variable = 1
+else:
+    Variable = -1  
+
+Game_over = False
+while Count <25 and Game_over == False:
     
        
     
-#     while Variable  == 1:
-#         Thoughtful_Move(Remaining_dict_O, Remaining_dict_X, TicTacdict, 3, Updated_O_Dict, Updated_X_Dict)
-#         Coordinat = (computer_draw_circle())
-#         key = (key_name(TicTacdict, Coordinat))
+    while Variable  == 1:
+        Thoughtful_Move(Remaining_dict_O_5X5, Remaining_dict_X_5X5, TicTacdict_5X5, 5, Updated_O_Dict_5X5, Updated_X_Dict_5X5)
+        Coordinat = (computer_draw_circle())
+        key = (key_name(TicTacdict_5X5, Coordinat))
         
-#         # decrease_values(Remaining_dict_O, key)
-#         if decrease_values(Remaining_dict_O, key, Updated_O_Dict) == 0:
-#             print("O WINS!!!")
-#             Game_over = True 
-#             break
+        # decrease_values(Remaining_dict_O, key)
+        if decrease_values(Remaining_dict_O_5X5, key, Updated_O_Dict_5X5) == 0:
+            print("O WINS!!!")
+            Game_over = True 
+            break
             
             
-#         remove_dict(TicTacdict, Coordinat)
+        remove_dict(TicTacdict_5X5, Coordinat)
         
                 
-#         Variable *= -1
-#         Count +=1
+        Variable *= -1
+        Count +=1
         
-#         if Count == 9:
-#             break
+        if Count == 25:
+            break
 
     
-#     while Variable == -1:
-#         if Count == 9:
-#             break 
+    while Variable == -1:
+        if Count == 25:
+            break 
 
-#         Thoughtful_Move(Remaining_dict_X, Remaining_dict_O, TicTacdict, 3, Updated_X_Dict, Updated_O_Dict)
-#         Coordinat = (comp_draw_x())
-#         key = (key_name(TicTacdict, Coordinat))
-#         # decrease_values(Remaining_dict_X, key)
-#         if decrease_values(Remaining_dict_X, key, Updated_X_Dict) == 0:
-#             print("X WINS!!!")
-#             Game_over = True 
-#             break
+        Thoughtful_Move(Remaining_dict_X_5X5, Remaining_dict_O_5X5, TicTacdict_5X5, 5, Updated_X_Dict_5X5, Updated_O_Dict_5X5)
+        Coordinat = (comp_draw_x())
+        key = (key_name(TicTacdict_5X5, Coordinat))
+        # decrease_values(Remaining_dict_X, key)
+        if decrease_values(Remaining_dict_X_5X5, key, Updated_X_Dict_5X5) == 0:
+            print("X WINS!!!")
+            Game_over = True 
+            break
              
-#         remove_dict(TicTacdict, Coordinat)
+        remove_dict(TicTacdict_5X5, Coordinat)
         
         
-#         Variable *=-1
-#         Count +=1
+        Variable *=-1
+        Count +=1
 
-#         if Count == 9:
-#             break 
+        if Count == 25:
+            break 
              
-# print(Updated_O_Dict)
-# print(Updated_X_Dict)
+print(Updated_O_Dict_5X5)
+print(Updated_X_Dict_5X5)
           
 delay = input("Press enter to finish.")
