@@ -997,6 +997,23 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         if keys in Remaining_Keys:
                             Keys_to_win.append(keys)
     
+    if len(Keys_to_win)> 0:
+        for position, coord in Key_Dictionary.items():
+            if Keys_to_win[0] == position:
+                coordinates = coord
+                computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Keys_to_win[0])
+                return                          
+    
+    #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
+    if len(Keys_to_Remove)> 0:
+        for position, coord in Key_Dictionary.items():
+            if Keys_to_Remove[0] == position:
+                coordinates = coord
+        computer.setpos(coordinates[0],coordinates[1])
+        return
+    
+    
     Linez_to_block = []
     Key_blocker = []
     Keys_to_blockz = []
@@ -1021,33 +1038,18 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for KEY in Keys_to_blockz:
             if KEY == keys:
                 if len(adjacency_list) > 5:
-                    Key_blocker.append(KEY)
-    if len(Key_blocker) > 0:
-        for position, coord in Key_Dictionary.items():
-            if Key_blocker[0] == position:
-                coordinates = coord
-                computer.setpos(coordinates[0],coordinates[1])
-                    
-                List_of_your_moves.append(Key_blocker[0])
-                return     
-  
-                    
-    if len(Keys_to_win)> 0:
-        for position, coord in Key_Dictionary.items():
-            if Keys_to_win[0] == position:
-                coordinates = coord
-                computer.setpos(coordinates[0],coordinates[1])
-                List_of_your_moves.append(Keys_to_win[0])
-                return                          
-    
-    #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
-    if len(Keys_to_Remove)> 0:
-        for position, coord in Key_Dictionary.items():
-            if Keys_to_Remove[0] == position:
-                coordinates = coord
-        computer.setpos(coordinates[0],coordinates[1])
-        return
-    # This is the while loop that gives points to pieces based on criteria
+                    # Key_blocker.append(KEY)
+
+                    for position, coord in Key_Dictionary.items():
+                        if KEY == position:
+                            coordinates = coord
+                            computer.setpos(coordinates[0],coordinates[1])
+                        
+                            List_of_your_moves.append(KEY)
+                
+                            return     
+
+    #While loop for checking value
     
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
