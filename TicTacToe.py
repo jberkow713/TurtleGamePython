@@ -959,11 +959,11 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 #These dictionaries will be used in the new function, to decide how the player moves his pieces
 
 def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic):
-'''
-This will be an improved function, for games where the amount of winning spots is less than the length or width of the board
-The logic should be stronger, but I have to test it against it's old self once it is completed, in both games, to see which is 
-Smarter
-'''
+    '''
+    This will be an improved function, for games where the amount of winning spots is less than the length or width of the board
+    The logic should be stronger, but I have to test it against it's old self once it is completed, in both games, to see which is 
+    Smarter
+    '''
     
     
     Remaining_Keys = []
@@ -1003,7 +1003,31 @@ Smarter
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
         return   
+    #Now, want to implement functionality, to make it move smarter....Thinking...Thinking...
+    #You can not allow 3 in a row, on an uncontested line, if there are 2 open spots on either end,
+    #Because at this point, you lose, you can not block both side
+    # SO, 
+    # If opponent has 2 pieces oF  a line, if a third potential spot can be placed by the opponent, and once
+    # that is done, there are open spots on both sides of the line of 3, then you must prevent the line of 3...
+
+    # When you block it, since there will be two choices, 
+    #  you want to block it in the spot, that connects to as many other winning lines as possible
+
+    #First players best move is to move to the center, spot with most possible lines
+    # 2nd player has to move to a spot diagonally connected to the center move, or it's already over
+
+
+
+
+    #So, first player point with most possible empty lines of opponent, PLUS how many lines he can take away
+    # from opponent, PLUS extra value for blocking a diagonal winning line...
+    # Let's start by coding this, and see where it takes us!
     
+    #Eventually have to implement more technical stuff, but to start, we try this and see if it works
+
+
+
+
 
 
 
