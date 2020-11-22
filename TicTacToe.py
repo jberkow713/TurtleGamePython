@@ -402,7 +402,23 @@ Winning_Lines_5X5_O = [("00", "01", "02", "03", "04"), ("10", "11", "12", "13", 
             ("03", "13", "23", "33", "43"), ("04", "14", "24", "34", "44"), ("00", "11", "22", "33", "44"), \
                 ("40", "31", "22", "13", "04")
      ]
+Winning_Lines_5X5_X_HARDER = [("00", "01", "02", "03"), ("01", "02", "03", "04"),("10", "11", "12", "13"), ("11", "12", "13", "14"),\
+    ("20", "21", "22", "23"), ("21", "22", "23", "24"),("30", "31", "32", "33"), ("31", "32", "33", "34"),\
+        ("40", "41", "42", "43"), ("41", "42", "43", "44"), ("00", "10", "20", "30"), ("10", "20", "30", "40"), \
+            ("01", "11", "21", "31"), ("11", "21", "31", "41"), ("02", "12", "22", "32"), ("12", "22", "32", "42"),\
+                ("03", "13", "23", "33"), ("13", "23", "33", "43"), ("04", "14", "24", "34"), ("14", "24", "34", "44"),\
+                    ("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
+                        ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
+#[[00, 01, 02, 03, 04,
+#  10, 11, 12, 13, 14,   
+#  20, 21, 22, 23, 24,
+#  30, 31, 32, 33, 34, 
+#  40, 41, 42, 43, 44
+# 
+# # ]]
+
 Count_5X5 = [5,5,5,5,5,5,5,5,5,5,5,5]
+Count_5X5_HARDER = [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
 
 Remaining_dict_X_5X5 = dict(zip(Winning_Lines_5X5_X, Count_5X5))
 Remaining_dict_O_5X5 = dict(zip(Winning_Lines_5X5_O, Count_5X5))
@@ -413,13 +429,24 @@ X_list2 = [0, 0, (len(Remaining_dict_X_5X5)*Starting_Count2), True, True]
 O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
 O_list2 = [0, 0, (len(Remaining_dict_O_5X5)*Starting_Count2), True, True]
 
+Starting_Count3 = 4 
+
+Remaining_dict_X_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
+Remaining_dict_O_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
+X_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
+O_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
+
+
 
 Updated_X_Dict_5X5 = dict(zip(X_list, X_list2))
 Updated_O_Dict_5X5 = dict(zip(O_list, O_list2))
+
+Updated_X_Dict_5X5_HARDER = dict(zip(X_list, X_list3))
+Updated_O_Dict_5X5_HARDER = dict(zip(X_list, X_list3))
 # print(Remaining_dict_X_5X5)
 # print(Remaining_dict_O_5X5)
-print(Updated_X_Dict_5X5)
-print(Updated_O_Dict_5X5)
+# print(Updated_X_Dict_5X5)
+# print(Updated_O_Dict_5X5)
 
 
 #Shows how many moves are needed to win, using this specific path
@@ -931,6 +958,56 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
 #These dictionaries will be used in the new function, to decide how the player moves his pieces
 
+def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic):
+'''
+This will be an improved function, for games where the amount of winning spots is less than the length or width of the board
+The logic should be stronger, but I have to test it against it's old self once it is completed, in both games, to see which is 
+Smarter
+'''
+    
+    
+    Remaining_Keys = []
+    for key in Key_Dictionary.keys():
+        Remaining_Keys.append(key)
+    #This check makes sure, first, that you block opponent's move, puts key to remove in Keys_to_Remove list
+    Keys_to_Remove = []
+    for winning_line, count in Opponent_Dictionary.items():
+        for Line, Count in Your_Dictionary.items():
+            if winning_line == Line:
+                if count == 1 and Count == Starting_count:
+                    for keys in Line:
+                        if keys in Remaining_Keys:
+                            Keys_to_Remove.append(keys)
+       
+    #Setting up winning move if possible:
+    Keys_to_win = []
+    for winning_line, count in Opponent_Dictionary.items():
+        for Line, Count in Your_Dictionary.items():
+            if Line == winning_line:
+                if Count == 1 and count == Starting_count:
+                    for keys in Line:
+                        if keys in Remaining_Keys:
+                            Keys_to_win.append(keys)
+    
+    if len(Keys_to_win)> 0:
+        for position, coord in Key_Dictionary.items():
+            if Keys_to_win[0] == position:
+                coordinates = coord
+        computer.setpos(coordinates[0],coordinates[1])
+        return                          
+    
+    #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
+    if len(Keys_to_Remove)> 0:
+        for position, coord in Key_Dictionary.items():
+            if Keys_to_Remove[0] == position:
+                coordinates = coord
+        computer.setpos(coordinates[0],coordinates[1])
+        return   
+    
+
+
+
+
 
 turtle.listen()
 turtle.onkey(move_left, "Left") 
@@ -956,12 +1033,12 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Thoughtful_Move(Remaining_dict_O_5X5, Remaining_dict_X_5X5, TicTacdict_5X5, 5, Updated_O_Dict_5X5, Updated_X_Dict_5X5)
+        Thoughtful_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
         # decrease_values(Remaining_dict_O, key)
-        if decrease_values(Remaining_dict_O_5X5, key, Updated_O_Dict_5X5) == 0:
+        if decrease_values(Remaining_dict_O_5X5_HARDER, key, Updated_O_Dict_5X5_HARDER) == 0:
             print("O WINS!!!")
             Game_over = True 
             break
@@ -981,11 +1058,11 @@ while Count <25 and Game_over == False:
         if Count == 25:
             break 
 
-        Thoughtful_Move(Remaining_dict_X_5X5, Remaining_dict_O_5X5, TicTacdict_5X5, 5, Updated_X_Dict_5X5, Updated_O_Dict_5X5)
+        Thoughtful_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, Updated_X_Dict_5X5_HARDER, Updated_O_Dict_5X5_HARDER)
         Coordinat = (comp_draw_x())
         key = (key_name(TicTacdict_5X5, Coordinat))
         # decrease_values(Remaining_dict_X, key)
-        if decrease_values(Remaining_dict_X_5X5, key, Updated_X_Dict_5X5) == 0:
+        if decrease_values(Remaining_dict_X_5X5_HARDER, key, Updated_X_Dict_5X5_HARDER) == 0:
             print("X WINS!!!")
             Game_over = True 
             break
@@ -999,7 +1076,7 @@ while Count <25 and Game_over == False:
         if Count == 25:
             break 
              
-print(Updated_O_Dict_5X5)
-print(Updated_X_Dict_5X5)
+# print(Updated_O_Dict_5X5)
+# print(Updated_X_Dict_5X5)
           
 delay = input("Press enter to finish.")
