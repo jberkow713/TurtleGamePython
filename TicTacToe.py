@@ -1023,18 +1023,26 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
     
     if len(Key_blocker)> 0:
-        #So the keys in List_of_opponent_moves will correspond to spots they have played already,
-        #We need to check these keys, and match them up to the winning_lnz in Keys_to_block
-        #Then, we know the remaining spots you can move to block that winning line
-
-        # Once we have that information, we need to check the remaining keys to see which keys in key blocker are connected
-        # to these keys...key_blocker will often have more than 1 key, and we have to find the key that is connected to the 
+        #for now, we have the computer attempting to block spots of 2, now have to put something in that makes him block
+        # the right spot of 2, meaning, the more open spot
+        #Can do this by checking the adjacency list, the key in Key_blocker with a longer adjacency list, should be the one
+        # more in the open
         #
+        Adjacency_counts = []
+        for KEYZ in Key_blocker:
+            for KY, adj_list in Connected_Dict.items():
+                if KEYZ == KY:
+                    Adjacency_counts.append(len(adj_list))
+
+        Key_Blocker_Dict =  dict(zip(Key_blocker, Adjacency_counts))
+        #Take key with max value in Key_Blocker_Dict, to find which one we need to block
+        Maximums_the_great_blocker = max(Key_Blocker_Dict, key=Key_Blocker_Dict.get)
         for position, coord in Key_Dictionary.items():
-            if Key_blocker[0] == position:
+            if Maximums_the_great_blocker == position:
                 coordinates = coord
                 computer.setpos(coordinates[0],coordinates[1])
-                List_of_your_moves.append(Key_blocker[0])
+                
+                List_of_your_moves.append(Maximums_the_great_blocker)
                 return                                    
         
                     
