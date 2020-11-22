@@ -409,6 +409,12 @@ Winning_Lines_5X5_X_HARDER = [("00", "01", "02", "03"), ("01", "02", "03", "04")
                 ("03", "13", "23", "33"), ("13", "23", "33", "43"), ("04", "14", "24", "34"), ("14", "24", "34", "44"),\
                     ("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
                         ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
+
+Diagonal_line_list = [("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
+    ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
+List_of_X_moves = []
+List_of_Y_moves = []
+
 #[[00, 01, 02, 03, 04,
 #  10, 11, 12, 13, 14,   
 #  20, 21, 22, 23, 24,
@@ -433,6 +439,7 @@ Starting_Count3 = 4
 
 Remaining_dict_X_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
 Remaining_dict_O_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
+
 X_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
 O_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
 
@@ -1002,7 +1009,103 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             if Keys_to_Remove[0] == position:
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
-        return   
+        return
+    # This is the while loop that gives points to pieces based on criteria
+    
+    Keys_Remaining = len(Remaining_Keys)
+    Winning_Line_Count = []
+    Winning_lines_Containers = []
+    Blocking_lines_Containers = []
+    Count = 0
+    index = 0
+    
+    while Keys_Remaining > 0:
+        
+        key = Remaining_Keys[index]
+
+        for Winning_Line, value in Opponent_Dictionary.items():
+            if value == Starting_count:
+                Winning_lines_Containers.append(Winning_Line)
+        #1) Most possible lines +1 points
+        for winning_line in Winning_lines_Containers:
+            for value in winning_line:
+                if key in value:
+                    Count +=1
+        #2) Blocking lines of opponent +1 point
+        for Winning_lines, values in Opponent_Dictionary.items():
+            for Winning_linez, valuez in Your_Dictionary.items():
+                if Winning_lines == Winning_linez:
+                    if values < Starting_count and valuez == Starting_count:
+                        Blocking_lines_Containers.append(Winning_lines)
+
+        for W_linez in Blocking_lines_Containers:
+            for valu in W_linez:
+                if key in valu:
+                    Count +=1
+        #3) Blocking Diagonal lines of Opponent
+        for LINES in Diagonal_line_list:
+            for values in LINES:
+                if key in values:
+                    Count +=1
+        #4) Attempt to connect your positions-Connected_Dict +1 
+        Winning_Line_Count.append(Count)
+        Count = 0 
+        Winning_lines_Containers.clear()        
+        index +=1
+        Keys_Remaining -=1
+
+    Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
+    
+    Random_Final_Choiz = []
+    Random_Best_Choice = []
+    Random_Key = []    
+    for key, value in Best_Choice.items():
+        Random_Best_Choice.append(value)
+    
+    max_val = max(Random_Best_Choice)
+    
+    for key, value in Best_Choice.items():
+        if value == max_val:
+            Random_Key.append(key)
+    
+    if len(Random_Key) > 1:
+        random_guy = random.randint(0, (len(Random_Key)-1))
+        Random_Final_Choiz.append(Random_Key[random_guy])
+        
+        for position, coord in Key_Dictionary.items():
+            if Random_Final_Choiz[0] == position:
+                coordinates = coord 
+
+                computer.setpos(coordinates[0],coordinates[1])
+                # print(Random_Key)
+                return     
+    
+
+    Best_Key = max(Best_Choice, key=Best_Choice.get)
+    for position, coord in Key_Dictionary.items():
+        if Best_Key == position:
+            coordinates = coord 
+
+    computer.setpos(coordinates[0],coordinates[1])
+    # print(Random_Key)
+    return 
+
+    
+                
+
+                
+
+
+
+    #1) Most possible lines +1 points
+
+
+    #2) Blocking lines of opponent +1 point
+    #3) Blocking Diagonal lines of Opponent +1....Need a list of diagonal lines, #Diagonal_line_list
+    #4) Attempt to connect your positions-Connected_Dict +1 
+
+
+
     #Now, want to implement functionality, to make it move smarter....Thinking...Thinking...
     #You can not allow 3 in a row, on an uncontested line, if there are 2 open spots on either end,
     #Because at this point, you lose, you can not block both side
@@ -1019,14 +1122,47 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
 
 
+
+
     #So, first player point with most possible empty lines of opponent, PLUS how many lines he can take away
     # from opponent, PLUS extra value for blocking a diagonal winning line...
     # Let's start by coding this, and see where it takes us!
     
     #Eventually have to implement more technical stuff, but to start, we try this and see if it works
+    
+
+    #1) Most possible lines +1 points
+    #2) Blocking lines of opponent +1 point
+    #3) Blocking Diagonal lines of Opponent +1....Need a list of diagonal lines, #Diagonal_line_list
+    #4) Attempt to connect your positions-Connected_Dict +1 
+
+# Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
+#    "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
+
+                                                    #[[00, 01, 02, 03, 04,
+                                                    #  10, 11, 12, 13, 14,   
+                                                    #  20, 21, 22, 23, 24,
+                                                    #  30, 31, 32, 33, 34, 
+                                                    #  40, 41, 42, 43, 44
+
+Connected_List = [("01", "10", "11"), ("00", "02", "10", "11", "12"), ("01", "11", "12", "13", "03"), ("02", "12", "13", "14", "04"),\
+    
+    ("03", "13", "14"), ("00", "01", "11", "20", "21"), ("00", "01", "02", "10", "12", "20", "21", "22"), ("01", "02", "03", "11", "13", "21", "22", "23"),\
+        ("02", "03", "04", "12", "14", "22", "23", "24"), ("03", "04", "13", "23", "24"),\
+            ("10", "11", "21", "30", "31"), ("10", "11", "12", "20", "22", "30", "31", "32"), ("11", "12", "13", "21", "23", "31", "32", "33"),\
+                ("12", "13", "14", "22", "24", "32", "33", "34"), ("13", "14", "23", "33", "34"),\
+                    ("20", "21", "31", "40", "41"), ("20", "21", "22", "30", "32", "40", "41", "42"),\
+                        ("21", "22", "23", "31", "33", "41", "42", "43"),("22", "23", "24", "32", "34", "42", "43", "44"),\
+                            ("30", "31", "41"), ("30", "31", "32", "40", "42"), ("31", "33", "33", "41", "43"),\
+                                ("32", "33", "34", "42", "44"), ("33", "34", "43")]
+
+Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
+print(Connected_Dict)
 
 
 
+
+            
 
 
 
@@ -1057,7 +1193,7 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Thoughtful_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER)
+        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
@@ -1082,7 +1218,7 @@ while Count <25 and Game_over == False:
         if Count == 25:
             break 
 
-        Thoughtful_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, Updated_X_Dict_5X5_HARDER, Updated_O_Dict_5X5_HARDER)
+        Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, Updated_X_Dict_5X5_HARDER, Updated_O_Dict_5X5_HARDER)
         Coordinat = (comp_draw_x())
         key = (key_name(TicTacdict_5X5, Coordinat))
         # decrease_values(Remaining_dict_X, key)
