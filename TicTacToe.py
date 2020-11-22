@@ -1014,47 +1014,23 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 Keys_to_blockz.append(spot)
 
     #Adjacency keys have keys in the line we want to block, Keys to blocks represents keys we can use, 
-    # We need to test which keys in keys to blocks are adjacent to keys in adjacency keys
-    #Also, we want to test if its necessary to block, meaning adjacency len value around the Keyz_to_blockz > 5
+    # We need to test which keys we can block by finding the keys in the line, and taking out the ones already player
+    # Then we test remaining keys, to see if adjacency len value in the Adjacency Dict is > 5, meaning theyre not on an edge,
+    # If so, we block that spot
     for keys, adjacency_list in Connected_Dict.items():
         for KEY in Keys_to_blockz:
             if KEY == keys:
                 if len(adjacency_list) > 5:
                     Key_blocker.append(KEY)
-
-        
-        
-        # for keyZZ in adjacency_keys:
-        #     for KEY in Keys_to_blockz:
-        #         if keyZZ == keys:
-        #             if KEY in adjacency_list:
-                        
-        #                 Key_blocker.append(KEY)
-
-    
-    if len(Key_blocker)> 0:
-        #for now, we have the computer attempting to block spots of 2, now have to put something in that makes him block
-        # the right spot of 2, meaning, the more open spot
-        #Can do this by checking the adjacency list, the key in Key_blocker with a longer adjacency list, should be the one
-        # more in the open, better to block this one
-        #
-        Adjacency_counts = []
-        for KEYZ in Key_blocker:
-            for KY, adj_list in Connected_Dict.items():
-                if KEYZ == KY:
-                    Adjacency_counts.append(len(adj_list))
-
-        Key_Blocker_Dict =  dict(zip(Key_blocker, Adjacency_counts))
-        #Take key with max value in Key_Blocker_Dict, to find which one we need to block
-        Maximums_the_great_blocker = max(Key_Blocker_Dict, key=Key_Blocker_Dict.get)
+    if len(Key_blocker) > 0:
         for position, coord in Key_Dictionary.items():
-            if Maximums_the_great_blocker == position:
+            if Key_blocker[0] == position:
                 coordinates = coord
                 computer.setpos(coordinates[0],coordinates[1])
-                
-                List_of_your_moves.append(Maximums_the_great_blocker)
-                return                                    
-        
+                    
+                List_of_your_moves.append(Key_blocker[0])
+                return     
+  
                     
     if len(Keys_to_win)> 0:
         for position, coord in Key_Dictionary.items():
