@@ -413,7 +413,7 @@ Winning_Lines_5X5_X_HARDER = [("00", "01", "02", "03"), ("01", "02", "03", "04")
 Diagonal_line_list = [("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
     ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
 List_of_X_moves = []
-List_of_Y_moves = []
+List_of_O_moves = []
 
 #[[00, 01, 02, 03, 04,
 #  10, 11, 12, 13, 14,   
@@ -965,7 +965,8 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
 #These dictionaries will be used in the new function, to decide how the player moves his pieces
 
-def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic):
+def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic,\
+    List_of_Opponent_Moves, List_of_your_moves):
     '''
     This will be an improved function, for games where the amount of winning spots is less than the length or width of the board
     The logic should be stronger, but I have to test it against it's old self once it is completed, in both games, to see which is 
@@ -996,12 +997,54 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         if keys in Remaining_Keys:
                             Keys_to_win.append(keys)
     
+    Linez_to_block = []
+    Key_blocker = []
+    Keys_to_blockz = []
+    adjacency_keys = []
+    
+    for winning_line, value in Opponent_Dictionary.items():
+        if value == (Starting_count -2):
+            Linez_to_block.append(winning_line)
+    for line in Linez_to_block:
+        for spot in line:
+            if spot in List_of_Opponent_Moves:
+                adjacency_keys.append(spot)
+            elif spot not in List_of_Opponent_Moves:
+                Keys_to_blockz.append(spot)
+
+    #Adjacency keys have keys in the line we want to block, Keys to blocks represents keys we can use, 
+    # We need to test which keys in keys to blocks are adjacent to keys in adjacency keys
+    for keys, adjacency_list in Connected_Dict.items():
+        for keyZZ in adjacency_keys:
+            for KEY in Keys_to_blockz:
+                if keyZZ == keys:
+                    if KEY in adjacency_list:
+                        Key_blocker.append(KEY)
+
+    
+    if len(Key_blocker)> 0:
+        #So the keys in List_of_opponent_moves will correspond to spots they have played already,
+        #We need to check these keys, and match them up to the winning_lnz in Keys_to_block
+        #Then, we know the remaining spots you can move to block that winning line
+
+        # Once we have that information, we need to check the remaining keys to see which keys in key blocker are connected
+        # to these keys...key_blocker will often have more than 1 key, and we have to find the key that is connected to the 
+        #
+        for position, coord in Key_Dictionary.items():
+            if Key_blocker[0] == position:
+                coordinates = coord
+                computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Key_blocker[0])
+                return                                    
+        
+                    
     if len(Keys_to_win)> 0:
         for position, coord in Key_Dictionary.items():
             if Keys_to_win[0] == position:
                 coordinates = coord
-        computer.setpos(coordinates[0],coordinates[1])
-        return                          
+                computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Keys_to_win[0])
+                return                          
     
     #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
     if len(Keys_to_Remove)> 0:
@@ -1047,7 +1090,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             for values in LINES:
                 if key in values:
                     Count +=1
-        #4) Attempt to connect your positions-Connected_Dict +1 
+        
+
+
+
         Winning_Line_Count.append(Count)
         Count = 0 
         Winning_lines_Containers.clear()        
@@ -1077,6 +1123,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 coordinates = coord 
 
                 computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Random_Final_Choiz[0])
                 # print(Random_Key)
                 return     
     
@@ -1087,6 +1134,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             coordinates = coord 
 
     computer.setpos(coordinates[0],coordinates[1])
+    List_of_your_moves.append(Best_Key)
     # print(Random_Key)
     return 
 
@@ -1193,7 +1241,8 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER)
+        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
+            List_of_X_moves, List_of_O_moves)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
@@ -1218,7 +1267,8 @@ while Count <25 and Game_over == False:
         if Count == 25:
             break 
 
-        Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, Updated_X_Dict_5X5_HARDER, Updated_O_Dict_5X5_HARDER)
+        Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, Updated_X_Dict_5X5_HARDER, Updated_O_Dict_5X5_HARDER,\
+            List_of_O_moves, List_of_X_moves)
         Coordinat = (comp_draw_x())
         key = (key_name(TicTacdict_5X5, Coordinat))
         # decrease_values(Remaining_dict_X, key)
