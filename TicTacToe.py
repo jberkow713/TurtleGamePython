@@ -1003,8 +1003,9 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     adjacency_keys = []
     
     for winning_line, value in Opponent_Dictionary.items():
-        if value == (Starting_count -2):
-            Linez_to_block.append(winning_line)
+        for Line, val in Your_Dictionary.items():
+            if value == (Starting_count -2) and val == Starting_count:
+                Linez_to_block.append(winning_line)
     for line in Linez_to_block:
         for spot in line:
             if spot in List_of_Opponent_Moves:
@@ -1014,19 +1015,28 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
     #Adjacency keys have keys in the line we want to block, Keys to blocks represents keys we can use, 
     # We need to test which keys in keys to blocks are adjacent to keys in adjacency keys
+    #Also, we want to test if its necessary to block, meaning adjacency len value around the Keyz_to_blockz > 5
     for keys, adjacency_list in Connected_Dict.items():
-        for keyZZ in adjacency_keys:
-            for KEY in Keys_to_blockz:
-                if keyZZ == keys:
-                    if KEY in adjacency_list:
-                        Key_blocker.append(KEY)
+        for KEY in Keys_to_blockz:
+            if KEY == keys:
+                if len(adjacency_list) > 5:
+                    Key_blocker.append(KEY)
+
+        
+        
+        # for keyZZ in adjacency_keys:
+        #     for KEY in Keys_to_blockz:
+        #         if keyZZ == keys:
+        #             if KEY in adjacency_list:
+                        
+        #                 Key_blocker.append(KEY)
 
     
     if len(Key_blocker)> 0:
         #for now, we have the computer attempting to block spots of 2, now have to put something in that makes him block
         # the right spot of 2, meaning, the more open spot
         #Can do this by checking the adjacency list, the key in Key_blocker with a longer adjacency list, should be the one
-        # more in the open
+        # more in the open, better to block this one
         #
         Adjacency_counts = []
         for KEYZ in Key_blocker:
@@ -1077,11 +1087,12 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for Winning_Line, value in Opponent_Dictionary.items():
             if value == Starting_count:
                 Winning_lines_Containers.append(Winning_Line)
-        #1) Most possible lines +1 points
+        
         for winning_line in Winning_lines_Containers:
             for value in winning_line:
-                if key in value:
+                if key == value:
                     Count +=1
+        
         #2) Blocking lines of opponent +1 point
         for Winning_lines, values in Opponent_Dictionary.items():
             for Winning_linez, valuez in Your_Dictionary.items():
@@ -1091,14 +1102,16 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
         for W_linez in Blocking_lines_Containers:
             for valu in W_linez:
-                if key in valu:
+                if key == valu:
                     Count +=1
         #3) Blocking Diagonal lines of Opponent
         for LINES in Diagonal_line_list:
             for values in LINES:
                 if key in values:
                     Count +=1
-        
+        # 4)Incentivize moving at a diagonal as well
+
+
 
 
 
@@ -1115,13 +1128,13 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Random_Key = []    
     for key, value in Best_Choice.items():
         Random_Best_Choice.append(value)
-    
+    print(Random_Best_Choice) 
     max_val = max(Random_Best_Choice)
     
     for key, value in Best_Choice.items():
         if value == max_val:
             Random_Key.append(key)
-    
+   
     if len(Random_Key) > 1:
         random_guy = random.randint(0, (len(Random_Key)-1))
         Random_Final_Choiz.append(Random_Key[random_guy])
