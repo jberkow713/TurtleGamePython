@@ -1028,6 +1028,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     #Then after, we want to use the same logic, to block opponent if you cant make your own 3
     
     Pre_lines = []
+    Set_list = []
     Linez_to_make_triples = []
     Keys_to_move_to = []
     adjacency_keys = []
@@ -1036,11 +1037,47 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         if value == Starting_count-2:
             for Line, Val in Opponent_Dictionary.items():
                 if Ln == Line and Val == Starting_count:
-                    Linez_to_make_triples.append(Ln)
+                    Pre_lines.append(Ln)
+    
+    for lst in Pre_lines:
+        setlists = set(lst)
+        Set_list.append(setlists)
+
+    #Need to find a way to take Pre_Lines, if it is more than 2 lines, and condense it to the 2 lines 
+    # That we want to operate on, so the computer knows where to go, and where to block
+    # Currently it is only working in the beginning, as it nears the end of the game, there may be 2-4 or more lines
+    # in pre lines, and then it doesnt know which to operate on
+
+
+                    # Linez_to_make_triples.append(Ln)
+    Len_Pre_lines = len(Pre_lines)
+    Count = 0
+    index = 0
+    while Len_Pre_lines > 0:
+
+        key = Pre_lines[index]
+        Keys_Set = set(key)
+        #so we want to turn all lists inside Pre_Lines into sets, this is found in Set_list
+        #Now we want to compare Keys_Set to all the sets inside Set_list
+        for Lsts in Set_list:
+            A = Keys_Set.intersection(Lsts)
+            Count += len(A)
+
+        if Count >= 7:
+            Linez_to_make_triples.append(key)
+
+        Count = 0
+        index +=1
+        Len_Pre_lines -=1
+    
+    #Want to test if 2 of the lines in Pre_lines share 2 elements
+    # if they do, we want to append them to Linez_to_make_triples                
+                    
                   
     
     if len(Linez_to_make_triples) == 2:
-        print(Linez_to_make_triples) 
+        print(Linez_to_make_triples)
+        # print(Linez_to_make_triples) 
         
         for position in Linez_to_make_triples:
             for spot in position:
@@ -1050,8 +1087,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 elif spot not in List_of_your_moves:
                     if spot not in Keys_to_move_to:
                         Keys_to_move_to.append(spot)
-        print(Keys_to_move_to)
-        print(adjacency_keys)            
+        # print(Keys_to_move_to)
+        # print(adjacency_keys)            
         #Now we have the keys that already exist on these lines in adjacency keys, and the ones we have to consider adding in 
         # Keys to move to
         # There are two situations where we want to move to a key...if a key in keys_to_move_to is in both adjacency lists of adjacency
@@ -1065,7 +1102,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Count = 0
         index = 0 
         while Len_Keys > 0:
-
+            #Keys to move to represents the possible OPEN spot to move to
             key = Keys_to_move_to[index]
 
             for keys, adjacency_list in Connected_Dict.items():
@@ -1082,34 +1119,44 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 index +=1
                 Len_Keys -=1
 
+            #This while loop is basically checking if one of the keys is in between 2 keys in existence...in which case, 
+            # you move to it
+
         if len(Shared_adjacency_list_value) == 1:
-            print(Shared_adjacency_list_value[0])
+            # print(Shared_adjacency_list_value[0])
             for position, coord in Key_Dictionary.items():
                 if Shared_adjacency_list_value[0] == position:
                     coordinates = coord
                     computer.setpos(coordinates[0],coordinates[1])
                     List_of_your_moves.append(Shared_adjacency_list_value[0])
                     return
-        
+        #If the key is not between 2 open keys, we have to decide which key to move to
         elif len(Shared_adjacency_list_value) == 0:
             Ky_to_Block = []    
             for keys, adjacency_list in Connected_Dict.items():
                 for KYs in Keys_to_move_to:
+                    #This is referring to a key being not on an edge, which by default, you want to move to it
+                    #But what we need is a way to instruct the computer to move to potentially an edge case like 
+                    # _
+                    # _
+                    # x
+                    # x
+                    # _
+                    # It has to know which spot here to move to
                     if KYs == keys and len(adjacency_list) > 5:
                         Ky_to_Block.append(KYs)
-            for position, coord in Key_Dictionary.items():
-                if Ky_to_Block[0] == position:
-                    print(Ky_to_Block[0])
-                    coordinates = coord
-                    computer.setpos(coordinates[0],coordinates[1])
-                    List_of_your_moves.append(Ky_to_Block[0])
-                    return            
+
+            if len(Ky_to_Block) == 1:
+                # print(Ky_to_Block[0])
+
+                for position, coord in Key_Dictionary.items():
+                    if Ky_to_Block[0] == position:
+                        # print(Ky_to_Block[0])
+                        coordinates = coord
+                        computer.setpos(coordinates[0],coordinates[1])
+                        List_of_your_moves.append(Ky_to_Block[0])
+                        return            
             
-
-
-
-
-
 
     Linez_to_block = []
     Key_blocker = []
@@ -1156,6 +1203,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Count = 0
     index = 0
     Adjacency_list = []
+    Adj_list_2 = []
     while Keys_Remaining > 0:
         
         key = Remaining_Keys[index]
@@ -1197,19 +1245,38 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for keys in List_of_your_moves:
             if keys in adjacent_to_key:
                 Adjacency_list.append(keys)
-
+                
         Total_near = len(adjacent_to_key) - len(Adjacency_list)
         Count += Total_near                 
-                     
+        
+        #5) Try to force it initially to place pieces near pieces it already has on board
+        #Check spots it has already moved, and if key is in those spots adjacency_lists in the connected.dict, 
+        #add big count value 
+        for previous_moves in List_of_your_moves:
+            for K, V in Connected_Dict.items():
+                if previous_moves == K:
+                    if V not in Adj_list_2:
+                        Adj_list_2.append(V)
+        # print(Adj_list_2)
+        for lists in Adj_list_2:
+            for val in lists:
+                if key in val:
+                    Count +=50          
+
+            
+
+
+
         Winning_Line_Count.append(Count)
         Count = 0 
         Adjacency_list.clear()
+        Adj_list_2.clear()
         Winning_lines_Containers.clear()        
         index +=1
         Keys_Remaining -=1
 
     Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
-    
+    # print(Best_Choice)
     Random_Final_Choiz = []
     Random_Best_Choice = []
     Random_Key = []    
@@ -1217,6 +1284,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Random_Best_Choice.append(value)
     # print(Random_Best_Choice) 
     max_val = max(Random_Best_Choice)
+    
     
     for key, value in Best_Choice.items():
         if value == max_val:
@@ -1295,8 +1363,8 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Thoughtful_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
-            List_of_O_moves)
+        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
+            List_of_X_moves, List_of_O_moves)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
