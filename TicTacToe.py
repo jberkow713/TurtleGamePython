@@ -1132,35 +1132,46 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     return
         #If the key is not between 2 open keys, we have to decide which key to move to
         elif len(Shared_adjacency_list_value) == 0:
-            Ky_to_Block = []
-            Mx_adj_val = []    
-            for keys, adjacency_list in Connected_Dict.items():
-                for KYs in Keys_to_move_to:
-
+            
+            Mx_adj_val = []
+               
+            for KYs in Keys_to_move_to:
+                for keys, adjacency_list in Connected_Dict.items():
+                
                     if KYs == keys:
                         Mx_adj_val.append(len(adjacency_list))
-
-                    if max(Mx_adj_val) >5:
-                        
-                        if KYs == keys and len(adjacency_list) > 5:
-                            Ky_to_Block.append(KYs)
-                    
-                    elif max(Mx_adj_val) == 5:
-                        if KYs == keys and len(adjacency_list) == 5:
-                            Ky_to_Block.append(KYs)
-
-
-            if len(Ky_to_Block) == 1:
-                # print(Ky_to_Block[0])
-
-                for position, coord in Key_Dictionary.items():
-                    if Ky_to_Block[0] == position:
-                        # print(Ky_to_Block[0])
-                        coordinates = coord
-                        computer.setpos(coordinates[0],coordinates[1])
-                        List_of_your_moves.append(Ky_to_Block[0])
-                        return            
             
+            print(Mx_adj_val) 
+            
+
+            
+            #                 Ky_to_Block.append(KYs)
+            Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
+            print(Max_Adjacent_Dict)
+            Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
+            for position, coord in Key_Dictionary.items():
+                if Best_Key == position:
+                    coordinates = coord 
+
+                    computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Best_Key)
+            # print(Random_Key)
+                    return 
+
+
+            # if len(Ky_to_Block) == 1:
+            #     # print(Ky_to_Block[0])
+
+            #     for position, coord in Key_Dictionary.items():
+            #         if Ky_to_Block[0] == position:
+            #             # print(Ky_to_Block[0])
+            #             coordinates = coord
+            #             computer.setpos(coordinates[0],coordinates[1])
+            #             List_of_your_moves.append(Ky_to_Block[0])
+            #             return            
+            
+    #TODO
+    #Implement same functionality found above, but in case of perhaps blocking one of these cases instead of attacking
 
     Linez_to_block = []
     Key_blocker = []
@@ -1367,8 +1378,8 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
-            List_of_X_moves, List_of_O_moves)
+        Thoughtful_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
+            List_of_O_moves)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
