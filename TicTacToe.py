@@ -1132,19 +1132,23 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     return
         #If the key is not between 2 open keys, we have to decide which key to move to
         elif len(Shared_adjacency_list_value) == 0:
-            Ky_to_Block = []    
+            Ky_to_Block = []
+            Mx_adj_val = []    
             for keys, adjacency_list in Connected_Dict.items():
                 for KYs in Keys_to_move_to:
-                    #This is referring to a key being not on an edge, which by default, you want to move to it
-                    #But what we need is a way to instruct the computer to move to potentially an edge case like 
-                    # _
-                    # _
-                    # x
-                    # x
-                    # _
-                    # It has to know which spot here to move to
-                    if KYs == keys and len(adjacency_list) > 5:
-                        Ky_to_Block.append(KYs)
+
+                    if KYs == keys:
+                        Mx_adj_val.append(len(adjacency_list))
+
+                    if max(Mx_adj_val) >5:
+                        
+                        if KYs == keys and len(adjacency_list) > 5:
+                            Ky_to_Block.append(KYs)
+                    
+                    elif max(Mx_adj_val) == 5:
+                        if KYs == keys and len(adjacency_list) == 5:
+                            Ky_to_Block.append(KYs)
+
 
             if len(Ky_to_Block) == 1:
                 # print(Ky_to_Block[0])
