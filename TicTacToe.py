@@ -386,7 +386,7 @@ Bigger_Board_Coords = [[-400, 280], [-200, 280], [0, 280], [200, 280], [400, 280
     ]
 
 TicTacdict_5X5 = dict(zip(Name_of_Bigger_Spots, Bigger_Board_Coords))
-print(TicTacdict_5X5)
+# print(TicTacdict_5X5)
 
 #Need Winning Possible Lines
 
@@ -563,7 +563,8 @@ def random_move(dictionary):
         
     return dictionary
 
-def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic):
+def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic, \
+    List_of_your_moves):
     '''
     Your Dictionary is your Dictionary of Winning Lines and their counts
     Opponent Dictionary is their Dictionary of Winning Lines and their counts
@@ -599,6 +600,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             if Keys_to_win[0] == position:
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
+        List_of_your_moves.append(Keys_to_win[0])
         return                          
     
     #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
@@ -607,6 +609,8 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             if Keys_to_Remove[0] == position:
                 coordinates = coord
         computer.setpos(coordinates[0],coordinates[1])
+        List_of_your_moves.append(Keys_to_Remove[0])
+        
         return   
     
     #Check here to see if you can no longer increase winning possible lines, and we can lower opponents lines, 
@@ -703,6 +707,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         coordinates = coord 
 
                         computer.setpos(coordinates[0],coordinates[1])
+                        List_of_your_moves.append(Random_Final_Choice[0])
                         # print(Random_Key)
                         return 
 
@@ -712,6 +717,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     coordinates = coord 
 
                 computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Best_Key)
             # print(Random_Key)
                 return
         
@@ -732,6 +738,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     coordinates = coord 
 
             computer.setpos(coordinates[0],coordinates[1])
+            List_of_your_moves.append(Random_Final_Choice[0])
                 # print(Random_Key)
             return         
         
@@ -741,6 +748,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 coordinates = coord 
 
         computer.setpos(coordinates[0],coordinates[1])
+        List_of_your_moves.append(Best_Key)
     # print(Random_Key)
         return 
     #TODO 
@@ -796,6 +804,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     coordinates = coord 
 
                     computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Random_Final_Choice[0])
                     # print(Random_Key)
                     return 
 
@@ -804,9 +813,10 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             if Best_Key == position:
                 coordinates = coord 
 
-            computer.setpos(coordinates[0],coordinates[1])
-        # print(Random_Key)
-            return 
+                computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Best_Key)
+            # print(Random_Key)
+                return 
          
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
@@ -846,7 +856,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     #Dictionary of remaining keys, and their values, higher = better spot
         
     Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
-    print(Best_Choice)
+    # print(Best_Choice)
     Random_Final_Choiz = []
     Random_Best_Choice = []
     Random_Key = []    
@@ -882,8 +892,8 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 elif winning_line == Winning_Line:
                     if Count < Starting_Count and count == Starting_count:
                         Opponent_lines_Container.append(Winning_Line)
-        print(Winning_lines_Container)
-        print(Opponent_lines_Container)
+        # print(Winning_lines_Container)
+        # print(Opponent_lines_Container)
         #The opponents winning lines are in the Winning_line_container
         #So we want the key that intersects as many of these lines as possible
         while Keys_Remaining > 0:
@@ -910,7 +920,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             
         for keys in Final_line_keys:
             Random_Keyz.append(keys)
-        print(Random_Keyz)        
+        # print(Random_Keyz)        
         
         if len(Random_Keyz) == 1:
             for position, coord in Key_Dictionary.items():
@@ -918,6 +928,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     coordinates = coord 
 
                     computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Random_Keyz[0])
                     # print(Random_Key)
                     return 
         elif len(Random_Keyz)> 1:
@@ -929,12 +940,10 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     coordinates = coord 
 
                     computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Random_Final_Choizes[0])
                 # print(Random_Key)
                     return  
-
-
-        
-                        
+                       
             
     if len(Random_Key) > 1:
         random_guy = random.randint(0, (len(Random_Key)-1))
@@ -945,6 +954,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 coordinates = coord 
 
                 computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Random_Final_Choiz[0])
                 # print(Random_Key)
                 return     
     
@@ -954,9 +964,10 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         if Best_Key == position:
             coordinates = coord 
 
-    computer.setpos(coordinates[0],coordinates[1])
-    # print(Random_Key)
-    return 
+            computer.setpos(coordinates[0],coordinates[1])
+            List_of_your_moves.append(Best_Key)
+            # print(Random_Key)
+            return 
 
 
 
@@ -1010,15 +1021,102 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for position, coord in Key_Dictionary.items():
             if Keys_to_Remove[0] == position:
                 coordinates = coord
-        computer.setpos(coordinates[0],coordinates[1])
-        return
+                computer.setpos(coordinates[0],coordinates[1])
+                List_of_your_moves.append(Keys_to_Remove[0])
+                return
+    #Here we want to force the computer to go 3 in a row if it has 2 open lines
+    #Then after, we want to use the same logic, to block opponent if you cant make your own 3
     
+    Pre_lines = []
+    Linez_to_make_triples = []
+    Keys_to_move_to = []
+    adjacency_keys = []
+
+    for Ln, value in Your_Dictionary.items():
+        if value == Starting_count-2:
+            for Line, Val in Opponent_Dictionary.items():
+                if Ln == Line and Val == Starting_count:
+                    Linez_to_make_triples.append(Ln)
+                  
     
+    if len(Linez_to_make_triples) == 2:
+        print(Linez_to_make_triples) 
+        
+        for position in Linez_to_make_triples:
+            for spot in position:
+                if spot in List_of_your_moves:
+                    if spot not in adjacency_keys:
+                        adjacency_keys.append(spot)
+                elif spot not in List_of_your_moves:
+                    if spot not in Keys_to_move_to:
+                        Keys_to_move_to.append(spot)
+        print(Keys_to_move_to)
+        print(adjacency_keys)            
+        #Now we have the keys that already exist on these lines in adjacency keys, and the ones we have to consider adding in 
+        # Keys to move to
+        # There are two situations where we want to move to a key...if a key in keys_to_move_to is in both adjacency lists of adjacency
+        # keys, that is the key we want to move to, always
+
+        # Otherwise, we want to move to the key that has len in adjacency dict of >5, meaning its in the center....
+        #Test to see if any of the keys in Keys_to_move_to are in the values of the keys in adjacency list
+
+        Len_Keys = len(Keys_to_move_to)
+        Shared_adjacency_list_value = []
+        Count = 0
+        index = 0 
+        while Len_Keys > 0:
+
+            key = Keys_to_move_to[index]
+
+            for keys, adjacency_list in Connected_Dict.items():
+                for KYS in adjacency_keys:
+                    if KYS == keys:
+                        for values in adjacency_list:
+                            if key in values:
+                                Count +=1
+
+            if Count == 2:
+                Shared_adjacency_list_value.append(key)
+            else:
+                Count = 0
+                index +=1
+                Len_Keys -=1
+
+        if len(Shared_adjacency_list_value) == 1:
+            print(Shared_adjacency_list_value[0])
+            for position, coord in Key_Dictionary.items():
+                if Shared_adjacency_list_value[0] == position:
+                    coordinates = coord
+                    computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Shared_adjacency_list_value[0])
+                    return
+        
+        elif len(Shared_adjacency_list_value) == 0:
+            Ky_to_Block = []    
+            for keys, adjacency_list in Connected_Dict.items():
+                for KYs in Keys_to_move_to:
+                    if KYs == keys and len(adjacency_list) > 5:
+                        Ky_to_Block.append(KYs)
+            for position, coord in Key_Dictionary.items():
+                if Ky_to_Block[0] == position:
+                    print(Ky_to_Block[0])
+                    coordinates = coord
+                    computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Ky_to_Block[0])
+                    return            
+            
+
+
+
+
+
+
     Linez_to_block = []
     Key_blocker = []
     Keys_to_blockz = []
     adjacency_keys = []
     
+
     for winning_line, value in Opponent_Dictionary.items():
         for Line, val in Your_Dictionary.items():
             if value == (Starting_count -2) and val == Starting_count:
@@ -1117,7 +1215,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Random_Key = []    
     for key, value in Best_Choice.items():
         Random_Best_Choice.append(value)
-    print(Random_Best_Choice) 
+    # print(Random_Best_Choice) 
     max_val = max(Random_Best_Choice)
     
     for key, value in Best_Choice.items():
@@ -1170,7 +1268,7 @@ Connected_List = [("01", "10", "11"), ("00", "02", "10", "11", "12"), ("01", "11
                                 ("32", "33", "34", "42", "44"), ("33", "34", "43")]
 
 Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
-print(Connected_Dict)
+# print(Connected_Dict)
 
 
 turtle.listen()
@@ -1197,8 +1295,8 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
-            List_of_X_moves, List_of_O_moves)
+        Thoughtful_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
+            List_of_O_moves)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
