@@ -984,7 +984,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Smarter
     '''
     
-    
+    #Remaining Keys represents possible spots to move to in any given move
     Remaining_Keys = []
     for key in Key_Dictionary.keys():
         Remaining_Keys.append(key)
@@ -1007,7 +1007,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     for keys in Line:
                         if keys in Remaining_Keys:
                             Keys_to_win.append(keys)
-    
+    #Check if you can win
     if len(Keys_to_win)> 0:
         for position, coord in Key_Dictionary.items():
             if Keys_to_win[0] == position:
@@ -1016,7 +1016,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 List_of_your_moves.append(Keys_to_win[0])
                 return                          
     
-    #This check ensures if a spot must be blocked, then it is blocked first, and returned immediately
+    #Check if you MUST block winning move of opponent
     if len(Keys_to_Remove)> 0:
         for position, coord in Key_Dictionary.items():
             if Keys_to_Remove[0] == position:
@@ -1024,8 +1024,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 computer.setpos(coordinates[0],coordinates[1])
                 List_of_your_moves.append(Keys_to_Remove[0])
                 return
-    #Here we want to force the computer to go 3 in a row if it has 2 open lines
-    #Then after, we want to use the same logic, to block opponent if you cant make your own 3
+    
+    #Hardest part to program. Needs to check if it must make 3rd move in a line of 5 when going for 4 in a row
+    # Has to check its dictionary values, and find the two lines that overlap, then enter several while functions
+    # And ultimately find the right spot to move to
     
     Pre_lines = []
     Set_list = []
@@ -1043,13 +1045,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         setlists = set(lst)
         Set_list.append(setlists)
 
-    #Need to find a way to take Pre_Lines, if it is more than 2 lines, and condense it to the 2 lines 
-    # That we want to operate on, so the computer knows where to go, and where to block
-    # Currently it is only working in the beginning, as it nears the end of the game, there may be 2-4 or more lines
-    # in pre lines, and then it doesnt know which to operate on
-
-
-                    # Linez_to_make_triples.append(Ln)
+    #Finding the specific 2 lines to operate on
     Len_Pre_lines = len(Pre_lines)
     Count = 0
     index = 0
@@ -1070,13 +1066,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         index +=1
         Len_Pre_lines -=1
     
-    #Want to test if 2 of the lines in Pre_lines share 2 elements
-    # if they do, we want to append them to Linez_to_make_triples                
-                    
-                  
-    
+                       
+    #This will trigger if computer CAN make an optimal line of 3, at any given point in the game
     if len(Linez_to_make_triples) == 2:
-        print(Linez_to_make_triples)
+        
         # print(Linez_to_make_triples) 
         
         for position in Linez_to_make_triples:
@@ -1087,15 +1080,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 elif spot not in List_of_your_moves:
                     if spot not in Keys_to_move_to:
                         Keys_to_move_to.append(spot)
-        # print(Keys_to_move_to)
-        # print(adjacency_keys)            
-        #Now we have the keys that already exist on these lines in adjacency keys, and the ones we have to consider adding in 
-        # Keys to move to
-        # There are two situations where we want to move to a key...if a key in keys_to_move_to is in both adjacency lists of adjacency
-        # keys, that is the key we want to move to, always
-
-        # Otherwise, we want to move to the key that has len in adjacency dict of >5, meaning its in the center....
-        #Test to see if any of the keys in Keys_to_move_to are in the values of the keys in adjacency list
+       
 
         Len_Keys = len(Keys_to_move_to)
         Shared_adjacency_list_value = []
@@ -1120,7 +1105,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 Len_Keys -=1
 
             #This while loop is basically checking if one of the keys is in between 2 keys in existence...in which case, 
-            # you move to it
+            # you move to it, such as __ X __ X __  it will always move to the middle value
 
         if len(Shared_adjacency_list_value) == 1:
             # print(Shared_adjacency_list_value[0])
@@ -1131,6 +1116,120 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     List_of_your_moves.append(Shared_adjacency_list_value[0])
                     return
         #If the key is not between 2 open keys, we have to decide which key to move to
+        # Take the 3 keys to check, check their adjacency values, choose one with longest list
+        elif len(Shared_adjacency_list_value) == 0:
+            
+            Mx_adj_val = []
+               
+            for KYs in Keys_to_move_to:
+                for keys, adjacency_list in Connected_Dict.items():
+                
+                    if KYs == keys:
+                        Mx_adj_val.append(len(adjacency_list))
+            
+            # print(Mx_adj_val) 
+            
+
+            
+            #                 Ky_to_Block.append(KYs)
+            Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
+            # print(Max_Adjacent_Dict)
+            Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
+            for position, coord in Key_Dictionary.items():
+                if Best_Key == position:
+                    coordinates = coord 
+
+                    computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Best_Key)
+            # print(Random_Key)
+                    return 
+
+    # This is exactly the same functionality as above, but instead it decides if it MUST block line of 3 instead 
+    Pre_lines = []
+    Set_list = []
+    Linez_to_block_triples = []
+    Keys_to_move_to = []
+    adjacency_keys = []
+
+    for Ln, value in Opponent_Dictionary.items():
+        if value == Starting_count-2:
+            for Line, Val in Your_Dictionary.items():
+                if Ln == Line and Val == Starting_count:
+                    Pre_lines.append(Ln)
+    
+    for lst in Pre_lines:
+        setlists = set(lst)
+        Set_list.append(setlists)
+    
+                    
+    Len_Pre_lines = len(Pre_lines)
+    Count = 0
+    index = 0
+    while Len_Pre_lines > 0:
+
+        key = Pre_lines[index]
+        Keys_Set = set(key)
+        
+        for Lsts in Set_list:
+            A = Keys_Set.intersection(Lsts)
+            Count += len(A)
+
+        if Count >= 7:
+            Linez_to_block_triples.append(key)
+
+        Count = 0
+        index +=1
+        Len_Pre_lines -=1
+    
+    #Now you have the optimal 2 lines to block, you want to find exact position to move to                 
+    
+    if len(Linez_to_block_triples) == 2:
+        print(Linez_to_block_triples)
+        # print(Linez_to_make_triples) 
+        
+        for position in Linez_to_block_triples:
+            for spot in position:
+                if spot in List_of_Opponent_Moves:
+                    if spot not in adjacency_keys:
+                        adjacency_keys.append(spot)
+                elif spot not in List_of_Opponent_Moves:
+                    if spot not in Keys_to_move_to:
+                        Keys_to_move_to.append(spot)
+        
+
+        Len_Keys = len(Keys_to_move_to)
+        Shared_adjacency_list_value = []
+        Count = 0
+        index = 0 
+        while Len_Keys > 0:
+            #Keys to move to represents the possible OPEN spot to move to
+            key = Keys_to_move_to[index]
+
+            for keys, adjacency_list in Connected_Dict.items():
+                for KYS in adjacency_keys:
+                    if KYS == keys:
+                        for values in adjacency_list:
+                            if key in values:
+                                Count +=1
+
+            if Count == 2:
+                Shared_adjacency_list_value.append(key)
+            else:
+                Count = 0
+                index +=1
+                Len_Keys -=1
+
+            # Same as above, check if gap exists in this line, move there
+
+        if len(Shared_adjacency_list_value) == 1:
+            # print(Shared_adjacency_list_value[0])
+            for position, coord in Key_Dictionary.items():
+                if Shared_adjacency_list_value[0] == position:
+                    coordinates = coord
+                    computer.setpos(coordinates[0],coordinates[1])
+                    List_of_your_moves.append(Shared_adjacency_list_value[0])
+                    return
+        #If the key is not between 2 open keys, we have to decide which key to move to to block opponent
         elif len(Shared_adjacency_list_value) == 0:
             
             Mx_adj_val = []
@@ -1142,10 +1241,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         Mx_adj_val.append(len(adjacency_list))
             
             print(Mx_adj_val) 
+                       
             
-
-            
-            #                 Ky_to_Block.append(KYs)
             Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
             print(Max_Adjacent_Dict)
             Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
@@ -1156,74 +1253,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     computer.setpos(coordinates[0],coordinates[1])
                     List_of_your_moves.append(Best_Key)
             # print(Random_Key)
-                    return 
+                    return
 
-
-            # if len(Ky_to_Block) == 1:
-            #     # print(Ky_to_Block[0])
-
-            #     for position, coord in Key_Dictionary.items():
-            #         if Ky_to_Block[0] == position:
-            #             # print(Ky_to_Block[0])
-            #             coordinates = coord
-            #             computer.setpos(coordinates[0],coordinates[1])
-            #             List_of_your_moves.append(Ky_to_Block[0])
-            #             return            
-            
-    #TODO
-    #Implement same functionality found above, but in case of perhaps blocking one of these cases instead of attacking
-    #So order for now, Check to win, Then Check to block, Then Check if it can make the 3 in a row thing, 
-    # And now, after that, and before it "chooses" based on criteria, we need to have it check opponents stuff to block 3 in a row
-    # and basically go in the spot that the opponent was going to choose,----based on same criteria-----
-
-
-
-
-
-
-
-
-
-
-
-
-    Linez_to_block = []
-    Key_blocker = []
-    Keys_to_blockz = []
-    adjacency_keys = []
-    
-
-    for winning_line, value in Opponent_Dictionary.items():
-        for Line, val in Your_Dictionary.items():
-            if value == (Starting_count -2) and val == Starting_count:
-                Linez_to_block.append(winning_line)
-    for line in Linez_to_block:
-        for spot in line:
-            if spot in List_of_Opponent_Moves:
-                adjacency_keys.append(spot)
-            elif spot not in List_of_Opponent_Moves:
-                Keys_to_blockz.append(spot)
-
-    #Adjacency keys have keys in the line we want to block, Keys to blocks represents keys we can use, 
-    # We need to test which keys we can block by finding the keys in the line, and taking out the ones already player
-    # Then we test remaining keys, to see if adjacency len value in the Adjacency Dict is > 5, meaning theyre not on an edge,
-    # If so, we block that spot
-    for keys, adjacency_list in Connected_Dict.items():
-        for KEY in Keys_to_blockz:
-            if KEY == keys:
-                if len(adjacency_list) > 5:
-                    # Key_blocker.append(KEY)
-
-                    for position, coord in Key_Dictionary.items():
-                        if KEY == position:
-                            coordinates = coord
-                            computer.setpos(coordinates[0],coordinates[1])
-                        
-                            List_of_your_moves.append(KEY)
-                
-                            return     
-
-    #While loop for checking value
+    #In the case that the computer can not win, can not block final block, can not MOVE to opening of 3, and can not block
+    # third spot, it then has the following loop to choose where exactly it moves...this is still sort of a work in progress
     
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
@@ -1290,7 +1323,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for lists in Adj_list_2:
             for val in lists:
                 if key in val:
-                    Count +=50          
+                    Count +=10          
 
             
 
@@ -1361,7 +1394,8 @@ Connected_List = [("01", "10", "11"), ("00", "02", "10", "11", "12"), ("01", "11
                 ("12", "13", "14", "22", "24", "32", "33", "34"), ("13", "14", "23", "33", "34"),\
                     ("20", "21", "31", "40", "41"), ("20", "21", "22", "30", "32", "40", "41", "42"),\
                         ("21", "22", "23", "31", "33", "41", "42", "43"),("22", "23", "24", "32", "34", "42", "43", "44"),\
-                            ("30", "31", "41"), ("30", "31", "32", "40", "42"), ("31", "33", "33", "41", "43"),\
+                            ("23", "24", "33", "43", "44"), ("30", "31", "41"), ("30", "31", "32", "40", "42"),\
+                                 ("31", "32", "33", "41", "43"),\
                                 ("32", "33", "34", "42", "44"), ("33", "34", "43")]
 
 Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
