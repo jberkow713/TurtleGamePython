@@ -1059,7 +1059,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             A = Keys_Set.intersection(Lsts)
             Count += len(A)
 
-        if Count >= 7:
+        if Count >= (Starting_count + (Starting_count-1)):
             Linez_to_make_triples.append(key)
 
         Count = 0
@@ -1174,7 +1174,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             A = Keys_Set.intersection(Lsts)
             Count += len(A)
 
-        if Count >= 7:
+        if Count >= (Starting_count + (Starting_count-1)):
             Linez_to_block_triples.append(key)
 
         Count = 0
