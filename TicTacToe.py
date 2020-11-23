@@ -1172,6 +1172,20 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             
     #TODO
     #Implement same functionality found above, but in case of perhaps blocking one of these cases instead of attacking
+    #So order for now, Check to win, Then Check to block, Then Check if it can make the 3 in a row thing, 
+    # And now, after that, and before it "chooses" based on criteria, we need to have it check opponents stuff to block 3 in a row
+    # and basically go in the spot that the opponent was going to choose,----based on same criteria-----
+
+
+
+
+
+
+
+
+
+
+
 
     Linez_to_block = []
     Key_blocker = []
@@ -1378,8 +1392,8 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Thoughtful_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
-            List_of_O_moves)
+        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
+            List_of_X_moves, List_of_O_moves)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
