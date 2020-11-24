@@ -11,100 +11,100 @@ from copy import deepcopy
 # screen.title("Tic-Tac-Toe")
 
 #Bigger Board
-screen = turtle.Screen()
-screen.screensize(800,800)
-screen.bgcolor("white")
-screen.title("Tic-Tac-Toe")
+# screen = turtle.Screen()
+# screen.screensize(800,800)
+# screen.bgcolor("white")
+# screen.title("Tic-Tac-Toe")
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(-300,350)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(270)
-border_pen.fd(700)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-300,350)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(270)
+# border_pen.fd(700)
+# border_pen.hideturtle()
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(-100,350)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(270)
-border_pen.fd(700)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-100,350)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(270)
+# border_pen.fd(700)
+# border_pen.hideturtle()
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(100,350)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(270)
-border_pen.fd(700)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(100,350)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(270)
+# border_pen.fd(700)
+# border_pen.hideturtle()
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(300,350)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(270)
-border_pen.fd(700)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(300,350)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(270)
+# border_pen.fd(700)
+# border_pen.hideturtle()
 
 #Horizontal Lines
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(-500,210)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(0)
-border_pen.fd(1000)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-500,210)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(0)
+# border_pen.fd(1000)
+# border_pen.hideturtle()
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(-500,70)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(0)
-border_pen.fd(1000)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-500,70)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(0)
+# border_pen.fd(1000)
+# border_pen.hideturtle()
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(-500,-70)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(0)
-border_pen.fd(1000)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-500,-70)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(0)
+# border_pen.fd(1000)
+# border_pen.hideturtle()
 
-border_pen = turtle.Turtle()
-border_pen.speed(0)
-border_pen.color("black")
-border_pen.penup()
-border_pen.setposition(-500,-210)
-border_pen.pendown()
-border_pen.pensize(2.5)
-border_pen.setheading(0)
-border_pen.fd(1000)
-border_pen.hideturtle()
+# border_pen = turtle.Turtle()
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-500,-210)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(0)
+# border_pen.fd(1000)
+# border_pen.hideturtle()
 
 #Drawing Smaller circles and Squares now
 
@@ -350,6 +350,104 @@ def computer_draw_circle():
     turtle.hideturtle()
 
     return coord_value 
+
+# screen = turtle.Screen()      -----------Screen Layout    
+# screen.screensize(800,800)
+# screen.bgcolor("white")
+# screen.title("Tic-Tac-Toe") 
+
+# border_pen = turtle.Turtle()  -------Vertical Lines
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-300,350)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(270)
+# border_pen.fd(700)
+# border_pen.hideturtle()
+
+# border_pen = turtle.Turtle()  ---------Horizontal Lines
+# border_pen.speed(0)
+# border_pen.color("black")
+# border_pen.penup()
+# border_pen.setposition(-500,210)
+# border_pen.pendown()
+# border_pen.pensize(2.5)
+# border_pen.setheading(0)
+# border_pen.fd(1000)
+# border_pen.hideturtle()
+
+#An attempt of some sort to make a function that draws board based on dimensions
+def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Line_Size):
+    #Sets size of screen, used in making squares
+    #Squares has to obviously be a square value, and we're just going to allow it only to be an odd number, aka, 3x3, 5x5, 7x7
+    Total_Horizontal_Lines = (math.sqrt(Squares)-1)
+    Total_Vertical_Lines = (math.sqrt(Squares)-1)
+
+    Total_Vertical_Distance = Boardsize 
+    Total_Horizontal_Distance = Boardsize
+    Distance_in_Between_Lines = (Boardsize / math.sqrt(Squares))
+    #Have to implement Coordinate system
+    First_Vertical_Line_X_Coords = -(Boardsize/2) + Distance_in_Between_Lines 
+    First_Vertical_Line_Y_Coords = (Boardsize/2)
+    First_Horizontal_Line_X_Coords = -(Boardsize/2)
+    First_Horizontal_Line_Y_Coords = (Boardsize/2) - Distance_in_Between_Lines
+
+    screen = turtle.Screen()          
+    screen.screensize(Boardsize,Boardsize)
+    screen.bgcolor(Screen_Color) #"white", needs ""
+    screen.title(Screen_Title) # also needs "" 
+
+    #Going to use while loop here instead
+    Remaining_lines = Total_Vertical_Lines
+    Current_X = First_Vertical_Line_X_Coords
+    Current_Y = First_Vertical_Line_Y_Coords
+    
+    while Remaining_lines > 0:
+                
+        border_pen = turtle.Turtle()
+        border_pen.speed(0)
+        border_pen.color(Line_Color)
+        border_pen.penup()
+        border_pen.setposition(Current_X, Current_Y)
+        border_pen.pendown()
+        border_pen.pensize(Line_Size)
+        border_pen.setheading(270)
+        border_pen.fd(Boardsize)
+        border_pen.hideturtle
+
+        Current_X += Distance_in_Between_Lines
+        Remaining_lines -=1 
+    print("done!")
+    
+    Remaining_lines = Total_Horizontal_Lines
+    Current_X = First_Horizontal_Line_X_Coords
+    Current_Y = First_Horizontal_Line_Y_Coords
+    print(Current_X)
+    print(Current_Y)
+    while Remaining_lines > 0:
+        
+        border_pen = turtle.Turtle()  
+        border_pen.speed(0)
+        border_pen.color(Line_Color)
+        border_pen.penup()
+        border_pen.setposition(Current_X, Current_Y)
+        border_pen.pendown()
+        border_pen.pensize(Line_Size)
+        border_pen.setheading(0)
+        border_pen.fd(Boardsize)
+        border_pen.hideturtle()
+
+        Current_Y -= Distance_in_Between_Lines
+        Remaining_lines -=1 
+    print("done!")
+
+
+        
+    
+
+
 
 
 Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222], [0,-222], [222,-222]]
@@ -1409,6 +1507,14 @@ turtle.onkey(move_up, "Up")
 turtle.onkey(move_down, "Down")
 turtle.onkey(draw_circle, "o") 
 turtle.onkey(draw_x, "x")      
+
+
+
+
+# Testing Board_Making Capabilities
+Create_Board(1000, 25, "white", "test", "black", 2.5)
+
+
 
 
 
