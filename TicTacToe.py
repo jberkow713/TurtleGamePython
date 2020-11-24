@@ -976,8 +976,8 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
 #These dictionaries will be used in the new function, to decide how the player moves his pieces
 
-def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, Your_Updated_Dic, Opponent_Updated_Dic,\
-    List_of_Opponent_Moves, List_of_your_moves):
+def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, List_of_Opponent_Moves, List_of_your_moves,\
+    Adjacency_Dict):
     '''
     This will be an improved function, for games where the amount of winning spots is less than the length or width of the board
     The logic should be stronger, but I have to test it against it's old self once it is completed, in both games, to see which is 
@@ -1090,7 +1090,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             #Keys to move to represents the possible OPEN spot to move to
             key = Keys_to_move_to[index]
 
-            for keys, adjacency_list in Connected_Dict.items():
+            for keys, adjacency_list in Adjacency_Dict.items():
                 for KYS in adjacency_keys:
                     if KYS == keys:
                         for values in adjacency_list:
@@ -1122,7 +1122,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             Mx_adj_val = []
                
             for KYs in Keys_to_move_to:
-                for keys, adjacency_list in Connected_Dict.items():
+                for keys, adjacency_list in Adjacency_Dict.items():
                 
                     if KYs == keys:
                         Mx_adj_val.append(len(adjacency_list))
@@ -1205,7 +1205,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             #Keys to move to represents the possible OPEN spot to move to
             key = Keys_to_move_to[index]
 
-            for keys, adjacency_list in Connected_Dict.items():
+            for keys, adjacency_list in Adjacency_Dict.items():
                 for KYS in adjacency_keys:
                     if KYS == keys:
                         for values in adjacency_list:
@@ -1235,7 +1235,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             Mx_adj_val = []
                
             for KYs in Keys_to_move_to:
-                for keys, adjacency_list in Connected_Dict.items():
+                for keys, adjacency_list in Adjacency_Dict.items():
                 
                     if KYs == keys:
                         Mx_adj_val.append(len(adjacency_list))
@@ -1297,7 +1297,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     Count +=1
         #4)Use adjacency values, and subtract current keys in list of opponent moves and your moves
         # Add that value to the count 
-        for keys, adjacency_list in Connected_Dict.items():
+        for keys, adjacency_list in Adjacency_Dict.items():
             if key == keys:
                 adjacent_to_key = adjacency_list
         
@@ -1315,7 +1315,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         #Check spots it has already moved, and if key is in those spots adjacency_lists in the connected.dict, 
         #add big count value 
         for previous_moves in List_of_your_moves:
-            for K, V in Connected_Dict.items():
+            for K, V in Adjacency_Dict.items():
                 if previous_moves == K:
                     if V not in Adj_list_2:
                         Adj_list_2.append(V)
@@ -1426,8 +1426,8 @@ while Count <25 and Game_over == False:
        
     
     while Variable  == 1:
-        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, Updated_O_Dict_5X5_HARDER, Updated_X_Dict_5X5_HARDER,\
-            List_of_X_moves, List_of_O_moves)
+        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, List_of_X_moves, List_of_O_moves,\
+            Connected_Dict)
         Coordinat = (computer_draw_circle())
         key = (key_name(TicTacdict_5X5, Coordinat))
         
@@ -1452,8 +1452,8 @@ while Count <25 and Game_over == False:
         if Count == 25:
             break 
 
-        Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, Updated_X_Dict_5X5_HARDER, Updated_O_Dict_5X5_HARDER,\
-            List_of_O_moves, List_of_X_moves)
+        Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, List_of_O_moves, List_of_X_moves,\
+            Connected_Dict)
         Coordinat = (comp_draw_x())
         key = (key_name(TicTacdict_5X5, Coordinat))
         # decrease_values(Remaining_dict_X, key)
