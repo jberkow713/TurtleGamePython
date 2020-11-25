@@ -3,7 +3,7 @@ import os
 import math
 import random 
 from copy import deepcopy
-
+import numpy as np
 
 # screen = turtle.Screen()
 # screen.screensize(800,800)
@@ -378,7 +378,8 @@ def computer_draw_circle():
 # border_pen.fd(1000)
 # border_pen.hideturtle()
 
-#An attempt of some sort to make a function that draws board based on dimensions
+
+
 def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Line_Size):
     #Sets size of screen, used in making squares
     #Squares has to obviously be a square value, and we're just going to allow it only to be an odd number, aka, 3x3, 5x5, 7x7
@@ -419,13 +420,12 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
 
         Current_X += Distance_in_Between_Lines
         Remaining_lines -=1 
-    print("done!")
+    
     
     Remaining_lines = Total_Horizontal_Lines
     Current_X = First_Horizontal_Line_X_Coords
     Current_Y = First_Horizontal_Line_Y_Coords
-    print(Current_X)
-    print(Current_Y)
+    
     while Remaining_lines > 0:
         
         border_pen = turtle.Turtle()  
@@ -441,13 +441,9 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
 
         Current_Y -= Distance_in_Between_Lines
         Remaining_lines -=1 
-    print("done!")
+    
 
 
-#TODO
-
-# Have to make X and O drawing functions based on boardsize, and then implement a coordinate system, to store all values of 
-# points in dictionaries
 
 #Store name of spots in a simple list, from 0 to # of squares, and their coordinates       
 def create_key_dict_and_coords(Boardsize, Squares):
@@ -490,7 +486,46 @@ def create_key_dict_and_coords(Boardsize, Squares):
     Key_Dict = dict(zip(Name_of_Spots, Coordinate_list))
     return Key_Dict 
 
+#Now have to find a way to make winning_lines and Count dictionary
 
+def create_remaining_dict(Squares, Squares_to_win):
+    #We need a matrix, like if it's 5X5
+    # We need a matrix with rows and columns, with each value corresponding
+
+    Matrix = []
+    list_size = int(np.sqrt(Squares))
+    starting = 0
+    ending = int(np.sqrt(Squares))
+    len_matrix = Squares
+    
+    while len_matrix > 0:
+        list_to_add = []
+
+        for i in range(starting, ending):
+            list_to_add.append(i)
+       
+        Matrix.append(list_to_add)
+        starting += list_size 
+        ending += list_size
+        len_matrix -= list_size 
+
+    return Matrix    
+
+        
+
+            
+
+
+    # Need to insert this into something that looks like 
+
+    #  [[0,  1,  2,  3,   4]
+    #   [5,  6,  7,  8,   9]
+    #   [10, 11, 12, 13, 14]
+    #   [15, 16, 17, 18, 19]
+    #   [20, 21, 22, 23, 24]
+    #   ]
+
+    # We need a function that can enter this list of lists
 
 
 
@@ -1554,77 +1589,79 @@ turtle.onkey(draw_circle, "o")
 turtle.onkey(draw_x, "x")      
 
 
-
+# import numpy as np
 
 # Testing Board_Making Capabilities
 Create_Board(1000, 25, "white", "test", "black", 2.5)
 Key_Dictionary5 = create_key_dict_and_coords(1000,25)
 print(Key_Dictionary5)
+A = create_remaining_dict(25, 4)
+print(A)
 
 
 
 
 
-Count = 0
+# Count = 0
 
-random_start = random.randint(0,1)
-if random_start == 0:
-    Variable = 1
-else:
-    Variable = -1  
+# random_start = random.randint(0,1)
+# if random_start == 0:
+#     Variable = 1
+# else:
+#     Variable = -1  
 
-Game_over = False
-while Count <25 and Game_over == False:
+# Game_over = False
+# while Count <25 and Game_over == False:
     
        
     
-    while Variable  == 1:
-        Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, List_of_X_moves, List_of_O_moves,\
-            Connected_Dict)
-        Coordinat = (computer_draw_circle())
-        key = (key_name(TicTacdict_5X5, Coordinat))
+#     while Variable  == 1:
+#         Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, List_of_X_moves, List_of_O_moves,\
+#             Connected_Dict)
+#         Coordinat = (computer_draw_circle())
+#         key = (key_name(TicTacdict_5X5, Coordinat))
         
-        # decrease_values(Remaining_dict_O, key)
-        if decrease_values(Remaining_dict_O_5X5_HARDER, key, Updated_O_Dict_5X5_HARDER) == 0:
-            print("O WINS!!!")
-            Game_over = True 
-            break
+#         # decrease_values(Remaining_dict_O, key)
+#         if decrease_values(Remaining_dict_O_5X5_HARDER, key, Updated_O_Dict_5X5_HARDER) == 0:
+#             print("O WINS!!!")
+#             Game_over = True 
+#             break
             
             
-        remove_dict(TicTacdict_5X5, Coordinat)
+#         remove_dict(TicTacdict_5X5, Coordinat)
         
                 
-        Variable *= -1
-        Count +=1
+#         Variable *= -1
+#         Count +=1
         
-        if Count == 25:
-            break
+#         if Count == 25:
+#             break
 
     
-    while Variable == -1:
-        if Count == 25:
-            break 
+#     while Variable == -1:
+#         if Count == 25:
+#             break 
 
-        Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, List_of_O_moves, List_of_X_moves,\
-            Connected_Dict)
-        Coordinat = (comp_draw_x())
-        key = (key_name(TicTacdict_5X5, Coordinat))
-        # decrease_values(Remaining_dict_X, key)
-        if decrease_values(Remaining_dict_X_5X5_HARDER, key, Updated_X_Dict_5X5_HARDER) == 0:
-            print("X WINS!!!")
-            Game_over = True 
-            break
+#         Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, List_of_O_moves, List_of_X_moves,\
+#             Connected_Dict)
+#         Coordinat = (comp_draw_x())
+#         key = (key_name(TicTacdict_5X5, Coordinat))
+#         # decrease_values(Remaining_dict_X, key)
+#         if decrease_values(Remaining_dict_X_5X5_HARDER, key, Updated_X_Dict_5X5_HARDER) == 0:
+#             print("X WINS!!!")
+#             Game_over = True 
+#             break
              
-        remove_dict(TicTacdict_5X5, Coordinat)
+#         remove_dict(TicTacdict_5X5, Coordinat)
         
         
-        Variable *=-1
-        Count +=1
+#         Variable *=-1
+#         Count +=1
 
-        if Count == 25:
-            break 
+#         if Count == 25:
+#             break 
              
-print(Updated_O_Dict_5X5)
-print(Updated_X_Dict_5X5)
+# print(Updated_O_Dict_5X5)
+# print(Updated_X_Dict_5X5)
           
 delay = input("Press enter to finish.")
