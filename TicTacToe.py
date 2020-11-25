@@ -444,8 +444,46 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
     print("done!")
 
 
-        
-    
+#TODO
+
+# Have to make X and O drawing functions based on boardsize, and then implement a coordinate system, to store all values of 
+# points in dictionaries
+
+#Store name of spots in a simple list, from 0 to # of squares, and their coordinates       
+def create_key_dict_and_coords(Squares, Boardsize):
+
+    Name_of_Spots = list(range(0, Squares))
+
+    Square_Length = (Boardsize / math.sqrt(Squares))
+    Mid_Square_Length = (Square_Length / 2)
+    Starting_X_Coordinate = -(Boardsize/2) + Mid_Square_Length
+    Starting_Y_Coordinate = (Boardsize/2) - Mid_Square_Length
+    Max_X_Coordinate = (Boardsize/2) - Mid_Square_Length
+    Min_Y_Coordinate = -(Boardsize/2) + Mid_Square_Length 
+
+
+
+    #[0,1,2,3,4,5,6,7,8]
+    # 0   1   2 
+    # 3   4   5 
+    # 6   7   8
+
+    #0 is top left corner of grid, top left square, in CENTER of Square
+    #head along x axis, adding the Boardsize/(np.sqrt of squares)
+    # When x coordinate hits a value that is <(Boardsize/np.sqrt) away from max x coordinate,
+
+    #max x coordinate is going to be Boardsize/2
+    # need an indicator of how far it is from square to middle of square
+    #(Boardsize/ np.sqrt(squares)) / 2 
+
+    # So you start at Starting_X_Coordinate and Starting_Y_Coordinate, and you increase X by increments of Square_Length
+    # When x_coord reaches the Max_X_Coordinate, you set X to Starting_X_Coordinate, add Square_Length to Y coordinate
+    # When X Coord == max_x_coord, and Y_coord = min_Y_coord, you exit while loop
+    # 
+    # So basically, you need to create a list for each iteration, of [X_coord, Y_Coord]
+    # When youre done, you will zip this list with the Name_of_Spots list, to create the Key and coord dictionary for the game
+    #  
+
 
 
 
