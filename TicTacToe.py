@@ -549,15 +549,48 @@ def create_remaining_dict(Squares, Squares_to_win):
                     Row_index =  Next_Starting_Row_Index
                     Squares_left_to_add = Squares_to_win
                     Max_index_to_start_at -=1
-                    
-                
-                
-                     
 
-                
+    
+    Horizontal_lines_in_Matrix = math.sqrt(Squares)
+    Vertical_lines_in_Matrix =  math.sqrt(Squares)
+    Starting_Column = 0
 
+
+    while Vertical_lines_in_Matrix > 0:
+                      
+        #Max_index represents starting index for iterating that can allow you to find a winning line
+        Max_index_to_start_at = math.sqrt(Squares) - Squares_to_win 
+        
+        while Max_index_to_start_at > 0:
+
+            Squares_left_to_add = Squares_to_win
+            Column_Index = 0
+            Next_Starting_Column_Index = int(Max_index_to_start_at)
+            smaller_list = []
+                                    
+            while Squares_left_to_add > 0:
+                            
+                smaller_list.append(Matrix[Column_Index][Starting_Column])
+
+                Column_Index +=1
+                Squares_left_to_add -=1
+
+                if len(smaller_list) == Squares_to_win and Max_index_to_start_at == 0:
+                    # print(Winning_Lines)
+                    Winning_Lines.append(smaller_list)
+                    Starting_Column +=1
+                    Vertical_lines_in_Matrix -=1
                 
-                    
+                if len(smaller_list) == Squares_to_win and Max_index_to_start_at > 0 :
+                    c = smaller_list[:]
+                    Winning_Lines.append(c)
+                    # print(Winning_Lines)
+                    smaller_list.clear()
+                    # print(Winning_Lines)
+                    Column_Index =  Next_Starting_Column_Index
+                    Squares_left_to_add = Squares_to_win
+                    Max_index_to_start_at -=1
+                       
 
     return Winning_Lines
 
