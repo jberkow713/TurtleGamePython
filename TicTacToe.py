@@ -508,8 +508,97 @@ def create_remaining_dict(Squares, Squares_to_win):
         starting += list_size 
         ending += list_size
         len_matrix -= list_size 
+    #Winning_Lines represents all possible winning lines in the grid
+    # print(Matrix)
+    Winning_Lines = []
+    Horizontal_lines_in_Matrix = math.sqrt(Squares)
+    Vertical_lines_in_Matrix =  math.sqrt(Squares)
+    Starting_Row = 0
 
-    return Matrix    
+    while Horizontal_lines_in_Matrix > 0:
+                      
+        #Max_index represents starting index for iterating that can allow you to find a winning line
+        Max_index_to_start_at = math.sqrt(Squares) - Squares_to_win 
+        
+        while Max_index_to_start_at > 0:
+
+            Squares_left_to_add = Squares_to_win
+            Row_index = 0
+            Next_Starting_Row_Index = int(Max_index_to_start_at)
+            smaller_list = []
+                                    
+            while Squares_left_to_add > 0:
+                            
+                smaller_list.append(Matrix[Starting_Row][Row_index])
+
+                Row_index +=1
+                Squares_left_to_add -=1
+
+                if len(smaller_list) == Squares_to_win and Max_index_to_start_at == 0:
+                    # print(Winning_Lines)
+                    Winning_Lines.append(smaller_list)
+                    Starting_Row +=1
+                    Horizontal_lines_in_Matrix -=1
+                
+                if len(smaller_list) == Squares_to_win and Max_index_to_start_at > 0 :
+                    b = smaller_list[:]
+                    Winning_Lines.append(b)
+                    # print(Winning_Lines)
+                    smaller_list.clear()
+                    # print(Winning_Lines)
+                    Row_index =  Next_Starting_Row_Index
+                    Squares_left_to_add = Squares_to_win
+                    Max_index_to_start_at -=1
+                    
+                
+                
+                     
+
+                
+
+                
+                    
+
+    return Winning_Lines
+
+            
+                
+                    
+
+
+
+
+
+
+                
+            #looks like we need a second while loop here to scroll through the individual rows
+            #We need to find a criteria for putting the values in lists for a given row, then we increment the row
+            # we want Squares_To_win # of squares per list
+            # We want to start at index 0 and move 4 squares over
+            # so like row[0][0]
+
+
+
+    
+
+
+    
+    
+    
+    print(A[0][0])
+    print(A[1][0]) 
+
+
+    #Above function returns a list of lists, equal size, a tic tac toe grid
+    # 0 1 2 3 4
+    # 5 6 7 8 9
+    # 10 11 12 13 14
+    # etc 
+    #    
+    #Now, need to iterate through this list of lists, and find all winning combination
+    # Each list can be called on by its index in the matrix, so for example, A[0] is just the first list
+    # We want to find connected lines of size Squares_to_Win within horizontal lines, vertical lines, and diagonal lines
+    # use line index, such as A[0][0], A[0][1], A[0][2], A[0][3]
 
         
 
@@ -1597,6 +1686,7 @@ Key_Dictionary5 = create_key_dict_and_coords(1000,25)
 print(Key_Dictionary5)
 A = create_remaining_dict(25, 4)
 print(A)
+
 
 
 
