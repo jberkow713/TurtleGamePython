@@ -487,6 +487,38 @@ def create_key_dict_and_coords(Boardsize, Squares):
     return Key_Dict 
 
 #Now have to find a way to make winning_lines and Count dictionary
+def find_diagonal_winning_lines(Squares, Squares_to_win):
+
+    # 0    1    2    3     4
+    # 5    6    7    8     9
+    #10   11   12   13    14 
+    #15   16   17   18    19
+    #20   21   22   23    24 
+
+# So given a list of lists, we have to find out which squares make up diagonal winning lines based on amount of squares needed to win
+# Start in Row 0, index 0, move row + by 1, and index up by 1, until you reach that many spots, so 0, 6, 12, 18....then put that value in list, add to big list
+# move to row 0, index 1, repeat, ...get 1, 7, 13, 19...
+
+# Now normally, you would continue to do the same, but in this case, you run out of tiles, so you only begin this process , if the index in the row is 
+# >= math.sqrt(Squares) - Squares_to_win, so from Row [0] index [1], you jump down to Row[1] index [0], get 5,11,17,23, move over again for 6,12,18,24
+# At this point, cant move over to index 2, as 2 ! >= math.sqrt(Squares)-Squares_to_win
+# So normally, you would move down to another row...
+
+#Except this would put you at row 2, and you can not operate on any row that has a row value >= math.sqrt(Squares)-Squares_to_win
+
+#So you are halfway done, we have checked the top to bottom diagonals, now we must check bottom to top....
+
+# So same idea, start at Maximum Row, minimum index, in this case, Matrix[4][0], this time you simply subtract one from the row, while adding to the column
+# so you move to Matrix[3][1], and repeat, you get 20,16,12,8, 
+# Move over to Matrix[4][1], repeat adn get 21, 17, 13, 9
+
+#Can not access index 2, for reasons above, so you simply decrease column by 1, start at M[3][0], 15, 11, 7, 3, then 16, 12, 8, 4
+# Can not go up a row for reasons above, so exit the loop, and you're done
+
+# Need to implement function, or while loop, that takes in a matrix, list of lists, and a # of squares_to_win and returns a list of all possible diagonal victories
+
+
+
 
 def create_remaining_dict(Squares, Squares_to_win):
     #We need a matrix, like if it's 5X5
@@ -513,6 +545,7 @@ def create_remaining_dict(Squares, Squares_to_win):
     Winning_Lines = []
     Horizontal_lines_in_Matrix = math.sqrt(Squares)
     Vertical_lines_in_Matrix =  math.sqrt(Squares)
+    Diagonal_lines_in_Matrix = math.sqrt(Squares)
     Starting_Row = 0
 
     while Horizontal_lines_in_Matrix > 0:
@@ -590,7 +623,9 @@ def create_remaining_dict(Squares, Squares_to_win):
                     Column_Index =  Next_Starting_Column_Index
                     Squares_left_to_add = Squares_to_win
                     Max_index_to_start_at -=1
-                       
+
+    
+
 
     return Winning_Lines
 
