@@ -450,8 +450,11 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
 # points in dictionaries
 
 #Store name of spots in a simple list, from 0 to # of squares, and their coordinates       
-def create_key_dict_and_coords(Squares, Boardsize):
-
+def create_key_dict_and_coords(Boardsize, Squares):
+    '''
+    This function takes Boardsize, number of Squares, creates a list of each Square as a key, 
+    and the key's value corresponds to an [X, Y, coordinate] list, returns dictionary
+    '''
     Name_of_Spots = list(range(0, Squares))
 
     Square_Length = (Boardsize / math.sqrt(Squares))
@@ -461,28 +464,31 @@ def create_key_dict_and_coords(Squares, Boardsize):
     Max_X_Coordinate = (Boardsize/2) - Mid_Square_Length
     Min_Y_Coordinate = -(Boardsize/2) + Mid_Square_Length 
 
+   
+    Coordinate_list = []
+    Len_Coordinate_list = len(Name_of_Spots)
+    X_coord = Starting_X_Coordinate
+    Y_coord = Starting_Y_Coordinate
 
+    while Len_Coordinate_list > 0:
+        
+        Individ_coord = []
+        
+        Individ_coord.append(X_coord)
+        Individ_coord.append(Y_coord)
+        
+        if X_coord < Max_X_Coordinate:
+            X_coord += Square_Length
 
-    #[0,1,2,3,4,5,6,7,8]
-    # 0   1   2 
-    # 3   4   5 
-    # 6   7   8
+        elif X_coord == Max_X_Coordinate:
+            X_coord = Starting_X_Coordinate
+            Y_coord -= Square_Length     
 
-    #0 is top left corner of grid, top left square, in CENTER of Square
-    #head along x axis, adding the Boardsize/(np.sqrt of squares)
-    # When x coordinate hits a value that is <(Boardsize/np.sqrt) away from max x coordinate,
+        Coordinate_list.append(Individ_coord)
+        Len_Coordinate_list -=1
 
-    #max x coordinate is going to be Boardsize/2
-    # need an indicator of how far it is from square to middle of square
-    #(Boardsize/ np.sqrt(squares)) / 2 
-
-    # So you start at Starting_X_Coordinate and Starting_Y_Coordinate, and you increase X by increments of Square_Length
-    # When x_coord reaches the Max_X_Coordinate, you set X to Starting_X_Coordinate, add Square_Length to Y coordinate
-    # When X Coord == max_x_coord, and Y_coord = min_Y_coord, you exit while loop
-    # 
-    # So basically, you need to create a list for each iteration, of [X_coord, Y_Coord]
-    # When youre done, you will zip this list with the Name_of_Spots list, to create the Key and coord dictionary for the game
-    #  
+    Key_Dict = dict(zip(Name_of_Spots, Coordinate_list))
+    return Key_Dict 
 
 
 
@@ -1535,6 +1541,7 @@ Connected_List = [("01", "10", "11"), ("00", "02", "10", "11", "12"), ("01", "11
                                 ("32", "33", "34", "42", "44"), ("33", "34", "43")]
 
 Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
+
 # print(Connected_Dict)
 
 
@@ -1551,6 +1558,8 @@ turtle.onkey(draw_x, "x")
 
 # Testing Board_Making Capabilities
 Create_Board(1000, 25, "white", "test", "black", 2.5)
+Key_Dictionary5 = create_key_dict_and_coords(1000,25)
+print(Key_Dictionary5)
 
 
 
@@ -1615,7 +1624,7 @@ while Count <25 and Game_over == False:
         if Count == 25:
             break 
              
-# print(Updated_O_Dict_5X5)
-# print(Updated_X_Dict_5X5)
+print(Updated_O_Dict_5X5)
+print(Updated_X_Dict_5X5)
           
 delay = input("Press enter to finish.")
