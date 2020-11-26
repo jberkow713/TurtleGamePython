@@ -428,36 +428,40 @@ def create_key_dict_and_coords(Boardsize, Squares):
     and the key's value corresponds to an [X, Y, coordinate] list, returns dictionary
     '''
     Name_of_Spots = list(range(0, Squares))
-
     Square_Length = round((Boardsize / np.sqrt(Squares)))
     Mid_Square_Length = (Square_Length / 2)
-    Starting_X_Coordinate = -(Boardsize/2) + Mid_Square_Length
-    Starting_Y_Coordinate = (Boardsize/2) - Mid_Square_Length
     Max_X_Coordinate = (Boardsize/2) - Mid_Square_Length
     Min_Y_Coordinate = -(Boardsize/2) + Mid_Square_Length 
 
    
     Coordinate_list = []
+        
     Len_Coordinate_list = len(Name_of_Spots)
+    Starting_X_Coordinate = -(Boardsize/2) + Mid_Square_Length
+    Starting_Y_Coordinate = (Boardsize/2) - Mid_Square_Length
+    
     X_coord = (Starting_X_Coordinate)
     Y_coord = (Starting_Y_Coordinate)
-
+    
+    
     while Len_Coordinate_list > 0:
         
         Individ_coord = []
-        
         Individ_coord.append(X_coord)
         Individ_coord.append(Y_coord)
         
-        if X_coord < Max_X_Coordinate:
+        Len_Coordinate_list -=1
+        Coordinate_list.append(Individ_coord)
+
+
+        if Len_Coordinate_list % int(math.sqrt(Squares)) == 0:
+            X_coord = Starting_X_Coordinate
+            Y_coord -= Square_Length
+            
+
+        elif Len_Coordinate_list % int(math.sqrt(Squares)) != 0:
             X_coord += Square_Length
 
-        elif X_coord == Max_X_Coordinate:
-            X_coord = Starting_X_Coordinate
-            Y_coord -= Square_Length     
-
-        Coordinate_list.append(Individ_coord)
-        Len_Coordinate_list -=1
 
     Key_Dict = dict(zip(Name_of_Spots, Coordinate_list))
     print(Key_Dict)
@@ -1893,6 +1897,7 @@ Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
 Create_Board(800, 81, "white", "test", "black", 2.5)
 #Dictionary of Keys
 Key_Dictionary5 = create_key_dict_and_coords(800,81)
+print(Key_Dictionary5)
 # print(Key_Dictionary5)
 #Remaining Dictionaries of Winning Lines
 Remaining_Dict_O = create_remaining_dict(81, 7)
@@ -1911,64 +1916,64 @@ Updated_Dict = create_updated_dictionary(Remaining_Dict_O, 7)
 
 
 
-Count = 0
+# Count = 0
 
-random_start = random.randint(0,1)
-if random_start == 0:
-    Variable = 1
-else:
-    Variable = -1  
+# random_start = random.randint(0,1)
+# if random_start == 0:
+#     Variable = 1
+# else:
+#     Variable = -1  
 
-Game_over = False
-while Count <81 and Game_over == False:
+# Game_over = False
+# while Count <81 and Game_over == False:
     
        
     
-    while Variable  == 1:
-        Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 9, List_of_X_moves, List_of_O_moves,\
-            Adjacency_Dict_Custom)
-        Coordinat = (computer_draw_customized_circle(800, 81))
-        key = (key_name(Key_Dictionary5, Coordinat))
+#     while Variable  == 1:
+#         Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 9, List_of_X_moves, List_of_O_moves,\
+#             Adjacency_Dict_Custom)
+#         Coordinat = (computer_draw_customized_circle(800, 81))
+#         key = (key_name(Key_Dictionary5, Coordinat))
         
-        # decrease_values(Remaining_dict_O, key)
-        if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
-            print("O WINS!!!")
-            Game_over = True 
-            break
+#         # decrease_values(Remaining_dict_O, key)
+#         if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
+#             print("O WINS!!!")
+#             Game_over = True 
+#             break
             
             
-        remove_dict(Key_Dictionary5, Coordinat)
+#         remove_dict(Key_Dictionary5, Coordinat)
         
                 
-        Variable *= -1
-        Count +=1
+#         Variable *= -1
+#         Count +=1
         
-        if Count == 81:
-            break
+#         if Count == 81:
+#             break
 
     
-    while Variable == -1:
-        if Count == 81:
-            break 
+#     while Variable == -1:
+#         if Count == 81:
+#             break 
 
-        Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 9, List_of_O_moves, List_of_X_moves,\
-            Adjacency_Dict_Custom)
-        Coordinat = (comp_draw_customized_x(800, 81))
-        key = (key_name(Key_Dictionary5, Coordinat))
-        # decrease_values(Remaining_dict_X, key)
-        if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
-            print("X WINS!!!")
-            Game_over = True 
-            break
+#         Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 9, List_of_O_moves, List_of_X_moves,\
+#             Adjacency_Dict_Custom)
+#         Coordinat = (comp_draw_customized_x(800, 81))
+#         key = (key_name(Key_Dictionary5, Coordinat))
+#         # decrease_values(Remaining_dict_X, key)
+#         if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
+#             print("X WINS!!!")
+#             Game_over = True 
+#             break
              
-        remove_dict(Key_Dictionary5, Coordinat)
+#         remove_dict(Key_Dictionary5, Coordinat)
         
         
-        Variable *=-1
-        Count +=1
+#         Variable *=-1
+#         Count +=1
 
-        if Count == 81:
-            break 
+#         if Count == 81:
+#             break 
              
 # # print(Updated_O_Dict_5X5)
 # # print(Updated_X_Dict_5X5)
