@@ -780,42 +780,16 @@ def Adjacency_Dict(Squares):
             y = 0
             x+=1
             a-=1
-        
-
-    return(Adjacency_list)    
-
-    #So now, we have matrix, in the case of say 25 squares, we have a 5 by 5 list Object
-    # 0  1  2 
-    # 3  4  5
-    # 6  7  8    
-
-    # We are now looking to make a function that analyzes each point in the list, and returns its corresponding values
-    # So then we can run 
-            # adjacency_list = []
-            # for x in Matrix:
-            #    e = adjacency_values 
-                #adjacency_list.append(e)
-
-            # Key_list = []    
-            # for x in Matrix, 
-            #    Key_list.append(x)
-            #     
-            #then make dictionary list from these two lists, and that will be the adjacency dictionary
 
 
+    Name_of_Squares = list(range(0, Squares))    
+    Adjacency_list_Tuples =  [tuple(x) for x in Adjacency_list]
 
+    Adjacency_dict = dict(zip(Name_of_Squares, Adjacency_list_Tuples))    
+    
+    return(Adjacency_dict)    
 
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 Coords = [[-222, 222], [0,222], [222,222], [-222,0], [0,0], [222, 0], [-222,-222], [0,-222], [222,-222]]
@@ -1881,13 +1855,13 @@ turtle.onkey(draw_x, "x")
 # import numpy as np
 
 # Testing Board_Making Capabilities
-# Create_Board(800, 25, "white", "test", "black", 2.5)
-# Key_Dictionary5 = create_key_dict_and_coords(800,25)
-# print(Key_Dictionary5)
-# A = create_remaining_dict(25, 3)
-# print(A)
-# B = Adjacency_Dict(25)
-# print(B)
+Create_Board(800, 25, "white", "test", "black", 2.5)
+Key_Dictionary5 = create_key_dict_and_coords(800,25)
+print(Key_Dictionary5)
+A = create_remaining_dict(25, 3)
+print(A)
+B = Adjacency_Dict(25)
+print(B)
 C = Adjacency_Dict(25)
 print(C)
 
