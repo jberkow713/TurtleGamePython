@@ -713,36 +713,13 @@ def create_remaining_dict(Squares, Squares_to_win):
     # return Remaining_Dict
             
                 
-     
+ #TODO
+ # Need to make a function that takes every number and the keys that are adjacent to them, and store than in an adjacency dictionary
+ #  
     
 
 
-    #Above function returns a list of lists, equal size, a tic tac toe grid
-    # 0 1 2 3 4
-    # 5 6 7 8 9
-    # 10 11 12 13 14
-    # etc 
-    #    
-    #Now, need to iterate through this list of lists, and find all winning combination
-    # Each list can be called on by its index in the matrix, so for example, A[0] is just the first list
-    # We want to find connected lines of size Squares_to_Win within horizontal lines, vertical lines, and diagonal lines
-    # use line index, such as A[0][0], A[0][1], A[0][2], A[0][3]
-
-        
-
-            
-
-
-    # Need to insert this into something that looks like 
-
-    #  [[0,  1,  2,  3,   4]
-    #   [5,  6,  7,  8,   9]
-    #   [10, 11, 12, 13, 14]
-    #   [15, 16, 17, 18, 19]
-    #   [20, 21, 22, 23, 24]
-    #   ]
-
-    # We need a function that can enter this list of lists
+    #
 
 
 
@@ -1809,10 +1786,10 @@ turtle.onkey(draw_x, "x")
 # import numpy as np
 
 # Testing Board_Making Capabilities
-Create_Board(1000, 49, "white", "test", "black", 2.5)
-Key_Dictionary5 = create_key_dict_and_coords(1000,49)
+Create_Board(800, 121, "white", "test", "black", 2.5)
+Key_Dictionary5 = create_key_dict_and_coords(800,121)
 print(Key_Dictionary5)
-A = create_remaining_dict(49, 6)
+A = create_remaining_dict(121, 10)
 print(A)
 
 
