@@ -515,7 +515,7 @@ def create_remaining_dict(Squares, Squares_to_win):
     
     Winning_Lines = []
     Horizontal_lines_in_Matrix = int(math.sqrt(Squares))
-    Vertical_lines_in_Matrix =  math.sqrt(Squares)
+    
     
     
     Total_Squares = 0
@@ -527,6 +527,7 @@ def create_remaining_dict(Squares, Squares_to_win):
     Iterations_per_row = int(math.sqrt(Squares)-Squares_to_win)+1
     Starting_Column = 0
     Starting_Row = 0
+    
     while Horizontal_lines_in_Matrix > 0:
 
         
@@ -534,11 +535,7 @@ def create_remaining_dict(Squares, Squares_to_win):
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row * Horizontal_lines_in_Matrix):
 
 
-            #We set a bunch of variables, and we start by iterating from 0,0 diagonally
-            # When we hit a winning line, we append it, and we move the column over 1 spot and go again
-            # When we hit the total amount of iterations for the entire row, we reset the values, add 1 to the row index , and 
-            # break from the loop, resetting all the values, except making rows to iterate one less    
-            # print(Row_index)
+            
             # print(Column_Idx)    
             smaller_list.append(Matrix[Row_index][Column_Idx])
             # print(Row_index)
@@ -573,47 +570,58 @@ def create_remaining_dict(Squares, Squares_to_win):
                 break 
 
 
-       
-    Horizontal_lines_in_Matrix = math.sqrt(Squares)
-    Vertical_lines_in_Matrix =  math.sqrt(Squares)
+    Vertical_lines_in_Matrix = math.sqrt(Squares)            
+    Total_Squares = 0
+    smaller_list = []
+    Row_index = 0
+    Column_Idx = 0
+    Total_Columns = Vertical_lines_in_Matrix 
+    Total_Squares_per_iteration = int(Squares_to_win)
+    Iterations_per_row = int(math.sqrt(Squares)-Squares_to_win)+1
     Starting_Column = 0
-
-
+    Starting_Row = 0
+    
     while Vertical_lines_in_Matrix > 0:
-                      
-        #Max_index represents starting index for iterating that can allow you to find a winning line
-        Max_index_to_start_at = math.sqrt(Squares) - Squares_to_win 
+
         
-        while Max_index_to_start_at > 0:
+        
+        while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row * Vertical_lines_in_Matrix):
 
-            Squares_left_to_add = Squares_to_win
-            Column_Index = 0
-            Next_Starting_Column_Index = int(Max_index_to_start_at)
-            smaller_list = []
-                                    
-            while Squares_left_to_add > 0:
-                            
-                smaller_list.append(Matrix[Column_Index][Starting_Column])
+            # print(Row_index)
+            # print(Column_Idx)    
+            smaller_list.append(Matrix[Row_index][Column_Idx])
+            print(Row_index)
+            print(Column_Idx)
+            
+            Row_index +=1
+            Total_Squares +=1
 
-                Column_Index +=1
-                Squares_left_to_add -=1
-
-                if len(smaller_list) == Squares_to_win and Max_index_to_start_at == 0:
-                    # print(Winning_Lines)
-                    Winning_Lines.append(smaller_list)
-                    Starting_Column +=1
-                    Vertical_lines_in_Matrix -=1
+            #When we come back to this loop, we start off where we last were, only 1 row lower
+                    
+            if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row) :
+                a = smaller_list[:]
+                # print(a)
+                Winning_Lines.append(a)
+                smaller_list.clear()
+                Starting_Column +=1
+                Column_Idx = Starting_Column
+                Total_Squares = 0
+                Vertical_lines_in_Matrix -=1
+                Starting_Row = 0
+                Row_index = Starting_Row
+                break 
+            
+            if Total_Squares % Total_Squares_per_iteration == 0:
+                b = smaller_list[:]
+                Winning_Lines.append(b)
+                smaller_list.clear()
+                # Row_index = 0 + (Total_Rows - Horizontal_lines_in_Matrix)  
+                Starting_Row +=1
+                Row_index = Starting_Row
                 
-                if len(smaller_list) == Squares_to_win and Max_index_to_start_at > 0 :
-                    c = smaller_list[:]
-                    Winning_Lines.append(c)
-                    # print(Winning_Lines)
-                    smaller_list.clear()
-                    # print(Winning_Lines)
-                    Column_Index =  Next_Starting_Column_Index
-                    Squares_left_to_add = Squares_to_win
-                    Max_index_to_start_at -=1
+                break
 
+   
     
     #TODO
     
