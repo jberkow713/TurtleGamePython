@@ -4,6 +4,7 @@ import math
 import random 
 from copy import deepcopy
 import numpy as np
+from Adjacency import neighbors 
 
 # screen = turtle.Screen()
 # screen.screensize(800,800)
@@ -620,10 +621,6 @@ def create_remaining_dict(Squares, Squares_to_win):
                 Row_index = Starting_Row
                 
                 break
-
-   
-    
-    #TODO
     
     Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) #==2
     Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) #==2
@@ -637,14 +634,12 @@ def create_remaining_dict(Squares, Squares_to_win):
     Starting_Column = 0
     Starting_Row = 0
 
-    
     while Rows_to_iterate_using_Diagonals > 0:
         
-        
+       
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
 
-   
-                
+                   
             smaller_list.append(Matrix[Row_index][Column_Idx])
             # print(Row_index)
             # print(Column_Idx)
@@ -744,11 +739,82 @@ def create_remaining_dict(Squares, Squares_to_win):
                 
  #TODO
  # Need to make a function that takes every number and the keys that are adjacent to them, and store than in an adjacency dictionary
- #  
+
+def Adjacency_Dict(Squares):
+    '''
+    Returns dictionary
+    '''
+    #Create the Matrix from the Squares
+    Matrix = []
+    list_size = int(np.sqrt(Squares))
+    starting = 0
+    ending = int(np.sqrt(Squares))
+    len_matrix = Squares
     
+    while len_matrix > 0:
+        list_to_add = []
+
+        for i in range(starting, ending):
+            list_to_add.append(i)
+       
+        Matrix.append(list_to_add)
+        starting += list_size 
+        ending += list_size
+        len_matrix -= list_size
+
+    a = int(len(Matrix))
+
+    x= 0
+    y= 0
+
+    Adjacency_list = []
+
+    while a > 0:
+        
+        output = neighbors(Matrix,x,y)
+        Adjacency_list.append(output)
+
+        y+=1
+
+        if y == len(Matrix):
+            y = 0
+            x+=1
+            a-=1
+        
+
+    return(Adjacency_list)    
+
+    #So now, we have matrix, in the case of say 25 squares, we have a 5 by 5 list Object
+    # 0  1  2 
+    # 3  4  5
+    # 6  7  8    
+
+    # We are now looking to make a function that analyzes each point in the list, and returns its corresponding values
+    # So then we can run 
+            # adjacency_list = []
+            # for x in Matrix:
+            #    e = adjacency_values 
+                #adjacency_list.append(e)
+
+            # Key_list = []    
+            # for x in Matrix, 
+            #    Key_list.append(x)
+            #     
+            #then make dictionary list from these two lists, and that will be the adjacency dictionary
 
 
-    #
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1815,12 +1881,15 @@ turtle.onkey(draw_x, "x")
 # import numpy as np
 
 # Testing Board_Making Capabilities
-Create_Board(800, 25, "white", "test", "black", 2.5)
-Key_Dictionary5 = create_key_dict_and_coords(800,25)
-print(Key_Dictionary5)
-A = create_remaining_dict(25, 3)
-print(A)
-
+# Create_Board(800, 25, "white", "test", "black", 2.5)
+# Key_Dictionary5 = create_key_dict_and_coords(800,25)
+# print(Key_Dictionary5)
+# A = create_remaining_dict(25, 3)
+# print(A)
+# B = Adjacency_Dict(25)
+# print(B)
+C = Adjacency_Dict(25)
+print(C)
 
 
 
