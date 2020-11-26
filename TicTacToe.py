@@ -117,73 +117,73 @@ from Adjacency import neighbors
 # player.setposition(0, 0)
 # player.setheading(90)
 
-speed = 200
-yspeed = 140
+# speed = 200
+# yspeed = 140
 
-def move_left():
-    x = player.xcor()
-    x -= speed
-    # if x < -222:
-    #     x = -222
-    player.setx(x)
-def move_right():
-    x = player.xcor()
-    x += speed
-    # if x > 222:
-    #     x = 222
-    player.setx(x)
-def move_up():
-    y = player.ycor()
-    y += yspeed
-    # if y >  222:
-    #     y = 222
-    player.sety(y)
-def move_down():
-    y = player.ycor()
-    y -= yspeed
-    # if y < -222:
-    #     y = -222
-    player.sety(y)
+# def move_left():
+#     x = player.xcor()
+#     x -= speed
+#     # if x < -222:
+#     #     x = -222
+#     player.setx(x)
+# def move_right():
+#     x = player.xcor()
+#     x += speed
+#     # if x > 222:
+#     #     x = 222
+#     player.setx(x)
+# def move_up():
+#     y = player.ycor()
+#     y += yspeed
+#     # if y >  222:
+#     #     y = 222
+#     player.sety(y)
+# def move_down():
+#     y = player.ycor()
+#     y -= yspeed
+#     # if y < -222:
+#     #     y = -222
+#     player.sety(y)
 
 
-def draw_circle():
-    turtle.pensize(2.5)
-    a = player.xcor()
-    b = player.ycor()
+# def draw_circle():
+#     turtle.pensize(2.5)
+#     a = player.xcor()
+#     b = player.ycor()
     
-    coord_value = [a, b]
+#     coord_value = [a, b]
     
     
-    turtle.hideturtle()
-    turtle.penup()
-    turtle.setpos(a, (b-60))
+#     turtle.hideturtle()
+#     turtle.penup()
+#     turtle.setpos(a, (b-60))
 
-    turtle.pendown()
-    turtle.circle(60)
-    turtle.hideturtle()
+#     turtle.pendown()
+#     turtle.circle(60)
+#     turtle.hideturtle()
 
-    return coord_value 
+#     return coord_value 
     
 
-def draw_x():
-    turtle.pensize(2.5)
-    a = player.xcor()
-    b = player.ycor()
-    turtle.hideturtle()
-    turtle.penup()
+# def draw_x():
+#     turtle.pensize(2.5)
+#     a = player.xcor()
+#     b = player.ycor()
+#     turtle.hideturtle()
+#     turtle.penup()
     
-    coord_value = [a, b]
+#     coord_value = [a, b]
     
    
-    turtle.setposition(a-50,b+50)
-    turtle.pendown()
-    turtle.setposition(a+50,b-50)
-    turtle.penup()
-    turtle.setposition(a-50,b-50)
-    turtle.pendown()
-    turtle.setposition(a+50,b+ 50)
+#     turtle.setposition(a-50,b+50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b-50)
+#     turtle.penup()
+#     turtle.setposition(a-50,b-50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b+ 50)
 
-    return coord_value 
+#     return coord_value 
 
 # border_pen = turtle.Turtle()
 # border_pen.speed(0)
@@ -314,70 +314,43 @@ computer.hideturtle()
 
 #     return coord_value 
 
-def comp_draw_x():
-    turtle.pensize(2.5)
-    a = computer.xcor()
-    b = computer.ycor()
-    turtle.hideturtle()
-    turtle.penup()
+# def comp_draw_x():
+#     turtle.pensize(2.5)
+#     a = computer.xcor()
+#     b = computer.ycor()
+#     turtle.hideturtle()
+#     turtle.penup()
 
-    coord_value = [a, b]
+#     coord_value = [a, b]
     
 
-    turtle.setposition(a-50,b+50)
-    turtle.pendown()
-    turtle.setposition(a+50,b-50)
-    turtle.penup()
-    turtle.setposition(a-50,b-50)
-    turtle.pendown()
-    turtle.setposition(a+50,b+ 50)
+#     turtle.setposition(a-50,b+50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b-50)
+#     turtle.penup()
+#     turtle.setposition(a-50,b-50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b+ 50)
 
-    return coord_value 
+#     return coord_value 
 
-def computer_draw_circle():
+# def computer_draw_circle():
 
-    turtle.pensize(2.5)
-    a = computer.xcor()
-    b = computer.ycor()
+#     turtle.pensize(2.5)
+#     a = computer.xcor()
+#     b = computer.ycor()
 
-    coord_value = [a, b]
-    # x = player.position(a, (b-50))
-    turtle.hideturtle()
-    turtle.penup()
-    turtle.setpos(a, (b-60))
+#     coord_value = [a, b]
+#     # x = player.position(a, (b-50))
+#     turtle.hideturtle()
+#     turtle.penup()
+#     turtle.setpos(a, (b-60))
 
-    turtle.pendown()
-    turtle.circle(60)
-    turtle.hideturtle()
+#     turtle.pendown()
+#     turtle.circle(60)
+#     turtle.hideturtle()
 
-    return coord_value 
-
-# screen = turtle.Screen()      -----------Screen Layout    
-# screen.screensize(800,800)
-# screen.bgcolor("white")
-# screen.title("Tic-Tac-Toe") 
-
-# border_pen = turtle.Turtle()  -------Vertical Lines
-# border_pen.speed(0)
-# border_pen.color("black")
-# border_pen.penup()
-# border_pen.setposition(-300,350)
-# border_pen.pendown()
-# border_pen.pensize(2.5)
-# border_pen.setheading(270)
-# border_pen.fd(700)
-# border_pen.hideturtle()
-
-# border_pen = turtle.Turtle()  ---------Horizontal Lines
-# border_pen.speed(0)
-# border_pen.color("black")
-# border_pen.penup()
-# border_pen.setposition(-500,210)
-# border_pen.pendown()
-# border_pen.pensize(2.5)
-# border_pen.setheading(0)
-# border_pen.fd(1000)
-# border_pen.hideturtle()
+#     return coord_value 
 
 
 
@@ -736,9 +709,6 @@ def create_remaining_dict(Squares, Squares_to_win):
     return Remaining_dict
     # return Remaining_Dict
             
-                
- #TODO
- # Need to make a function that takes every number and the keys that are adjacent to them, and store than in an adjacency dictionary
 
 def Adjacency_Dict(Squares):
     '''
@@ -783,11 +753,74 @@ def Adjacency_Dict(Squares):
 
 
     Name_of_Squares = list(range(0, Squares))    
-    Adjacency_list_Tuples =  [tuple(x) for x in Adjacency_list]
+    # Adjacency_list_Tuples =  [tuple(x) for x in Adjacency_list]
 
-    Adjacency_dict = dict(zip(Name_of_Squares, Adjacency_list_Tuples))    
+    Adjacency_dict = dict(zip(Name_of_Squares, Adjacency_list))    
     
     return(Adjacency_dict)    
+
+
+
+(800,25)
+#TODO
+
+def comp_draw_customized_x(boardsize, squares):
+    turtle.pensize(2.5)
+    a = computer.xcor()
+    b = computer.ycor()
+    turtle.hideturtle()
+    turtle.penup()
+
+    coord_value = [a, b]
+    
+    movement = (boardsize/squares)
+
+    turtle.setposition(a-movement,b+movement)
+    turtle.pendown()
+    turtle.setposition(a+movement,b-movement)
+    turtle.penup()
+    turtle.setposition(a-movement,b-movement)
+    turtle.pendown()
+    turtle.setposition(a+movement,b+ movement)
+
+    return coord_value 
+
+def computer_draw_customized_circle(boardsize, squares):
+    
+    movement = (boardsize/squares)
+    
+    turtle.pensize(2.5)
+    a = computer.xcor()
+    b = computer.ycor()
+
+    coord_value = [a, b]
+    # x = player.position(a, (b-50))
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.setpos(a, (b-movement))
+
+    turtle.pendown()
+    turtle.circle(movement)
+    turtle.hideturtle()
+
+    return coord_value 
+
+def create_updated_dictionary(Remaining_dict, Squares_to_win):
+
+    
+    X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+    X_list2 = [0, 0, (len(Remaining_dict) * Squares_to_win), True, True]
+
+    Updated_Dict = dict(zip(X_list, X_list2))
+
+    return Updated_Dict 
+
+
+
+
+
+
+
 
     
 
@@ -815,45 +848,45 @@ Count2 = [3,3,3,3,3,3,3,3]
 #  40, 41, 42, 43, 44
 # 
 # # ]]
-Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
-    "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
+# Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
+#     "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
 
-Bigger_Board_Coords = [[-400, 280], [-200, 280], [0, 280], [200, 280], [400, 280],\
-    [-400, 140], [-200, 140], [0, 140], [200, 140], [400, 140], \
-        [-400, 0], [-200, 0], [0, 0], [200, 0], [400, 0],\
-            [-400, -140], [-200, -140], [0, -140], [200, -140], [400, -140],\
-                [-400, -280], [-200, -280], [0, -280], [200, -280], [400, -280]
-    ]
+# Bigger_Board_Coords = [[-400, 280], [-200, 280], [0, 280], [200, 280], [400, 280],\
+#     [-400, 140], [-200, 140], [0, 140], [200, 140], [400, 140], \
+#         [-400, 0], [-200, 0], [0, 0], [200, 0], [400, 0],\
+#             [-400, -140], [-200, -140], [0, -140], [200, -140], [400, -140],\
+#                 [-400, -280], [-200, -280], [0, -280], [200, -280], [400, -280]
+#     ]
 
-TicTacdict_5X5 = dict(zip(Name_of_Bigger_Spots, Bigger_Board_Coords))
+# TicTacdict_5X5 = dict(zip(Name_of_Bigger_Spots, Bigger_Board_Coords))
 # print(TicTacdict_5X5)
 
 #Need Winning Possible Lines
 
-Winning_Lines_5X5_X = [("00", "01", "02", "03", "04"), ("10", "11", "12", "13", "14"), ("20", "21", "22", "23", "24"),\
-    ("30", "31", "32", "33", "34"), ("40", "41", "42", "43", "44"), \
-        ("00", "10", "20", "30", "40"),  ("01", "11", "21", "31", "41"), ("02", "12", "22", "32", "42"), \
-            ("03", "13", "23", "33", "43"), ("04", "14", "24", "34", "44"), ("00", "11", "22", "33", "44"), \
-                ("40", "31", "22", "13", "04")
-     ]
-Winning_Lines_5X5_O = [("00", "01", "02", "03", "04"), ("10", "11", "12", "13", "14"), ("20", "21", "22", "23", "24"),\
-    ("30", "31", "32", "33", "34"), ("40", "41", "42", "43", "44"), \
-        ("00", "10", "20", "30", "40"),  ("01", "11", "21", "31", "41"), ("02", "12", "22", "32", "42"), \
-            ("03", "13", "23", "33", "43"), ("04", "14", "24", "34", "44"), ("00", "11", "22", "33", "44"), \
-                ("40", "31", "22", "13", "04")
-     ]
-Winning_Lines_5X5_X_HARDER = [("00", "01", "02", "03"), ("01", "02", "03", "04"),("10", "11", "12", "13"), ("11", "12", "13", "14"),\
-    ("20", "21", "22", "23"), ("21", "22", "23", "24"),("30", "31", "32", "33"), ("31", "32", "33", "34"),\
-        ("40", "41", "42", "43"), ("41", "42", "43", "44"), ("00", "10", "20", "30"), ("10", "20", "30", "40"), \
-            ("01", "11", "21", "31"), ("11", "21", "31", "41"), ("02", "12", "22", "32"), ("12", "22", "32", "42"),\
-                ("03", "13", "23", "33"), ("13", "23", "33", "43"), ("04", "14", "24", "34"), ("14", "24", "34", "44"),\
-                    ("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
-                        ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
+# Winning_Lines_5X5_X = [("00", "01", "02", "03", "04"), ("10", "11", "12", "13", "14"), ("20", "21", "22", "23", "24"),\
+#     ("30", "31", "32", "33", "34"), ("40", "41", "42", "43", "44"), \
+#         ("00", "10", "20", "30", "40"),  ("01", "11", "21", "31", "41"), ("02", "12", "22", "32", "42"), \
+#             ("03", "13", "23", "33", "43"), ("04", "14", "24", "34", "44"), ("00", "11", "22", "33", "44"), \
+#                 ("40", "31", "22", "13", "04")
+#      ]
+# Winning_Lines_5X5_O = [("00", "01", "02", "03", "04"), ("10", "11", "12", "13", "14"), ("20", "21", "22", "23", "24"),\
+#     ("30", "31", "32", "33", "34"), ("40", "41", "42", "43", "44"), \
+#         ("00", "10", "20", "30", "40"),  ("01", "11", "21", "31", "41"), ("02", "12", "22", "32", "42"), \
+#             ("03", "13", "23", "33", "43"), ("04", "14", "24", "34", "44"), ("00", "11", "22", "33", "44"), \
+#                 ("40", "31", "22", "13", "04")
+#      ]
+# Winning_Lines_5X5_X_HARDER = [("00", "01", "02", "03"), ("01", "02", "03", "04"),("10", "11", "12", "13"), ("11", "12", "13", "14"),\
+#     ("20", "21", "22", "23"), ("21", "22", "23", "24"),("30", "31", "32", "33"), ("31", "32", "33", "34"),\
+#         ("40", "41", "42", "43"), ("41", "42", "43", "44"), ("00", "10", "20", "30"), ("10", "20", "30", "40"), \
+#             ("01", "11", "21", "31"), ("11", "21", "31", "41"), ("02", "12", "22", "32"), ("12", "22", "32", "42"),\
+#                 ("03", "13", "23", "33"), ("13", "23", "33", "43"), ("04", "14", "24", "34"), ("14", "24", "34", "44"),\
+#                     ("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
+#                         ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
 
-Diagonal_line_list = [("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
-    ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
-List_of_X_moves = []
-List_of_O_moves = []
+# Diagonal_line_list = [("01", "12", "23", "34"), ("00", "11", "22", "33"), ("11", "22", "33", "44"), ("10", "21", "32", "43"),\
+#     ("30", "21", "12", "03"), ("40", "31", "22", "13"),("31", "22", "13", "04"), ("41", "32", "23", "14")]
+# List_of_X_moves = []
+# List_of_O_moves = []
 
 #[[00, 01, 02, 03, 04,
 #  10, 11, 12, 13, 14,   
@@ -861,56 +894,56 @@ List_of_O_moves = []
 #  30, 31, 32, 33, 34, 
 #  40, 41, 42, 43, 44
 # 
-# # ]]
+# # # ]]
 
-Count_5X5 = [5,5,5,5,5,5,5,5,5,5,5,5]
-Count_5X5_HARDER = [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
+# Count_5X5 = [5,5,5,5,5,5,5,5,5,5,5,5]
+# Count_5X5_HARDER = [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
 
-Remaining_dict_X_5X5 = dict(zip(Winning_Lines_5X5_X, Count_5X5))
-Remaining_dict_O_5X5 = dict(zip(Winning_Lines_5X5_O, Count_5X5))
+# Remaining_dict_X_5X5 = dict(zip(Winning_Lines_5X5_X, Count_5X5))
+# Remaining_dict_O_5X5 = dict(zip(Winning_Lines_5X5_O, Count_5X5))
 
-Starting_Count2 = 5
-X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-X_list2 = [0, 0, (len(Remaining_dict_X_5X5)*Starting_Count2), True, True]
-O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-O_list2 = [0, 0, (len(Remaining_dict_O_5X5)*Starting_Count2), True, True]
+# Starting_Count2 = 5
+# X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+# X_list2 = [0, 0, (len(Remaining_dict_X_5X5)*Starting_Count2), True, True]
+# O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+# O_list2 = [0, 0, (len(Remaining_dict_O_5X5)*Starting_Count2), True, True]
 
-Starting_Count3 = 4 
+# Starting_Count3 = 4 
 
-Remaining_dict_X_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
-Remaining_dict_O_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
+# Remaining_dict_X_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
+# Remaining_dict_O_5X5_HARDER = dict(zip(Winning_Lines_5X5_X_HARDER, Count_5X5_HARDER))
 
-X_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
-O_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
-
-
-
-Updated_X_Dict_5X5 = dict(zip(X_list, X_list2))
-Updated_O_Dict_5X5 = dict(zip(O_list, O_list2))
-
-Updated_X_Dict_5X5_HARDER = dict(zip(X_list, X_list3))
-Updated_O_Dict_5X5_HARDER = dict(zip(X_list, X_list3))
-# print(Remaining_dict_X_5X5)
-# print(Remaining_dict_O_5X5)
-# print(Updated_X_Dict_5X5)
-# print(Updated_O_Dict_5X5)
+# X_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
+# O_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
 
 
-#Shows how many moves are needed to win, using this specific path
-Remaining_dict_X = dict(zip(Winning_Lines, Count))
-Remaining_dict_O = dict(zip(Winning_Lines2, Count2))
-# print(Remaining_dict)
 
-Starting_Count = 3
-X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-X_list2 = [0, 0, (len(Remaining_dict_X)*Starting_Count), True, True]
-O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-O_list2 = [0, 0, (len(Remaining_dict_O)*Starting_Count), True, True]
+# Updated_X_Dict_5X5 = dict(zip(X_list, X_list2))
+# Updated_O_Dict_5X5 = dict(zip(O_list, O_list2))
 
-Updated_X_Dict = dict(zip(X_list, X_list2))
-Updated_O_Dict = dict(zip(O_list, O_list2))
-# print(Updated_X_Dict)
-# print(Updated_O_Dict)
+# Updated_X_Dict_5X5_HARDER = dict(zip(X_list, X_list3))
+# Updated_O_Dict_5X5_HARDER = dict(zip(X_list, X_list3))
+# # print(Remaining_dict_X_5X5)
+# # print(Remaining_dict_O_5X5)
+# # print(Updated_X_Dict_5X5)
+# # print(Updated_O_Dict_5X5)
+
+
+# #Shows how many moves are needed to win, using this specific path
+# Remaining_dict_X = dict(zip(Winning_Lines, Count))
+# Remaining_dict_O = dict(zip(Winning_Lines2, Count2))
+# # print(Remaining_dict)
+
+# Starting_Count = 3
+# X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+# X_list2 = [0, 0, (len(Remaining_dict_X)*Starting_Count), True, True]
+# O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
+# O_list2 = [0, 0, (len(Remaining_dict_O)*Starting_Count), True, True]
+
+# Updated_X_Dict = dict(zip(X_list, X_list2))
+# Updated_O_Dict = dict(zip(O_list, O_list2))
+# # print(Updated_X_Dict)
+# # print(Updated_O_Dict)
 
 
 
@@ -1624,7 +1657,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     #Now you have the optimal 2 lines to block, you want to find exact position to move to                 
     
     if len(Linez_to_block_triples) == 2:
-        print(Linez_to_block_triples)
+        # print(Linez_to_block_triples)
         # print(Linez_to_make_triples) 
         
         for position in Linez_to_block_triples:
@@ -1648,9 +1681,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             for keys, adjacency_list in Adjacency_Dict.items():
                 for KYS in adjacency_keys:
                     if KYS == keys:
-                        for values in adjacency_list:
-                            if key in values:
-                                Count +=1
+                        if key in adjacency_list:
+                            Count +=1
 
             if Count == 2:
                 Shared_adjacency_list_value.append(key)
@@ -1680,11 +1712,11 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     if KYs == keys:
                         Mx_adj_val.append(len(adjacency_list))
             
-            print(Mx_adj_val) 
+            # print(Mx_adj_val) 
                        
             
             Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
-            print(Max_Adjacent_Dict)
+            # print(Max_Adjacent_Dict)
             Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
             for position, coord in Key_Dictionary.items():
                 if Best_Key == position:
@@ -1731,10 +1763,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if key == valu:
                     Count +=1
         #3) Blocking Diagonal lines of Opponent
-        for LINES in Diagonal_line_list:
-            for values in LINES:
-                if key in values:
-                    Count +=1
+        # for LINES in Diagonal_line_list:
+        #     for values in LINES:
+        #         if key in values:
+        #             Count +=1
         #4)Use adjacency values, and subtract current keys in list of opponent moves and your moves
         # Add that value to the count 
         for keys, adjacency_list in Adjacency_Dict.items():
@@ -1759,11 +1791,11 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if previous_moves == K:
                     if V not in Adj_list_2:
                         Adj_list_2.append(V)
-        # print(Adj_list_2)
-        for lists in Adj_list_2:
-            for val in lists:
-                if key in val:
-                    Count +=10          
+        print(Adj_list_2)
+        # for lists in Adj_list_2:
+        #     for val in lists:
+        #         if key in val:
+        #             Count +=10          
 
             
 
@@ -1817,8 +1849,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     return 
 
 
-# Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
-#    "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
+Name_of_Bigger_Spots = ["00", "01", "02", "03", "04", "10", "11", "12", "13", "14", "20", "21", "22", "23", "24",\
+   "30", "31", "32", "33", "34", "40", "41", "42", "43", "44"]
 
                                                     #[[00, 01, 02, 03, 04,
                                                     #  10, 11, 12, 13, 14,   
@@ -1843,92 +1875,99 @@ Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
 # print(Connected_Dict)
 
 
-turtle.listen()
-turtle.onkey(move_left, "Left") 
-turtle.onkey(move_right, "Right")
-turtle.onkey(move_up, "Up") 
-turtle.onkey(move_down, "Down")
-turtle.onkey(draw_circle, "o") 
-turtle.onkey(draw_x, "x")      
+# turtle.listen()
+# turtle.onkey(move_left, "Left") 
+# turtle.onkey(move_right, "Right")
+# turtle.onkey(move_up, "Up") 
+# turtle.onkey(move_down, "Down")
+# turtle.onkey(draw_circle, "o") 
+# turtle.onkey(draw_x, "x")      
 
 
 # import numpy as np
 
 # Testing Board_Making Capabilities
 Create_Board(800, 25, "white", "test", "black", 2.5)
+#Dictionary of Keys
 Key_Dictionary5 = create_key_dict_and_coords(800,25)
-print(Key_Dictionary5)
-A = create_remaining_dict(25, 3)
-print(A)
-B = Adjacency_Dict(25)
-print(B)
-C = Adjacency_Dict(25)
-print(C)
+# print(Key_Dictionary5)
+#Remaining Dictionaries of Winning Lines
+Remaining_Dict_O = create_remaining_dict(25, 4)
+Remaining_Dict_X = create_remaining_dict(25, 4)
+
+#Adjacency Dictionaries
+Adjacency_Dict_Custom = Adjacency_Dict(25)
+# print(B)
+#List of x's and o's moves
+List_of_X_moves = []
+List_of_O_moves = []
+#An updated dictionary using either random_dict
+Updated_Dict = create_updated_dictionary(Remaining_Dict_O, 4)
+# print(Adjacency_Dict_Custom)
 
 
 
 
+Count = 0
 
-# Count = 0
+random_start = random.randint(0,1)
+if random_start == 0:
+    Variable = 1
+else:
+    Variable = -1  
 
-# random_start = random.randint(0,1)
-# if random_start == 0:
-#     Variable = 1
-# else:
-#     Variable = -1  
-
-# Game_over = False
-# while Count <25 and Game_over == False:
+Game_over = False
+while Count <25 and Game_over == False:
     
        
     
-#     while Variable  == 1:
-#         Terminator_Move(Remaining_dict_O_5X5_HARDER, Remaining_dict_X_5X5_HARDER, TicTacdict_5X5, 4, List_of_X_moves, List_of_O_moves,\
-#             Connected_Dict)
-#         Coordinat = (computer_draw_circle())
-#         key = (key_name(TicTacdict_5X5, Coordinat))
+    while Variable  == 1:
+        Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 4, List_of_X_moves, List_of_O_moves,\
+            Adjacency_Dict_Custom)
+        Coordinat = (computer_draw_customized_circle(800, 25))
+        key = (key_name(Key_Dictionary5, Coordinat))
         
-#         # decrease_values(Remaining_dict_O, key)
-#         if decrease_values(Remaining_dict_O_5X5_HARDER, key, Updated_O_Dict_5X5_HARDER) == 0:
-#             print("O WINS!!!")
-#             Game_over = True 
-#             break
+        # decrease_values(Remaining_dict_O, key)
+        if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
+            print("O WINS!!!")
+            Game_over = True 
+            break
             
             
-#         remove_dict(TicTacdict_5X5, Coordinat)
+        remove_dict(Key_Dictionary5, Coordinat)
         
                 
-#         Variable *= -1
-#         Count +=1
+        Variable *= -1
+        Count +=1
         
-#         if Count == 25:
-#             break
+        if Count == 25:
+            break
 
     
-#     while Variable == -1:
-#         if Count == 25:
-#             break 
+    while Variable == -1:
+        if Count == 25:
+            break 
 
-#         Terminator_Move(Remaining_dict_X_5X5_HARDER, Remaining_dict_O_5X5_HARDER, TicTacdict_5X5, 4, List_of_O_moves, List_of_X_moves,\
-#             Connected_Dict)
-#         Coordinat = (comp_draw_x())
-#         key = (key_name(TicTacdict_5X5, Coordinat))
-#         # decrease_values(Remaining_dict_X, key)
-#         if decrease_values(Remaining_dict_X_5X5_HARDER, key, Updated_X_Dict_5X5_HARDER) == 0:
-#             print("X WINS!!!")
-#             Game_over = True 
-#             break
+        Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 4, List_of_O_moves, List_of_X_moves,\
+            Adjacency_Dict_Custom)
+        Coordinat = (comp_draw_customized_x(800, 25))
+        key = (key_name(Key_Dictionary5, Coordinat))
+        # decrease_values(Remaining_dict_X, key)
+        if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
+            print("X WINS!!!")
+            Game_over = True 
+            break
              
-#         remove_dict(TicTacdict_5X5, Coordinat)
+        remove_dict(Key_Dictionary5, Coordinat)
         
         
-#         Variable *=-1
-#         Count +=1
+        Variable *=-1
+        Count +=1
 
-#         if Count == 25:
-#             break 
+        if Count == 25:
+            break 
              
-# print(Updated_O_Dict_5X5)
-# print(Updated_X_Dict_5X5)
+# # print(Updated_O_Dict_5X5)
+# # print(Updated_X_Dict_5X5)
           
 delay = input("Press enter to finish.")
