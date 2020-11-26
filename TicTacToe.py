@@ -487,7 +487,7 @@ def create_key_dict_and_coords(Boardsize, Squares):
     return Key_Dict 
 
 #Now have to find a way to make winning_lines and Count dictionary
-def find_diagonal_winning_lines(Squares, Squares_to_win):
+# def find_diagonal_winning_lines(Squares, Squares_to_win):
 
     # 0    1    2    3     4
     # 5    6    7    8     9
@@ -545,7 +545,6 @@ def create_remaining_dict(Squares, Squares_to_win):
     Winning_Lines = []
     Horizontal_lines_in_Matrix = math.sqrt(Squares)
     Vertical_lines_in_Matrix =  math.sqrt(Squares)
-    Diagonal_lines_in_Matrix = math.sqrt(Squares)
     Starting_Row = 0
 
     while Horizontal_lines_in_Matrix > 0:
@@ -625,36 +624,67 @@ def create_remaining_dict(Squares, Squares_to_win):
                     Max_index_to_start_at -=1
 
     
+    #TODO
+    
+    Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) #==2
+    Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) #==2
+    Total_Squares_per_iteration = Squares_to_win # ===4
+
+    Total_Rows = int(Rows_to_iterate_using_Diagonals)
+    smaller_list = []
+    Total_Squares = 0
+    Row_index = 0
+    Column_Idx = 0
+        
+    while Rows_to_iterate_using_Diagonals > 0:
+
+        
+        
+        while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
+
+                
+            smaller_list.append(Matrix[Row_index][Column_Idx])
+            print(Row_index)
+            print(Column_Idx)
+            
+            Row_index +=1
+            Column_Idx +=1
+            Total_Squares +=1
+
+                    
+            if Total_Squares == Total_Squares_per_iteration:
+                b = smaller_list[:]
+                Winning_Lines.append(b)
+                smaller_list.clear()
+                Row_index = 0 + (Total_Rows - Rows_to_iterate_using_Diagonals)  
+                Column_Idx = 0
+                Column_Idx +=1
+                
+            
+            if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals) :
+                a = smaller_list[:]
+                print(a)
+                Winning_Lines.append(a)
+                smaller_list.clear()
+                Row_index = 0
+                Column_Idx = 0 
+                Row_index +=1
+                Total_Squares = 0
+                Rows_to_iterate_using_Diagonals -=1
+                break 
+                
+
+            
+             
+
 
 
     return Winning_Lines
 
             
                 
-                    
-
-
-
-
-
-
-                
-            #looks like we need a second while loop here to scroll through the individual rows
-            #We need to find a criteria for putting the values in lists for a given row, then we increment the row
-            # we want Squares_To_win # of squares per list
-            # We want to start at index 0 and move 4 squares over
-            # so like row[0][0]
-
-
-
+     
     
-
-
-    
-    
-    
-    print(A[0][0])
-    print(A[1][0]) 
 
 
     #Above function returns a list of lists, equal size, a tic tac toe grid
