@@ -590,8 +590,8 @@ def create_remaining_dict(Squares, Squares_to_win):
             # print(Row_index)
             # print(Column_Idx)    
             smaller_list.append(Matrix[Row_index][Column_Idx])
-            print(Row_index)
-            print(Column_Idx)
+            # print(Row_index)
+            # print(Column_Idx)
             
             Row_index +=1
             Total_Squares +=1
@@ -634,18 +634,16 @@ def create_remaining_dict(Squares, Squares_to_win):
     Total_Squares = 0
     Row_index = 0
     Column_Idx = 0
-        
-    while Rows_to_iterate_using_Diagonals > 0:
+    Starting_Column = 0
+    Starting_Row = 0
 
+    
+    while Rows_to_iterate_using_Diagonals > 0:
         
         
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
 
-
-            #We set a bunch of variables, and we start by iterating from 0,0 diagonally
-            # When we hit a winning line, we append it, and we move the column over 1 spot and go again
-            # When we hit the total amount of iterations for the entire row, we reset the values, add 1 to the row index , and 
-            # break from the loop, resetting all the values, except making rows to iterate one less    
+   
                 
             smaller_list.append(Matrix[Row_index][Column_Idx])
             # print(Row_index)
@@ -662,9 +660,10 @@ def create_remaining_dict(Squares, Squares_to_win):
                 # print(a)
                 Winning_Lines.append(a)
                 smaller_list.clear()
-                Row_index = 0
-                Column_Idx = 0 
-                Row_index +=1
+                Starting_Row +=1
+                Row_index = Starting_Row
+                Starting_Column = 0
+                Column_Idx = Starting_Column
                 Total_Squares = 0
                 Rows_to_iterate_using_Diagonals -=1
                 break 
@@ -673,45 +672,32 @@ def create_remaining_dict(Squares, Squares_to_win):
                 b = smaller_list[:]
                 Winning_Lines.append(b)
                 smaller_list.clear()
-                Row_index = 0 + (Total_Rows - Rows_to_iterate_using_Diagonals)  
-                Column_Idx = 0
-                Column_Idx +=1
+                # Row_index = 0 + (Total_Rows - Rows_to_iterate_using_Diagonals)  
+                Starting_Column +=1
+                Column_Idx = Starting_Column
+                Row_index = Starting_Row
+
                 break 
 
-            # Have to use Total_rows - Rows to iterate to update the current row index, as it has been reset, 
-            # but basically every iteration through all diagonals, the row is updated    
-            
-            # if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals) :
-            #     a = smaller_list[:]
-            #     # print(a)
-            #     Winning_Lines.append(a)
-            #     smaller_list.clear()
-            #     Row_index = 0
-            #     Column_Idx = 0 
-            #     Row_index +=1
-            #     Total_Squares = 0
-            #     Rows_to_iterate_using_Diagonals -=1
-            #     break 
-                #Once you break from here, and the Rows to iterate = 0, it breaks from the loop and gives you your lists back!
-    
-    
+           
     Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) #==2
     Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) #==2
-    Total_Squares_per_iteration = Squares_to_win # ===4
+    Total_Squares_per_iteration = int(Squares_to_win) # ===4
 
     Total_Rows = int(Rows_to_iterate_using_Diagonals)
     smaller_list = []
     Total_Squares = 0
     Row_index = int(math.sqrt(Squares)-1)
-    Row_index_pointer = Row_index
     Column_Idx = 0
-        
-    while Rows_to_iterate_using_Diagonals > 0:
+    Starting_Column = 0
+    Starting_Row = int(math.sqrt(Squares)-1)
 
+    
+    while Rows_to_iterate_using_Diagonals > 0:
         
         
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
-
+  
                 
             smaller_list.append(Matrix[Row_index][Column_Idx])
             # print(Row_index)
@@ -728,9 +714,10 @@ def create_remaining_dict(Squares, Squares_to_win):
                 # print(a)
                 Winning_Lines.append(a)
                 smaller_list.clear()
-                Row_index = Row_index_pointer
-                Column_Idx = 0 
-                Row_index -=1
+                Starting_Row -=1
+                Row_index = Starting_Row
+                Starting_Column = 0
+                Column_Idx = Starting_Column
                 Total_Squares = 0
                 Rows_to_iterate_using_Diagonals -=1
                 break 
@@ -739,25 +726,13 @@ def create_remaining_dict(Squares, Squares_to_win):
                 b = smaller_list[:]
                 Winning_Lines.append(b)
                 smaller_list.clear()
-                Row_index = 0 
-                Row_index = Row_index_pointer - (Total_Rows - Rows_to_iterate_using_Diagonals)  
-                Column_Idx = 0
-                Column_Idx +=1
+                # Row_index = 0 + (Total_Rows - Rows_to_iterate_using_Diagonals)  
+                Starting_Column +=1
+                Column_Idx = Starting_Column
+                Row_index = Starting_Row
+
                 break 
-              
-            
-            # if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals) :
-            #     a = smaller_list[:]
-            #     # print(a)
-            #     Winning_Lines.append(a)
-            #     smaller_list.clear()
-            #     Row_index = Row_index_pointer
-            #     Column_Idx = 0 
-            #     Row_index -=1
-            #     Total_Squares = 0
-            #     Rows_to_iterate_using_Diagonals -=1
-            #     break 
-            
+           
 
     Count_Lists = [Squares_to_win] * len(Winning_Lines)
     Winning_Lines_Tuples =  [tuple(x) for x in Winning_Lines]
