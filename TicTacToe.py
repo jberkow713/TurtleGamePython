@@ -453,7 +453,7 @@ def create_key_dict_and_coords(Boardsize, Squares):
     '''
     Name_of_Spots = list(range(0, Squares))
 
-    Square_Length = (Boardsize / math.sqrt(Squares))
+    Square_Length = round((Boardsize / np.sqrt(Squares)))
     Mid_Square_Length = (Square_Length / 2)
     Starting_X_Coordinate = -(Boardsize/2) + Mid_Square_Length
     Starting_Y_Coordinate = (Boardsize/2) - Mid_Square_Length
@@ -463,8 +463,8 @@ def create_key_dict_and_coords(Boardsize, Squares):
    
     Coordinate_list = []
     Len_Coordinate_list = len(Name_of_Spots)
-    X_coord = Starting_X_Coordinate
-    Y_coord = Starting_Y_Coordinate
+    X_coord = (Starting_X_Coordinate)
+    Y_coord = (Starting_Y_Coordinate)
 
     while Len_Coordinate_list > 0:
         
@@ -486,36 +486,6 @@ def create_key_dict_and_coords(Boardsize, Squares):
     Key_Dict = dict(zip(Name_of_Spots, Coordinate_list))
     return Key_Dict 
 
-#Now have to find a way to make winning_lines and Count dictionary
-# def find_diagonal_winning_lines(Squares, Squares_to_win):
-
-    # 0    1    2    3     4
-    # 5    6    7    8     9
-    #10   11   12   13    14 
-    #15   16   17   18    19
-    #20   21   22   23    24 
-
-# So given a list of lists, we have to find out which squares make up diagonal winning lines based on amount of squares needed to win
-# Start in Row 0, index 0, move row + by 1, and index up by 1, until you reach that many spots, so 0, 6, 12, 18....then put that value in list, add to big list
-# move to row 0, index 1, repeat, ...get 1, 7, 13, 19...
-
-# Now normally, you would continue to do the same, but in this case, you run out of tiles, so you only begin this process , if the index in the row is 
-# >= math.sqrt(Squares) - Squares_to_win, so from Row [0] index [1], you jump down to Row[1] index [0], get 5,11,17,23, move over again for 6,12,18,24
-# At this point, cant move over to index 2, as 2 ! >= math.sqrt(Squares)-Squares_to_win
-# So normally, you would move down to another row...
-
-#Except this would put you at row 2, and you can not operate on any row that has a row value >= math.sqrt(Squares)-Squares_to_win
-
-#So you are halfway done, we have checked the top to bottom diagonals, now we must check bottom to top....
-
-# So same idea, start at Maximum Row, minimum index, in this case, Matrix[4][0], this time you simply subtract one from the row, while adding to the column
-# so you move to Matrix[3][1], and repeat, you get 20,16,12,8, 
-# Move over to Matrix[4][1], repeat adn get 21, 17, 13, 9
-
-#Can not access index 2, for reasons above, so you simply decrease column by 1, start at M[3][0], 15, 11, 7, 3, then 16, 12, 8, 4
-# Can not go up a row for reasons above, so exit the loop, and you're done
-
-# Need to implement function, or while loop, that takes in a matrix, list of lists, and a # of squares_to_win and returns a list of all possible diagonal victories
 
 
 
@@ -649,8 +619,8 @@ def create_remaining_dict(Squares, Squares_to_win):
             # break from the loop, resetting all the values, except making rows to iterate one less    
                 
             smaller_list.append(Matrix[Row_index][Column_Idx])
-            print(Row_index)
-            print(Column_Idx)
+            # print(Row_index)
+            # print(Column_Idx)
             
             Row_index +=1
             Column_Idx +=1
@@ -671,7 +641,7 @@ def create_remaining_dict(Squares, Squares_to_win):
             
             if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals) :
                 a = smaller_list[:]
-                print(a)
+                # print(a)
                 Winning_Lines.append(a)
                 smaller_list.clear()
                 Row_index = 0
@@ -700,16 +670,10 @@ def create_remaining_dict(Squares, Squares_to_win):
         
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
 
-
-            #We set a bunch of variables, and we start by iterating from 0,0 diagonally
-            # When we hit a winning line, we append it, and we move the column over 1 spot and go again
-            # When we hit the total amount of iterations for the entire row, we reset the values, add 1 to the row index , and 
-            # break from the loop, resetting all the values, except making rows to iterate one less
-            # Moving the opposite way here instead    
                 
             smaller_list.append(Matrix[Row_index][Column_Idx])
-            print(Row_index)
-            print(Column_Idx)
+            # print(Row_index)
+            # print(Column_Idx)
             
             Row_index -=1
             Column_Idx +=1
@@ -726,12 +690,11 @@ def create_remaining_dict(Squares, Squares_to_win):
                 Column_Idx = 0
                 Column_Idx +=1
 
-            # Have to use Total_rows - Rows to iterate to update the current row index, as it has been reset, 
-            # but basically every iteration through all diagonals, the row is updated    
+              
             
             if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals) :
                 a = smaller_list[:]
-                print(a)
+                # print(a)
                 Winning_Lines.append(a)
                 smaller_list.clear()
                 Row_index = Row_index_pointer
@@ -741,12 +704,13 @@ def create_remaining_dict(Squares, Squares_to_win):
                 Rows_to_iterate_using_Diagonals -=1
                 break 
             
-             
 
+    Count_Lists = [Squares_to_win] * len(Winning_Lines)
+    Winning_Lines_Tuples =  [tuple(x) for x in Winning_Lines]
 
-
-    return Winning_Lines
-
+    Remaining_dict = dict(zip(Winning_Lines_Tuples, Count_Lists))    
+    return Remaining_dict
+    # return Remaining_Dict
             
                 
      
@@ -1845,10 +1809,10 @@ turtle.onkey(draw_x, "x")
 # import numpy as np
 
 # Testing Board_Making Capabilities
-Create_Board(1000, 25, "white", "test", "black", 2.5)
-Key_Dictionary5 = create_key_dict_and_coords(1000,25)
+Create_Board(1000, 49, "white", "test", "black", 2.5)
+Key_Dictionary5 = create_key_dict_and_coords(1000,49)
 print(Key_Dictionary5)
-A = create_remaining_dict(25, 4)
+A = create_remaining_dict(49, 6)
 print(A)
 
 
