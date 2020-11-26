@@ -419,7 +419,9 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
 
 
 
-#Store name of spots in a simple list, from 0 to # of squares, and their coordinates       
+#Store name of spots in a simple list, from 0 to # of squares, and their coordinates  
+# TODO 
+# FIX THIS STUPID FUNCTION , IT IS SCREWING UP MY FUN!     
 def create_key_dict_and_coords(Boardsize, Squares):
     '''
     This function takes Boardsize, number of Squares, creates a list of each Square as a key, 
@@ -458,6 +460,7 @@ def create_key_dict_and_coords(Boardsize, Squares):
         Len_Coordinate_list -=1
 
     Key_Dict = dict(zip(Name_of_Spots, Coordinate_list))
+    print(Key_Dict)
     return Key_Dict 
 
 
@@ -1461,6 +1464,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Remaining_Keys = []
     for key in Key_Dictionary.keys():
         Remaining_Keys.append(key)
+       
     #This check makes sure, first, that you block opponent's move, puts key to remove in Keys_to_Remove list
     Keys_to_Remove = []
     for winning_line, count in Opponent_Dictionary.items():
@@ -1791,11 +1795,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if previous_moves == K:
                     if V not in Adj_list_2:
                         Adj_list_2.append(V)
-        print(Adj_list_2)
-        # for lists in Adj_list_2:
-        #     for val in lists:
-        #         if key in val:
-        #             Count +=10          
+        # print(Adj_list_2)
+        for lists in Adj_list_2:
+            if key in lists:
+                    Count +=10          
 
             
 
@@ -1887,22 +1890,22 @@ Connected_Dict = dict(zip(Name_of_Bigger_Spots, Connected_List))
 # import numpy as np
 
 # Testing Board_Making Capabilities
-Create_Board(800, 25, "white", "test", "black", 2.5)
+Create_Board(800, 81, "white", "test", "black", 2.5)
 #Dictionary of Keys
-Key_Dictionary5 = create_key_dict_and_coords(800,25)
+Key_Dictionary5 = create_key_dict_and_coords(800,81)
 # print(Key_Dictionary5)
 #Remaining Dictionaries of Winning Lines
-Remaining_Dict_O = create_remaining_dict(25, 4)
-Remaining_Dict_X = create_remaining_dict(25, 4)
+Remaining_Dict_O = create_remaining_dict(81, 7)
+Remaining_Dict_X = create_remaining_dict(81, 7)
 
 #Adjacency Dictionaries
-Adjacency_Dict_Custom = Adjacency_Dict(25)
+Adjacency_Dict_Custom = Adjacency_Dict(81)
 # print(B)
 #List of x's and o's moves
 List_of_X_moves = []
 List_of_O_moves = []
 #An updated dictionary using either random_dict
-Updated_Dict = create_updated_dictionary(Remaining_Dict_O, 4)
+Updated_Dict = create_updated_dictionary(Remaining_Dict_O, 7)
 # print(Adjacency_Dict_Custom)
 
 
@@ -1917,14 +1920,14 @@ else:
     Variable = -1  
 
 Game_over = False
-while Count <25 and Game_over == False:
+while Count <81 and Game_over == False:
     
        
     
     while Variable  == 1:
-        Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 4, List_of_X_moves, List_of_O_moves,\
+        Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 9, List_of_X_moves, List_of_O_moves,\
             Adjacency_Dict_Custom)
-        Coordinat = (computer_draw_customized_circle(800, 25))
+        Coordinat = (computer_draw_customized_circle(800, 81))
         key = (key_name(Key_Dictionary5, Coordinat))
         
         # decrease_values(Remaining_dict_O, key)
@@ -1940,17 +1943,17 @@ while Count <25 and Game_over == False:
         Variable *= -1
         Count +=1
         
-        if Count == 25:
+        if Count == 81:
             break
 
     
     while Variable == -1:
-        if Count == 25:
+        if Count == 81:
             break 
 
-        Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 4, List_of_O_moves, List_of_X_moves,\
+        Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 9, List_of_O_moves, List_of_X_moves,\
             Adjacency_Dict_Custom)
-        Coordinat = (comp_draw_customized_x(800, 25))
+        Coordinat = (comp_draw_customized_x(800, 81))
         key = (key_name(Key_Dictionary5, Coordinat))
         # decrease_values(Remaining_dict_X, key)
         if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
@@ -1964,7 +1967,7 @@ while Count <25 and Game_over == False:
         Variable *=-1
         Count +=1
 
-        if Count == 25:
+        if Count == 81:
             break 
              
 # # print(Updated_O_Dict_5X5)
