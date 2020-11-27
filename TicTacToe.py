@@ -107,9 +107,11 @@ def Create_Player_Custom_Commands(Boardsize, Squares ):
     #This way, when he move, he will be forced to land on an actual key coordinate, so when he marks, 
     #This marked coordinate will trigger a key, and allow the game to run
     #Setting player at top left square on board
-    player.setposition((-(Boardsize/2)+ .5*(Square_Length)), ((Boardsize/2) - .5*(Square_Length)))
+    
+    Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + ((np.sqrt(Squares)-1) * Square_Length)
+    Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - ((np.sqrt(Squares)-1) * Square_Length)
+    player.setposition(Starting_pos_x , Starting_pos_y )
     player.setheading(90)
-
     #movement is used for drawing, not movement
     movement = (Boardsize/Squares)*1.5
 
