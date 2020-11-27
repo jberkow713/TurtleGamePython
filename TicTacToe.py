@@ -103,7 +103,11 @@ def Create_Player_Custom_Commands(Boardsize, Squares ):
     player.shape("triangle")
     player.penup()
     player.speed(0)
-    player.setposition(0, 0)
+    #Setting Player's starting position at an actual square coordinate, and not 0,0
+    #This way, when he move, he will be forced to land on an actual key coordinate, so when he marks, 
+    #This marked coordinate will trigger a key, and allow the game to run
+    #Setting player at top left square on board
+    player.setposition((-(Boardsize/2)+ .5*(Square_Length)), ((Boardsize/2) - .5*(Square_Length)))
     player.setheading(90)
 
     #movement is used for drawing, not movement
@@ -133,14 +137,14 @@ def Create_Player_Custom_Commands(Boardsize, Squares ):
         if y < -(Boardsize/2)+ .5*(Square_Length):
             y = -(Boardsize/2)+ .5*(Square_Length)
         player.sety(y)
+    
     def draw_circle():
         turtle.pensize(2.5)
         a = player.xcor()
         b = player.ycor()
         
         coord_value = [a, b]
-        
-        
+                
         turtle.hideturtle()
         turtle.penup()
         turtle.setpos(a, (b-movement))
@@ -159,8 +163,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares ):
         turtle.penup()
         
         coord_value = [a, b]
-        
-    
+            
         turtle.setposition(a-movement,b+movement)
         turtle.pendown()
         turtle.setposition(a+movement,b-movement)
@@ -1593,13 +1596,15 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
             if Count == Squares:
                 break 
 
-Play_Game(800, 361, 17)
+Play_Game(800, 121, 10)
 
-#TODO 
+ 
 #Add functionality so human can choose to play against machine if he wishes
 #I think I can say if Player=True, enter other while loop, and we need to make functionality that forces
-#players movement and size of pieces to be based on board, should work on this now
 
+# Player movements have been customized to board size...
+
+#TODO
 #after player moves, need to update key dictionary, decrease values based on the key and Updated Dict, 
 #remove the key, also input the key into list_of_x_moves or whatever
 
