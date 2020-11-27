@@ -1548,61 +1548,66 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     Updated_Dict = create_updated_dictionary(Remaining_Dict_O, Squares_to_win)
     Create_Player_Custom_Commands(Boardsize, Squares)
 
-        
-    Count = 0
+    if Player==False:
 
-    random_start = random.randint(0,1)
-    if random_start == 0:
-        Variable = 1
-    else:
-        Variable = -1  
 
-    Game_over = False
-    while Count <Squares and Game_over == False:
+        Count = 0
+
+        random_start = random.randint(0,1)
+        if random_start == 0:
+            Variable = 1
+        else:
+            Variable = -1  
+
+        Game_over = False
+        while Count <Squares and Game_over == False:
+                    
+            while Variable  == 1:
+                Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
+                    Adjacency_Dict1)
+                Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
+                key = (key_name(Key_Dictionary, Coordinat))
                 
-        while Variable  == 1:
-            Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
-                Adjacency_Dict1)
-            Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
-            key = (key_name(Key_Dictionary, Coordinat))
-            
-            # decrease_values(Remaining_dict_O, key)
-            if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
-                print("O WINS!!!")
-                Game_over = True 
-                break
-                            
-            remove_dict(Key_Dictionary, Coordinat)
+                # decrease_values(Remaining_dict_O, key)
+                if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
+                    print("O WINS!!!")
+                    Game_over = True 
+                    break
                                 
-            Variable *= -1
-            Count +=1
+                remove_dict(Key_Dictionary, Coordinat)
+                                    
+                Variable *= -1
+                Count +=1
+                
+                if Count == Squares:
+                    break
             
-            if Count == Squares:
-                break
-        
-        while Variable == -1:
-            if Count == Squares:
-                break 
+            while Variable == -1:
+                if Count == Squares:
+                    break 
 
-            Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary, Squares_to_win, List_of_O_moves, List_of_X_moves,\
-                Adjacency_Dict1)
-            Coordinat = (comp_draw_customized_x(Boardsize, Squares))
-            key = (key_name(Key_Dictionary, Coordinat))
-            # decrease_values(Remaining_dict_X, key)
-            if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
-                print("X WINS!!!")
-                Game_over = True 
-                break
-                
-            remove_dict(Key_Dictionary, Coordinat)
-                
-            Variable *=-1
-            Count +=1
+                Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary, Squares_to_win, List_of_O_moves, List_of_X_moves,\
+                    Adjacency_Dict1)
+                Coordinat = (comp_draw_customized_x(Boardsize, Squares))
+                key = (key_name(Key_Dictionary, Coordinat))
+                # decrease_values(Remaining_dict_X, key)
+                if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
+                    print("X WINS!!!")
+                    Game_over = True 
+                    break
+                    
+                remove_dict(Key_Dictionary, Coordinat)
+                    
+                Variable *=-1
+                Count +=1
 
-            if Count == Squares:
-                break 
+                if Count == Squares:
+                    break
+    # if Player==True:
+    # So the idea here is , you have the same while loop, only one computer player is replaced by a human player
 
-Play_Game(800, 121, 11)
+
+Play_Game(800, 169, 13)
 
 
  
