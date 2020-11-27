@@ -6,11 +6,6 @@ from copy import deepcopy
 import numpy as np
 from Adjacency import neighbors 
 
-# screen = turtle.Screen()
-# screen.screensize(800,800)
-# screen.bgcolor("white")
-# screen.title("Tic-Tac-Toe")
-
 
 # player = turtle.Turtle()
 # player.color("red")
@@ -28,72 +23,72 @@ computer.speed(0)
 computer.setposition(0, 0)
 computer.hideturtle()
 
-# speed = 222
+speed = 222
 
-# def move_left():
-#     x = player.xcor()
-#     x -= speed
-#     if x < -222:
-#         x = -222
-#     player.setx(x)
-# def move_right():
-#     x = player.xcor()
-#     x += speed
-#     if x > 222:
-#         x = 222
-#     player.setx(x)
-# def move_up():
-#     y = player.ycor()
-#     y += speed
-#     if y >  222:
-#         y = 222
-#     player.sety(y)
-# def move_down():
-#     y = player.ycor()
-#     y -= speed
-#     if y < -222:
-#         y = -222
-#     player.sety(y)
+def move_left():
+    x = player.xcor()
+    x -= speed
+    if x < -222:
+        x = -222
+    player.setx(x)
+def move_right():
+    x = player.xcor()
+    x += speed
+    if x > 222:
+        x = 222
+    player.setx(x)
+def move_up():
+    y = player.ycor()
+    y += speed
+    if y >  222:
+        y = 222
+    player.sety(y)
+def move_down():
+    y = player.ycor()
+    y -= speed
+    if y < -222:
+        y = -222
+    player.sety(y)
 
 
-# def draw_circle():
-#     turtle.pensize(2.5)
-#     a = player.xcor()
-#     b = player.ycor()
+def draw_circle():
+    turtle.pensize(2.5)
+    a = player.xcor()
+    b = player.ycor()
     
-#     coord_value = [a, b]
+    coord_value = [a, b]
     
     
-#     turtle.hideturtle()
-#     turtle.penup()
-#     turtle.setpos(a, (b-60))
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.setpos(a, (b-60))
 
-#     turtle.pendown()
-#     turtle.circle(60)
-#     turtle.hideturtle()
+    turtle.pendown()
+    turtle.circle(60)
+    turtle.hideturtle()
 
-#     return coord_value 
+    return coord_value 
     
 
-# def draw_x():
-#     turtle.pensize(2.5)
-#     a = player.xcor()
-#     b = player.ycor()
-#     turtle.hideturtle()
-#     turtle.penup()
+def draw_x():
+    turtle.pensize(2.5)
+    a = player.xcor()
+    b = player.ycor()
+    turtle.hideturtle()
+    turtle.penup()
     
-#     coord_value = [a, b]
+    coord_value = [a, b]
     
    
-#     turtle.setposition(a-50,b+50)
-#     turtle.pendown()
-#     turtle.setposition(a+50,b-50)
-#     turtle.penup()
-#     turtle.setposition(a-50,b-50)
-#     turtle.pendown()
-#     turtle.setposition(a+50,b+ 50)
+    turtle.setposition(a-50,b+50)
+    turtle.pendown()
+    turtle.setposition(a+50,b-50)
+    turtle.penup()
+    turtle.setposition(a-50,b-50)
+    turtle.pendown()
+    turtle.setposition(a+50,b+ 50)
 
-#     return coord_value 
+    return coord_value 
 
 
 def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Line_Size):
@@ -175,7 +170,6 @@ def create_key_dict_and_coords(Boardsize, Squares):
     Max_X_Coordinate = (Boardsize/2) - Mid_Square_Length
     Min_Y_Coordinate = -(Boardsize/2) + Mid_Square_Length 
 
-   
     Coordinate_list = []
         
     Len_Coordinate_list = len(Name_of_Spots)
@@ -184,8 +178,7 @@ def create_key_dict_and_coords(Boardsize, Squares):
     
     X_coord = (Starting_X_Coordinate)
     Y_coord = (Starting_Y_Coordinate)
-    
-    
+        
     while Len_Coordinate_list > 0:
         
         Individ_coord = []
@@ -247,10 +240,8 @@ def create_remaining_dict(Squares, Squares_to_win):
     Starting_Row = 0
     
     while Horizontal_lines_in_Matrix > 0:
-        
-        
+                
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row * Horizontal_lines_in_Matrix):
-
             
             # print(Column_Idx)    
             smaller_list.append(Matrix[Row_index][Column_Idx])
@@ -298,8 +289,6 @@ def create_remaining_dict(Squares, Squares_to_win):
     Starting_Row = 0
     
     while Vertical_lines_in_Matrix > 0:
-
-        
         
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row * Vertical_lines_in_Matrix):
 
@@ -350,10 +339,8 @@ def create_remaining_dict(Squares, Squares_to_win):
     Starting_Row = 0
 
     while Rows_to_iterate_using_Diagonals > 0:
-        
-       
+               
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
-
                    
             smaller_list.append(Matrix[Row_index][Column_Idx])
             # print(Row_index)
@@ -388,7 +375,6 @@ def create_remaining_dict(Squares, Squares_to_win):
                 Row_index = Starting_Row
 
                 break 
-
            
     Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) #==2
     Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) #==2
@@ -404,11 +390,9 @@ def create_remaining_dict(Squares, Squares_to_win):
 
     
     while Rows_to_iterate_using_Diagonals > 0:
-        
-        
-        while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
-  
                 
+        while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
+                  
             smaller_list.append(Matrix[Row_index][Column_Idx])
             # print(Row_index)
             # print(Column_Idx)
@@ -512,7 +496,7 @@ def comp_draw_customized_x(boardsize, squares):
 
     coord_value = [a, b]
     
-    movement = (boardsize/squares)
+    movement = (boardsize/squares)*1.5
 
     turtle.setposition(a-movement,b+movement)
     turtle.pendown()
@@ -526,7 +510,7 @@ def comp_draw_customized_x(boardsize, squares):
 
 def computer_draw_customized_circle(boardsize, squares):
     
-    movement = (boardsize/squares)
+    movement = (boardsize/squares)*1.5
     
     turtle.pensize(2.5)
     a = computer.xcor()
@@ -553,24 +537,6 @@ def create_updated_dictionary(Remaining_dict, Squares_to_win):
     Updated_Dict = dict(zip(X_list, X_list2))
 
     return Updated_Dict 
-
-
-# Starting_Count2 = 5
-# X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-# X_list2 = [0, 0, (len(Remaining_dict_X_5X5)*Starting_Count2), True, True]
-# O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-# O_list2 = [0, 0, (len(Remaining_dict_O_5X5)*Starting_Count2), True, True]
-
-
-# X_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
-# O_list3 = [0,0, (len(Remaining_dict_X_5X5_HARDER)*Starting_Count3), True, True]
-
-# Starting_Count = 3
-# X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-# X_list2 = [0, 0, (len(Remaining_dict_X)*Starting_Count), True, True]
-# O_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
-# O_list2 = [0, 0, (len(Remaining_dict_O)*Starting_Count), True, True]
-
 
 # This is in the case of player going first, forcing computer into one of the corner spots
 def comp_pos_if_first_center():
@@ -857,7 +823,6 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Winning_lines_Containers = []
         Count = 0
         index = 0
-
         #You are taking your winning lines, and opponent winning lines, and adding the value together...if the value > Starting value
         # append that line to Winning_lines_Container, then check every key to see if it is in one of those lines
         for winning_line, count in Your_Dictionary.items():
@@ -930,8 +895,6 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             for Winning_Lines, value in Opponent_Dictionary.items():
                 if winning_lines == Winning_Lines and value == Starting_count:
                     Winning_lines_Containers.append(winning_lines)
-
-        
         
         for actual_winning_lines in Winning_lines_Containers:
             for keys in actual_winning_lines:
@@ -941,7 +904,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for winning_lines, current_count in Your_Dictionary.items():
             for line in Winning_lines_Containers:
                 if winning_lines == line:
-                    if current_count < Starting_Count:
+                    if current_count < Starting_count:
                         Count -=1 
 
         Winning_Line_Count.append(Count)
@@ -990,10 +953,7 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 elif winning_line == Winning_Line:
                     if Count < Starting_Count and count == Starting_count:
                         Opponent_lines_Container.append(Winning_Line)
-        # print(Winning_lines_Container)
-        # print(Opponent_lines_Container)
-        #The opponents winning lines are in the Winning_line_container
-        #So we want the key that intersects as many of these lines as possible
+       
         while Keys_Remaining > 0:
             key = Random_Key[index]
 
@@ -1068,12 +1028,6 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             return 
 
 
-
-# Updated_X_Dict['winning_lines']  =  4
-# print(Updated_X_Dict)
-
-#These dictionaries will be used in the new function, to decide how the player moves his pieces
-
 def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, List_of_Opponent_Moves, List_of_your_moves,\
     Adjacency_Dict):
     '''
@@ -1123,11 +1077,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 computer.setpos(coordinates[0],coordinates[1])
                 List_of_your_moves.append(Keys_to_Remove[0])
                 return
-    
-    #Hardest part to program. Needs to check if it must make 3rd move in a line of 5 when going for 4 in a row
-    # Has to check its dictionary values, and find the two lines that overlap, then enter several while functions
-    # And ultimately find the right spot to move to
-    
+            
     Pre_lines = []
     Set_list = []
     Linez_to_make_triples = []
@@ -1164,8 +1114,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Count = 0
         index +=1
         Len_Pre_lines -=1
-    
-                       
+                           
     #This will trigger if computer CAN make an optimal line of 3, at any given point in the game
     if len(Linez_to_make_triples) == 2:
         
@@ -1224,11 +1173,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 
                     if KYs == keys:
                         Mx_adj_val.append(len(adjacency_list))
-            
-            # print(Mx_adj_val) 
-            
-
-            
+                       
             #                 Ky_to_Block.append(KYs)
             Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
             # print(Max_Adjacent_Dict)
@@ -1336,10 +1281,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 
                     if KYs == keys:
                         Mx_adj_val.append(len(adjacency_list))
-            
-            # print(Mx_adj_val) 
-                       
-            
+                        
             Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
             # print(Max_Adjacent_Dict)
             Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
@@ -1425,8 +1367,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Random_Best_Choice.append(value)
     # print(Random_Best_Choice) 
     max_val = max(Random_Best_Choice)
-    
-    
+        
     for key, value in Best_Choice.items():
         if value == max_val:
             Random_Key.append(key)
@@ -1444,7 +1385,6 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 # print(Random_Key)
                 return     
     
-
     Best_Key = max(Best_Choice, key=Best_Choice.get)
     for position, coord in Key_Dictionary.items():
         if Best_Key == position:
@@ -1455,16 +1395,13 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     # print(Random_Key)
     return 
 
-
-
-
-# turtle.listen()
-# turtle.onkey(move_left, "Left") 
-# turtle.onkey(move_right, "Right")
-# turtle.onkey(move_up, "Up") 
-# turtle.onkey(move_down, "Down")
-# turtle.onkey(draw_circle, "o") 
-# turtle.onkey(draw_x, "x")      
+turtle.listen()
+turtle.onkey(move_left, "Left") 
+turtle.onkey(move_right, "Right")
+turtle.onkey(move_up, "Up") 
+turtle.onkey(move_down, "Down")
+turtle.onkey(draw_circle, "o") 
+turtle.onkey(draw_x, "x")      
 
 def Play_Game(Boardsize, Squares, Squares_to_win):
     '''
@@ -1489,9 +1426,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win):
 
     Game_over = False
     while Count <Squares and Game_over == False:
-        
-        
-        
+                
         while Variable  == 1:
             Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                 Adjacency_Dict1)
@@ -1503,17 +1438,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win):
                 print("O WINS!!!")
                 Game_over = True 
                 break
-                
-                
+                            
             remove_dict(Key_Dictionary, Coordinat)
-            
-                    
+                                
             Variable *= -1
             Count +=1
             
             if Count == Squares:
                 break
-
         
         while Variable == -1:
             if Count == Squares:
@@ -1530,15 +1462,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win):
                 break
                 
             remove_dict(Key_Dictionary, Coordinat)
-            
-            
+                
             Variable *=-1
             Count +=1
 
             if Count == Squares:
                 break 
 
-Play_Game(800, 49, 6)
+Play_Game(800, 361, 17)
 
 
           
