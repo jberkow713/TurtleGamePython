@@ -4,8 +4,6 @@ import math
 import random 
 from copy import deepcopy
 import numpy as np
-from Adjacency import neighbors 
-
 
 # player = turtle.Turtle()
 # player.color("red")
@@ -89,6 +87,99 @@ def draw_x():
     turtle.setposition(a+50,b+ 50)
 
     return coord_value 
+
+def Create_Player_Custom_Commands(Boardsize, Squares ):
+    '''
+    Setting up custom size movement and x,o drawings to implement player versus computer matches
+    Need to test further
+    '''
+    
+    Square_Length = round((Boardsize / np.sqrt(Squares)))
+    #speed is used for how far player moves with keystroke
+    speed = Square_Length
+
+    player = turtle.Turtle()
+    player.color("red")
+    player.shape("triangle")
+    player.penup()
+    player.speed(0)
+    player.setposition(0, 0)
+    player.setheading(90)
+
+    #movement is used for drawing, not movement
+    movement = (Boardsize/Squares)*1.5
+
+    def move_left(Boardsize, Square_Length):
+        x = player.xcor()
+        x -= speed
+        if x < -(Boardsize/2)+ .5*(Square_Length):
+            x = -(Boardsize/2)+ .5*(Square_Length)
+        player.setx(x)
+    def move_right(Boardsize, Square_Length):
+        x = player.xcor()
+        x += speed
+        if x > (Boardsize/2) - .5*(Square_Length):
+            x = (Boardsize/2) - .5*(Square_Length)
+        player.setx(x)
+    def move_up(Boardsize, Square_Length):
+        y = player.ycor()
+        y += speed
+        if y >  (Boardsize/2) - .5*(Square_Length):
+            y = (Boardsize/2) - .5*(Square_Length)
+        player.sety(y)
+    def move_down(Boardsize, Square_Length):
+        y = player.ycor()
+        y -= speed
+        if y < -(Boardsize/2)+ .5*(Square_Length):
+            y = -(Boardsize/2)+ .5*(Square_Length)
+        player.sety(y)
+    def draw_circle():
+        turtle.pensize(2.5)
+        a = player.xcor()
+        b = player.ycor()
+        
+        coord_value = [a, b]
+        
+        
+        turtle.hideturtle()
+        turtle.penup()
+        turtle.setpos(a, (b-movement))
+
+        turtle.pendown()
+        turtle.circle(movement)
+        turtle.hideturtle()
+
+        return coord_value 
+    
+    def draw_x():
+        turtle.pensize(2.5)
+        a = player.xcor()
+        b = player.ycor()
+        turtle.hideturtle()
+        turtle.penup()
+        
+        coord_value = [a, b]
+        
+    
+        turtle.setposition(a-movement,b+movement)
+        turtle.pendown()
+        turtle.setposition(a+movement,b-movement)
+        turtle.penup()
+        turtle.setposition(a-movement,b-movement)
+        turtle.pendown()
+        turtle.setposition(a+movement,b+ movement)
+
+        return coord_value     
+    
+        turtle.listen()
+        turtle.onkey(move_left, "Left") 
+        turtle.onkey(move_right, "Right")
+        turtle.onkey(move_up, "Up") 
+        turtle.onkey(move_down, "Down")
+        turtle.onkey(draw_circle, "o") 
+        turtle.onkey(draw_x, "x")  
+
+
 
 
 def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Line_Size):
@@ -434,7 +525,40 @@ def create_remaining_dict(Squares, Squares_to_win):
     Remaining_dict = dict(zip(Winning_Lines_Tuples, Count_Lists))    
     return Remaining_dict
     # return Remaining_Dict
-            
+def neighbors(Matrix, row, column):
+    
+    Neighbors = []
+    len_matrix = len(Matrix)-1
+    
+
+    if column < len_matrix:
+        e = Matrix[row][column+1]
+        Neighbors.append(e)
+    if column < len_matrix and row > 0:
+        c = Matrix[row-1][column+1]
+        Neighbors.append(c)
+    if column > 0:
+        d = Matrix[row][column-1]
+        Neighbors.append(d)
+    if column > 0 and row > 0:
+        a = Matrix[row-1][column-1]
+        Neighbors.append(a)
+    if row > 0:
+        b = Matrix[row-1][column]
+        Neighbors.append(b)
+    if row < len_matrix:
+        g = Matrix[row+1][column]
+        Neighbors.append(g)
+    if row < len_matrix and column < len_matrix:
+        h = Matrix[row+1][column+1]
+        Neighbors.append(h)
+    if row < len_matrix and column > 0:
+        f = Matrix[row+1][column-1]
+        Neighbors.append(f)
+    
+    Neighbors.sort()    
+    
+    return Neighbors                
 
 def Adjacency_Dict(Squares):
     '''
@@ -1403,7 +1527,7 @@ turtle.onkey(move_down, "Down")
 turtle.onkey(draw_circle, "o") 
 turtle.onkey(draw_x, "x")      
 
-def Play_Game(Boardsize, Squares, Squares_to_win):
+def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     '''
     Function to play entire game using all other functions. One ring, to rule them all!
     '''
@@ -1471,6 +1595,13 @@ def Play_Game(Boardsize, Squares, Squares_to_win):
 
 Play_Game(800, 361, 17)
 
+#TODO 
+#Add functionality so human can choose to play against machine if he wishes
+#I think I can say if Player=True, enter other while loop, and we need to make functionality that forces
+#players movement and size of pieces to be based on board, should work on this now
+
+#after player moves, need to update key dictionary, decrease values based on the key and Updated Dict, 
+#remove the key, also input the key into list_of_x_moves or whatever
 
           
 delay = input("Press enter to finish.")
