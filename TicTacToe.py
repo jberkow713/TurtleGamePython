@@ -1466,92 +1466,80 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 # turtle.onkey(draw_circle, "o") 
 # turtle.onkey(draw_x, "x")      
 
-
-# import numpy as np
-
-# Testing Board_Making Capabilities
-Create_Board(800, 169, "white", "test", "black", 2.5)
-#Dictionary of Keys
-Key_Dictionary5 = create_key_dict_and_coords(800,169)
-print(Key_Dictionary5)
-# print(Key_Dictionary5)
-#Remaining Dictionaries of Winning Lines
-Remaining_Dict_O = create_remaining_dict(169, 8)
-Remaining_Dict_X = create_remaining_dict(169, 8)
-
-#Adjacency Dictionaries
-Adjacency_Dict_Custom = Adjacency_Dict(169)
-# print(B)
-#List of x's and o's moves
-List_of_X_moves = []
-List_of_O_moves = []
-#An updated dictionary using either random_dict
-Updated_Dict = create_updated_dictionary(Remaining_Dict_O, 8)
-# print(Adjacency_Dict_Custom)
-
-
-
-
-Count = 0
-
-random_start = random.randint(0,1)
-if random_start == 0:
-    Variable = 1
-else:
-    Variable = -1  
-
-Game_over = False
-while Count <169 and Game_over == False:
+def Play_Game(Boardsize, Squares, Squares_to_win):
+    '''
+    Function to play entire game using all other functions. One ring, to rule them all!
+    '''
+    Create_Board(Boardsize, Squares, "white", "Tic-Tac-Toe", "black", 2.5)
+    Key_Dictionary = create_key_dict_and_coords(Boardsize, Squares)
+    Remaining_Dict_O = create_remaining_dict(Squares, Squares_to_win)
+    Remaining_Dict_X = create_remaining_dict(Squares, Squares_to_win)
+    Adjacency_Dict1 = Adjacency_Dict(Squares)
+    List_of_X_moves = []
+    List_of_O_moves = []
+    Updated_Dict = create_updated_dictionary(Remaining_Dict_O, Squares_to_win)
     
-       
-    
-    while Variable  == 1:
-        Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 8, List_of_X_moves, List_of_O_moves,\
-            Adjacency_Dict_Custom)
-        Coordinat = (computer_draw_customized_circle(800, 169))
-        key = (key_name(Key_Dictionary5, Coordinat))
+    Count = 0
+
+    random_start = random.randint(0,1)
+    if random_start == 0:
+        Variable = 1
+    else:
+        Variable = -1  
+
+    Game_over = False
+    while Count <Squares and Game_over == False:
         
-        # decrease_values(Remaining_dict_O, key)
-        if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
-            print("O WINS!!!")
-            Game_over = True 
-            break
-            
-            
-        remove_dict(Key_Dictionary5, Coordinat)
         
+        
+        while Variable  == 1:
+            Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
+                Adjacency_Dict1)
+            Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
+            key = (key_name(Key_Dictionary, Coordinat))
+            
+            # decrease_values(Remaining_dict_O, key)
+            if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
+                print("O WINS!!!")
+                Game_over = True 
+                break
                 
-        Variable *= -1
-        Count +=1
-        
-        if Count == 169:
-            break
+                
+            remove_dict(Key_Dictionary, Coordinat)
+            
+                    
+            Variable *= -1
+            Count +=1
+            
+            if Count == Squares:
+                break
 
-    
-    while Variable == -1:
-        if Count == 169:
-            break 
-
-        Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 8, List_of_O_moves, List_of_X_moves,\
-            Adjacency_Dict_Custom)
-        Coordinat = (comp_draw_customized_x(800, 169))
-        key = (key_name(Key_Dictionary5, Coordinat))
-        # decrease_values(Remaining_dict_X, key)
-        if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
-            print("X WINS!!!")
-            Game_over = True 
-            break
-             
-        remove_dict(Key_Dictionary5, Coordinat)
         
-        
-        Variable *=-1
-        Count +=1
+        while Variable == -1:
+            if Count == Squares:
+                break 
 
-        if Count == 169:
-            break 
-             
-# # print(Updated_O_Dict_5X5)
-# # print(Updated_X_Dict_5X5)
+            Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary, Squares_to_win, List_of_O_moves, List_of_X_moves,\
+                Adjacency_Dict1)
+            Coordinat = (comp_draw_customized_x(Boardsize, Squares))
+            key = (key_name(Key_Dictionary, Coordinat))
+            # decrease_values(Remaining_dict_X, key)
+            if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
+                print("X WINS!!!")
+                Game_over = True 
+                break
+                
+            remove_dict(Key_Dictionary, Coordinat)
+            
+            
+            Variable *=-1
+            Count +=1
+
+            if Count == Squares:
+                break 
+
+Play_Game(800, 49, 6)
+
+
           
 delay = input("Press enter to finish.")
