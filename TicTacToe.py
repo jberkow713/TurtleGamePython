@@ -117,29 +117,40 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
     movement = (Boardsize/Squares)*1.5
 
     def move_left():
+        
         x = player.xcor()
-        x -= speed
+        x -= speed      
+        
         if x < -(Boardsize/2)+ .5*(Square_Length):
             x = -(Boardsize/2)+ .5*(Square_Length)
+        
         player.setx(x)
+        player.setpos(x, player.ycor())
+        print(player.pos())
     def move_right():
         x = player.xcor()
         x += speed
         if x > (Boardsize/2) - .5*(Square_Length):
             x = (Boardsize/2) - .5*(Square_Length)
         player.setx(x)
+        player.setpos(x, player.ycor())
+        print(player.pos())
     def move_up():
         y = player.ycor()
         y += speed
         if y >  (Boardsize/2) - .5*(Square_Length):
             y = (Boardsize/2) - .5*(Square_Length)
         player.sety(y)
+        player.setpos(player.xcor(), y)
+        print(player.pos())
     def move_down():
         y = player.ycor()
         y -= speed
         if y < -(Boardsize/2)+ .5*(Square_Length):
             y = -(Boardsize/2)+ .5*(Square_Length)
         player.sety(y)
+        player.setpos(player.xcor(), y)
+        print(player.pos())
     
     def draw_circle():
         turtle.pensize(2.5)
@@ -1605,17 +1616,20 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     break
     # if Player==True:
     # So the idea here is , you have the same while loop, only one computer player is replaced by a human player
+    # Coordinat = Draw(x) or Draw(Circle), whatever, probably just make human player X...
+    # So you set a variable = to drawing_x, which is triggered by the player actually drawing x
+    
+    #I need to figure out how to set statements that check player key triggers
+    # Then i can say something like, If X is pressed, Coordinat = Draw(X)
+    #Then run everything through the same functionality, multiply it by 1, and bam, back to the computer player,
+    # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 169, 13)
-
-
- 
-#Add functionality so human can choose to play against machine if he wishes
-#I think I can say if Player=True, enter other while loop, and we need to make functionality that forces
-
-# Player movements have been customized to board size...
-
+# Play_Game(800, 16, 4)
+Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
+Create_Player_Custom_Commands(800, 121)
+Key_Dictionary = create_key_dict_and_coords(800, 121)
+print(365.5 == 365.50)
 #TODO
 #after player moves, need to update key dictionary, decrease values based on the key and Updated Dict, 
 #remove the key, also input the key into list_of_x_moves or whatever
