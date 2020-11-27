@@ -1192,9 +1192,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             for keys, adjacency_list in Adjacency_Dict.items():
                 for KYS in adjacency_keys:
                     if KYS == keys:
-                        for values in adjacency_list:
-                            if key in values:
-                                Count +=1
+                        if key in adjacency_list:
+                            Count +=1
 
             if Count == 2:
                 Shared_adjacency_list_value.append(key)
@@ -1477,8 +1476,8 @@ Key_Dictionary5 = create_key_dict_and_coords(800,169)
 print(Key_Dictionary5)
 # print(Key_Dictionary5)
 #Remaining Dictionaries of Winning Lines
-Remaining_Dict_O = create_remaining_dict(169, 11)
-Remaining_Dict_X = create_remaining_dict(169, 11)
+Remaining_Dict_O = create_remaining_dict(169, 8)
+Remaining_Dict_X = create_remaining_dict(169, 8)
 
 #Adjacency Dictionaries
 Adjacency_Dict_Custom = Adjacency_Dict(169)
@@ -1487,7 +1486,7 @@ Adjacency_Dict_Custom = Adjacency_Dict(169)
 List_of_X_moves = []
 List_of_O_moves = []
 #An updated dictionary using either random_dict
-Updated_Dict = create_updated_dictionary(Remaining_Dict_O, 11)
+Updated_Dict = create_updated_dictionary(Remaining_Dict_O, 8)
 # print(Adjacency_Dict_Custom)
 
 
@@ -1507,7 +1506,7 @@ while Count <169 and Game_over == False:
        
     
     while Variable  == 1:
-        Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 11, List_of_X_moves, List_of_O_moves,\
+        Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary5, 8, List_of_X_moves, List_of_O_moves,\
             Adjacency_Dict_Custom)
         Coordinat = (computer_draw_customized_circle(800, 169))
         key = (key_name(Key_Dictionary5, Coordinat))
@@ -1533,7 +1532,7 @@ while Count <169 and Game_over == False:
         if Count == 169:
             break 
 
-        Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 11, List_of_O_moves, List_of_X_moves,\
+        Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary5, 8, List_of_O_moves, List_of_X_moves,\
             Adjacency_Dict_Custom)
         Coordinat = (comp_draw_customized_x(800, 169))
         key = (key_name(Key_Dictionary5, Coordinat))
