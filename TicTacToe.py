@@ -21,74 +21,74 @@ computer.speed(0)
 computer.setposition(0, 0)
 computer.hideturtle()
 
-speed = 222
+# speed = 222
 
-def move_left():
-    x = player.xcor()
-    x -= speed
-    if x < -222:
-        x = -222
-    player.setx(x)
-def move_right():
-    x = player.xcor()
-    x += speed
-    if x > 222:
-        x = 222
-    player.setx(x)
-def move_up():
-    y = player.ycor()
-    y += speed
-    if y >  222:
-        y = 222
-    player.sety(y)
-def move_down():
-    y = player.ycor()
-    y -= speed
-    if y < -222:
-        y = -222
-    player.sety(y)
+# def move_left():
+#     x = player.xcor()
+#     x -= speed
+#     if x < -222:
+#         x = -222
+#     player.setx(x)
+# def move_right():
+#     x = player.xcor()
+#     x += speed
+#     if x > 222:
+#         x = 222
+#     player.setx(x)
+# def move_up():
+#     y = player.ycor()
+#     y += speed
+#     if y >  222:
+#         y = 222
+#     player.sety(y)
+# def move_down():
+#     y = player.ycor()
+#     y -= speed
+#     if y < -222:
+#         y = -222
+#     player.sety(y)
 
 
-def draw_circle():
-    turtle.pensize(2.5)
-    a = player.xcor()
-    b = player.ycor()
+# def draw_circle():
+#     turtle.pensize(2.5)
+#     a = player.xcor()
+#     b = player.ycor()
     
-    coord_value = [a, b]
+#     coord_value = [a, b]
     
     
-    turtle.hideturtle()
-    turtle.penup()
-    turtle.setpos(a, (b-60))
+#     turtle.hideturtle()
+#     turtle.penup()
+#     turtle.setpos(a, (b-60))
 
-    turtle.pendown()
-    turtle.circle(60)
-    turtle.hideturtle()
+#     turtle.pendown()
+#     turtle.circle(60)
+#     turtle.hideturtle()
 
-    return coord_value 
+#     return coord_value 
     
 
-def draw_x():
-    turtle.pensize(2.5)
-    a = player.xcor()
-    b = player.ycor()
-    turtle.hideturtle()
-    turtle.penup()
+# def draw_x():
+#     turtle.pensize(2.5)
+#     a = player.xcor()
+#     b = player.ycor()
+#     turtle.hideturtle()
+#     turtle.penup()
     
-    coord_value = [a, b]
+#     coord_value = [a, b]
     
    
-    turtle.setposition(a-50,b+50)
-    turtle.pendown()
-    turtle.setposition(a+50,b-50)
-    turtle.penup()
-    turtle.setposition(a-50,b-50)
-    turtle.pendown()
-    turtle.setposition(a+50,b+ 50)
+#     turtle.setposition(a-50,b+50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b-50)
+#     turtle.penup()
+#     turtle.setposition(a-50,b-50)
+#     turtle.pendown()
+#     turtle.setposition(a+50,b+ 50)
 
-    return coord_value 
+#     return coord_value 
 
-def Create_Player_Custom_Commands(Boardsize, Squares ):
+def Create_Player_Custom_Commands(Boardsize, Squares):
     '''
     Setting up custom size movement and x,o drawings to implement player versus computer matches
     Need to test further
@@ -108,32 +108,33 @@ def Create_Player_Custom_Commands(Boardsize, Squares ):
     #This marked coordinate will trigger a key, and allow the game to run
     #Setting player at top left square on board
     
-    Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + ((np.sqrt(Squares)-1) * Square_Length)
-    Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - ((np.sqrt(Squares)-1) * Square_Length)
+    Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
+    Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
+    
     player.setposition(Starting_pos_x , Starting_pos_y )
     player.setheading(90)
     #movement is used for drawing, not movement
     movement = (Boardsize/Squares)*1.5
 
-    def move_left(Boardsize, Square_Length):
+    def move_left():
         x = player.xcor()
         x -= speed
         if x < -(Boardsize/2)+ .5*(Square_Length):
             x = -(Boardsize/2)+ .5*(Square_Length)
         player.setx(x)
-    def move_right(Boardsize, Square_Length):
+    def move_right():
         x = player.xcor()
         x += speed
         if x > (Boardsize/2) - .5*(Square_Length):
             x = (Boardsize/2) - .5*(Square_Length)
         player.setx(x)
-    def move_up(Boardsize, Square_Length):
+    def move_up():
         y = player.ycor()
         y += speed
         if y >  (Boardsize/2) - .5*(Square_Length):
             y = (Boardsize/2) - .5*(Square_Length)
         player.sety(y)
-    def move_down(Boardsize, Square_Length):
+    def move_down():
         y = player.ycor()
         y -= speed
         if y < -(Boardsize/2)+ .5*(Square_Length):
@@ -176,13 +177,14 @@ def Create_Player_Custom_Commands(Boardsize, Squares ):
 
         return coord_value     
     
-        turtle.listen()
-        turtle.onkey(move_left, "Left") 
-        turtle.onkey(move_right, "Right")
-        turtle.onkey(move_up, "Up") 
-        turtle.onkey(move_down, "Down")
-        turtle.onkey(draw_circle, "o") 
-        turtle.onkey(draw_x, "x")  
+    turtle.listen()
+    turtle.onkey(move_left, "Left") 
+    turtle.onkey(move_right, "Right")
+    turtle.onkey(move_up, "Up") 
+    turtle.onkey(move_down, "Down")
+    turtle.onkey(draw_circle, "o") 
+    turtle.onkey(draw_x, "x")      
+    
 
 
 
@@ -1524,13 +1526,13 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     # print(Random_Key)
     return 
 
-turtle.listen()
-turtle.onkey(move_left, "Left") 
-turtle.onkey(move_right, "Right")
-turtle.onkey(move_up, "Up") 
-turtle.onkey(move_down, "Down")
-turtle.onkey(draw_circle, "o") 
-turtle.onkey(draw_x, "x")      
+# turtle.listen()
+# turtle.onkey(move_left, "Left") 
+# turtle.onkey(move_right, "Right")
+# turtle.onkey(move_up, "Up") 
+# turtle.onkey(move_down, "Down")
+# turtle.onkey(draw_circle, "o") 
+# turtle.onkey(draw_x, "x")      
 
 def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     '''
@@ -1544,7 +1546,9 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     List_of_X_moves = []
     List_of_O_moves = []
     Updated_Dict = create_updated_dictionary(Remaining_Dict_O, Squares_to_win)
-    
+    Create_Player_Custom_Commands(Boardsize, Squares)
+
+        
     Count = 0
 
     random_start = random.randint(0,1)
@@ -1598,7 +1602,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
             if Count == Squares:
                 break 
 
-Play_Game(800, 121, 10)
+Play_Game(800, 121, 11)
+
 
  
 #Add functionality so human can choose to play against machine if he wishes
