@@ -1042,9 +1042,8 @@ def Thoughtful_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     Winning_lines_Containers.append(winning_lines)
         
         for actual_winning_lines in Winning_lines_Containers:
-            for keys in actual_winning_lines:
-                if key in keys:
-                    Count +=1
+            if key in actual_winning_lines:
+                Count +=1
 
         for winning_lines, current_count in Your_Dictionary.items():
             for line in Winning_lines_Containers:
@@ -1602,9 +1601,11 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
             while Variable == -1:
                 if Count == Squares:
                     break 
-
+                
+                # Thoughtful_Move(Remaining_Dict_X, Remaining_Dict_X, Key_Dictionary, Squares_to_win, Updated_Dict, Updated_Dict, \
+                # List_of_X_moves)         
                 Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary, Squares_to_win, List_of_O_moves, List_of_X_moves,\
-                    Adjacency_Dict1)
+                   Adjacency_Dict1)
                 Coordinat = (comp_draw_customized_x(Boardsize, Squares))
                 key = (key_name(Key_Dictionary, Coordinat))
                 # decrease_values(Remaining_dict_X, key)
@@ -1659,9 +1660,12 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
             while Variable == -1:
                 if Count == Squares:
                     break 
-
+                #TODO 
+                # Figure out how to add player interaction based on keystroke    
                        
                 #Need to find a way to stop the program here, until a player draws an X, 
+                #Also need to find a way to make the edge restrictions better so it doesn't cut off the map,
+                # redo some math, but other than that, it works great!
                 
                                
                 Square_Length = round((Boardsize / np.sqrt(Squares)))
@@ -1697,8 +1701,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 def move_right():
                     x = player.xcor()
                     x += speed
-                    if x > (Boardsize/2) - .5*(Square_Length):
-                        x = (Boardsize/2) - .5*(Square_Length)
+                    # if x > (Boardsize/2) - .5*(Square_Length):
+                    #     x = (Boardsize/2) - .5*(Square_Length)
                     player.setx(x)
                     player.setpos(x, player.ycor())
                     print(player.pos())
@@ -1713,8 +1717,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 def move_down():
                     y = player.ycor()
                     y -= speed
-                    if y < -(Boardsize/2)+ .5*(Square_Length):
-                        y = -(Boardsize/2)+ .5*(Square_Length)
+                    # if y < -(Boardsize/2)+ .5*(Square_Length):
+                    #     y = -(Boardsize/2)+ .5*(Square_Length)
                     player.sety(y)
                     player.setpos(player.xcor(), y)
                     print(player.pos())
@@ -1736,7 +1740,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                     # print(coord_value)
                     # return coord_value 
-                
+                # key = (key_name(Key_Dictionary, Player_COORD))
                 def draw_x():
                     turtle.pensize(2.5)
                     a = player.xcor()
@@ -1779,6 +1783,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 # input("Press enter once you have finished making your play.") 
                                 
                 key = (key_name(Key_Dictionary, Player_COORD))
+                print(key)
                 List_of_X_moves.append(key)
                 # decrease_values(Remaining_dict_X, key)
                 if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
@@ -1814,7 +1819,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 25, 5, Player=True)
+Play_Game(800, 121, 11, Player=True)
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
