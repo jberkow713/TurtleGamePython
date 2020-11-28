@@ -77,7 +77,8 @@ computer.hideturtle()
     
 #     coord_value = [a, b]
     
-   
+#     return coord_value 
+# turtle.onkey(draw_x, "x")     
 #     turtle.setposition(a-50,b+50)
 #     turtle.pendown()
 #     turtle.setposition(a+50,b-50)
@@ -86,7 +87,7 @@ computer.hideturtle()
 #     turtle.pendown()
 #     turtle.setposition(a+50,b+ 50)
 
-#     return coord_value 
+     
 
 def Create_Player_Custom_Commands(Boardsize, Squares):
     '''
@@ -103,17 +104,13 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
     player.shape("triangle")
     player.penup()
     player.speed(0)
-    #Setting Player's starting position at an actual square coordinate, and not 0,0
-    #This way, when he move, he will be forced to land on an actual key coordinate, so when he marks, 
-    #This marked coordinate will trigger a key, and allow the game to run
-    #Setting player at top left square on board
-    
+        
     Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
     Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
     
     player.setposition(Starting_pos_x , Starting_pos_y )
     player.setheading(90)
-    #movement is used for drawing, not movement
+    
     movement = (Boardsize/Squares)*1.5
 
     def move_left():
@@ -167,7 +164,8 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         turtle.circle(movement)
         turtle.hideturtle()
 
-        return coord_value 
+        # print(coord_value)
+        # return coord_value 
     
     def draw_x():
         turtle.pensize(2.5)
@@ -185,7 +183,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         turtle.setposition(a-movement,b-movement)
         turtle.pendown()
         turtle.setposition(a+movement,b+ movement)
-
+        # print(coord_value)
         return coord_value     
     
     turtle.listen()
@@ -193,8 +191,13 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
     turtle.onkey(move_right, "Right")
     turtle.onkey(move_up, "Up") 
     turtle.onkey(move_down, "Down")
-    turtle.onkey(draw_circle, "o") 
-    turtle.onkey(draw_x, "x")      
+    # turtle.onkey(draw_circle, "o") 
+    turtle.onkey(draw_x, "x") 
+
+    if turtle.onkey(draw_x, "x"):
+        return draw_x() 
+
+       
     
 
 
@@ -1557,10 +1560,13 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     List_of_X_moves = []
     List_of_O_moves = []
     Updated_Dict = create_updated_dictionary(Remaining_Dict_O, Squares_to_win)
-    Create_Player_Custom_Commands(Boardsize, Squares)
+    # player = turtle.Turtle()
+    
+    
+      
+    
 
     if Player==False:
-
 
         Count = 0
 
@@ -1614,7 +1620,190 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                 if Count == Squares:
                     break
-    # if Player==True:
+    
+    if Player==True:
+        
+        # ABC = Create_Player_Custom_Commands(Boardsize, Squares)
+                
+        Count = 0
+
+        random_start = random.randint(0,1)
+        if random_start == 0:
+            Variable = 1
+        else:
+            Variable = -1  
+
+        Game_over = False
+        while Count <Squares and Game_over == False:
+                    
+            while Variable  == 1:
+                Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
+                    Adjacency_Dict1)
+                Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
+                key = (key_name(Key_Dictionary, Coordinat))
+                
+                # decrease_values(Remaining_dict_O, key)
+                if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
+                    print("O WINS!!!")
+                    Game_over = True 
+                    break
+                                
+                remove_dict(Key_Dictionary, Coordinat)
+                                    
+                Variable *= -1
+                Count +=1
+                
+                if Count == Squares:
+                    break
+            
+            while Variable == -1:
+                if Count == Squares:
+                    break 
+
+                       
+                #Need to find a way to stop the program here, until a player draws an X, 
+                
+                               
+                Square_Length = round((Boardsize / np.sqrt(Squares)))
+                #speed is used for how far player moves with keystroke
+                speed = Square_Length
+
+                player = turtle.Turtle()
+                player.color("red")
+                player.shape("triangle")
+                player.penup()
+                player.speed(0)
+                    
+                Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
+                Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
+                
+                player.setposition(Starting_pos_x , Starting_pos_y )
+                player.setheading(90)
+                
+                movement = (Boardsize/Squares)*1.5
+
+                def move_left():
+                    
+                    x = player.xcor()
+                    x -= speed      
+                    
+                    if x < -(Boardsize/2)+ .5*(Square_Length):
+                        x = -(Boardsize/2)+ .5*(Square_Length)
+                    
+                    player.setx(x)
+                    player.setpos(x, player.ycor())
+                    print(player.pos())
+                
+                def move_right():
+                    x = player.xcor()
+                    x += speed
+                    if x > (Boardsize/2) - .5*(Square_Length):
+                        x = (Boardsize/2) - .5*(Square_Length)
+                    player.setx(x)
+                    player.setpos(x, player.ycor())
+                    print(player.pos())
+                def move_up():
+                    y = player.ycor()
+                    y += speed
+                    if y >  (Boardsize/2) - .5*(Square_Length):
+                        y = (Boardsize/2) - .5*(Square_Length)
+                    player.sety(y)
+                    player.setpos(player.xcor(), y)
+                    print(player.pos())
+                def move_down():
+                    y = player.ycor()
+                    y -= speed
+                    if y < -(Boardsize/2)+ .5*(Square_Length):
+                        y = -(Boardsize/2)+ .5*(Square_Length)
+                    player.sety(y)
+                    player.setpos(player.xcor(), y)
+                    print(player.pos())
+                
+                def draw_circle():
+                    turtle.pensize(2.5)
+                    a = player.xcor()
+                    b = player.ycor()
+                    
+                    coord_value = [a, b]
+                            
+                    turtle.hideturtle()
+                    turtle.penup()
+                    turtle.setpos(a, (b-movement))
+
+                    turtle.pendown()
+                    turtle.circle(movement)
+                    turtle.hideturtle()
+
+                    # print(coord_value)
+                    # return coord_value 
+                
+                def draw_x():
+                    turtle.pensize(2.5)
+                    a = player.xcor()
+                    b = player.ycor()
+                    turtle.hideturtle()
+                    turtle.penup()
+                    
+                    coord_value = [a, b]
+                        
+                    turtle.setposition(a-movement,b+movement)
+                    turtle.pendown()
+                    turtle.setposition(a+movement,b-movement)
+                    turtle.penup()
+                    turtle.setposition(a-movement,b-movement)
+                    turtle.pendown()
+                    turtle.setposition(a+movement,b+ movement)
+                    # print(coord_value)
+                    #This actually works haha
+                    global Player_COORD 
+                    Player_COORD = coord_value     
+                
+                turtle.listen()
+                turtle.onkey(move_left, "Left") 
+                turtle.onkey(move_right, "Right")
+                turtle.onkey(move_up, "Up") 
+                turtle.onkey(move_down, "Down")
+                # turtle.onkey(draw_circle, "o") 
+                 
+                
+                turtle.onkey(draw_x, "x")
+                
+                delay = input("Press enter to finish.")
+
+                
+                
+                
+                #So basically, if we can get this Coordinat object to be set equal to 
+                # the return object from the draw(x) function, this will work
+                
+                # input("Press enter once you have finished making your play.") 
+                                
+                key = (key_name(Key_Dictionary, Player_COORD))
+                List_of_X_moves.append(key)
+                # decrease_values(Remaining_dict_X, key)
+                if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
+                    print("X WINS!!!")
+                    Game_over = True 
+                    break
+                    
+                remove_dict(Key_Dictionary, Player_COORD)
+                    
+                Variable *=-1
+                Count +=1
+
+                if Count == Squares:
+                    break
+
+
+
+
+
+
+
+
+
+
+
     # So the idea here is , you have the same while loop, only one computer player is replaced by a human player
     # Coordinat = Draw(x) or Draw(Circle), whatever, probably just make human player X...
     # So you set a variable = to drawing_x, which is triggered by the player actually drawing x
@@ -1625,11 +1814,17 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-# Play_Game(800, 16, 4)
-Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
-Create_Player_Custom_Commands(800, 121)
-Key_Dictionary = create_key_dict_and_coords(800, 121)
-print(365.5 == 365.50)
+Play_Game(800, 25, 5, Player=True)
+# Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
+# Create_Player_Custom_Commands(800, 121)
+# Key_Dictionary = create_key_dict_and_coords(800, 121)
+# print(player.pos())
+
+
+# print(365.5 == 365.50)
+#return coord_value---so coord value will be returned as a value, everytime player draws an x, or an O
+# so we want to collect this value and check it against a key's value in keydictionary,   
+
 #TODO
 #after player moves, need to update key dictionary, decrease values based on the key and Updated Dict, 
 #remove the key, also input the key into list_of_x_moves or whatever
