@@ -1701,8 +1701,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 def move_right():
                     x = player.xcor()
                     x += speed
-                    # if x > (Boardsize/2) - .5*(Square_Length):
-                    #     x = (Boardsize/2) - .5*(Square_Length)
+                    if x > (Boardsize/2) :
+                        x = -(Boardsize/2) + .5*(Square_Length) + ((np.sqrt(Squares) -1) * Square_Length)
                     player.setx(x)
                     player.setpos(x, player.ycor())
                     print(player.pos())
@@ -1717,8 +1717,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 def move_down():
                     y = player.ycor()
                     y -= speed
-                    # if y < -(Boardsize/2)+ .5*(Square_Length):
-                    #     y = -(Boardsize/2)+ .5*(Square_Length)
+                    if y < -(Boardsize/2):
+                        y = (Boardsize/2) - .5*(Square_Length) - ((np.sqrt(Squares) -1) * Square_Length)
                     player.sety(y)
                     player.setpos(player.xcor(), y)
                     print(player.pos())
