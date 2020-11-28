@@ -1625,7 +1625,24 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     if Player==True:
         
         # ABC = Create_Player_Custom_Commands(Boardsize, Squares)
-                
+        Square_Length = round((Boardsize / np.sqrt(Squares)))
+        #speed is used for how far player moves with keystroke
+        speed = Square_Length
+        
+        player = turtle.Turtle()
+        player.color("red")
+        player.shape("triangle")
+        player.penup()
+        player.speed(0)
+        Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
+        Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
+        player.setposition(Starting_pos_x , Starting_pos_y )
+        player.setheading(90)        
+        
+        
+                        
+        movement = (Boardsize/Squares)*1.5
+
         Count = 0
 
         random_start = random.randint(0,1)
@@ -1666,24 +1683,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 #Need to find a way to stop the program here, until a player draws an X, 
                 #Also need to find a way to make the edge restrictions better so it doesn't cut off the map,
                 # redo some math, but other than that, it works great!
-                
-                               
-                Square_Length = round((Boardsize / np.sqrt(Squares)))
-                #speed is used for how far player moves with keystroke
-                speed = Square_Length
-
-                player = turtle.Turtle()
-                player.color("red")
-                player.shape("triangle")
-                player.penup()
-                player.speed(0)
-                    
-                Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
-                Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
-                
-                player.setposition(Starting_pos_x , Starting_pos_y )
-                player.setheading(90)
-                
+                                               
                 movement = (Boardsize/Squares)*1.5
 
                 def move_left():
