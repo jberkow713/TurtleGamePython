@@ -634,6 +634,7 @@ def Adjacency_Dict(Squares):
 
 def comp_draw_customized_x(boardsize, squares):
     turtle.pensize(2.5)
+    turtle.color("blue")
     a = computer.xcor()
     b = computer.ycor()
     turtle.hideturtle()
@@ -658,6 +659,7 @@ def computer_draw_customized_circle(boardsize, squares):
     movement = (boardsize/squares)*1.5
     
     turtle.pensize(2.5)
+    turtle.color("red")
     a = computer.xcor()
     b = computer.ycor()
 
@@ -666,7 +668,7 @@ def computer_draw_customized_circle(boardsize, squares):
     turtle.hideturtle()
     turtle.penup()
     turtle.setpos(a, (b-movement))
-
+    
     turtle.pendown()
     turtle.circle(movement)
     turtle.hideturtle()
@@ -1833,20 +1835,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 289, 12, )
+Play_Game(800, 361, 14, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
 # print(player.pos())
 
-
-# print(365.5 == 365.50)
-#return coord_value---so coord value will be returned as a value, everytime player draws an x, or an O
-# so we want to collect this value and check it against a key's value in keydictionary,   
-
-#TODO
-#after player moves, need to update key dictionary, decrease values based on the key and Updated Dict, 
-#remove the key, also input the key into list_of_x_moves or whatever
+#Game will always work if 2nd number is a square, and if 3rd number is <= np.sqrt of 2nd number
+# Need to inform user of that, recommended boardsize is 800
 
           
 delay = input("Press enter to finish.")
