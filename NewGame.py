@@ -71,6 +71,7 @@ def move_down():
     if y < -330:
         y = -330
     player.sety(y)    
+
 def random_direction():
     
     random_direction = random.randint(0,3)

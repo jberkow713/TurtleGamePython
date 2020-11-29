@@ -1683,7 +1683,11 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 #Need to find a way to stop the program here, until a player draws an X, 
                 #Also need to find a way to make the edge restrictions better so it doesn't cut off the map,
                 # redo some math, but other than that, it works great!
-                                               
+                
+                # while True:
+                    
+                
+
                 movement = (Boardsize/Squares)*1.5
 
                 def move_left():
@@ -1740,7 +1744,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                     # print(coord_value)
                     # return coord_value 
-                # key = (key_name(Key_Dictionary, Player_COORD))
+                import keyboard 
                 def draw_x():
                     turtle.pensize(2.5)
                     a = player.xcor()
@@ -1760,27 +1764,37 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     # print(coord_value)
                     #This actually works haha
                     global Player_COORD 
-                    Player_COORD = coord_value     
+                    Player_COORD = coord_value
+                    from pynput.keyboard import Key, Controller
+
+                    keyboard = Controller()
+                    
+                    #So I think it's actually pressing enter, it now has to access console first, 
+                    #So that the enter key is pressed on the actual console
+                    keyboard.press(Key.enter)
+                    
+                    
                 
+               
+
                 turtle.listen()
                 turtle.onkey(move_left, "Left") 
                 turtle.onkey(move_right, "Right")
                 turtle.onkey(move_up, "Up") 
                 turtle.onkey(move_down, "Down")
                 # turtle.onkey(draw_circle, "o") 
-                 
-                
                 turtle.onkey(draw_x, "x")
+                    
                 
-                delay = input("Press enter to finish.")
-
-                
+                      
+                   
+                            
                 
                 
                 #So basically, if we can get this Coordinat object to be set equal to 
                 # the return object from the draw(x) function, this will work
                 
-                # input("Press enter once you have finished making your play.") 
+                input("Press enter once you have finished making your play.") 
                                 
                 key = (key_name(Key_Dictionary, Player_COORD))
                 print(key)
@@ -1799,7 +1813,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 if Count == Squares:
                     break
 
-
+                # turtle.mainloop()    
 
 
 
@@ -1819,7 +1833,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 121, 11, Player=True)
+Play_Game(800, 289, 12, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)

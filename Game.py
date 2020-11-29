@@ -31,7 +31,7 @@ player.speed(0)
 player.setposition(0, -300)
 player.setheading(90)
 
-playerspeed = 17.5
+playerspeed = 25
 #moving player left and right
 
 def move_left():
@@ -138,7 +138,6 @@ while True:
     
     for enemy in enemies:
            
-    #move enemy across screen
         x = enemy.xcor()
         x+= enemyspeed
         enemy.setx(x)
@@ -154,7 +153,6 @@ while True:
             for enemy in enemies:
                 y = enemy.ycor()
                 y-=40
-                
                 enemy.sety(y)
             enemyspeed *=-1
 
@@ -169,6 +167,7 @@ while True:
             bullet.setposition(0, -450)
             #reset enemy
             enemy.setposition(-250, 300)   
+        
         if isCollision(player, enemy):
             player.hideturtle()
             enemy.hideturtle()
@@ -177,7 +176,7 @@ while True:
     # fire bullet if can be fired, if space bar is pressed
     # so y coordinate is just going up and up and up, until player presses spacebar, at which point it relocates to right
     # above the player, and then goes up by bulletspeed
-    
+    if bulletstate =
     y = bullet.ycor()
     y+=bulletspeed
     bullet.sety(y)
