@@ -1446,60 +1446,48 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
     Winning_lines_Containers = []
-    Blocking_lines_Containers = []
     Count = 0
     index = 0
-    Adjacency_list = []
-    Adj_list_2 = []
+    Opp_Adjacency_list = []
+    Your_Adjacency_list = []
     while Keys_Remaining > 0:
         
         key = Remaining_Keys[index]
 
         for Winning_Line, value in Opponent_Dictionary.items():
             if value == Starting_count:
-                Winning_lines_Containers.append(Winning_Line)
-        
-        for winning_line in Winning_lines_Containers:
-            for value in winning_line:
-                if key == value:
+                if key in Winning_Line:
                     Count +=1
         
-        #2) Blocking lines of opponent +1 point
         for Winning_lines, values in Opponent_Dictionary.items():
             for Winning_linez, valuez in Your_Dictionary.items():
                 if Winning_lines == Winning_linez:
                     if values < Starting_count and valuez == Starting_count:
-                        Blocking_lines_Containers.append(Winning_lines)
-
-        for W_linez in Blocking_lines_Containers:
-            for valu in W_linez:
-                if key == valu:
-                    Count +=1
-        #3) Blocking Diagonal lines of Opponent
-        # for LINES in Diagonal_line_list:
-        #     for values in LINES:
-        #         if key in values:
-        #             Count +=1
-        #4)Use adjacency values, and subtract current keys in list of opponent moves and your moves
-        # Add that value to the count 
-        for keys, adjacency_list in Adjacency_Dict.items():
-            if key == keys:
-                adjacent_to_key = adjacency_list
+                        if key in Winning_lines:
+                            Count +=1
         
-        for keys in List_of_Opponent_Moves:
-            if keys in adjacent_to_key:
-                Adjacency_list.append(keys)
-        for keys in List_of_your_moves:
-            if keys in adjacent_to_key:
-                Adjacency_list.append(keys)
-                
-        Total_near = len(adjacent_to_key) - len(Adjacency_list)
-        Count += Total_near                 
+        for keys, adjacency_list in Adjacency_Dict.items():
+            for keyz in List_of_Opponent_Moves:
+                if keyz == keys:
+                    if key in adjacency_list:
+                        Opp_Adjacency_list.append(key)
+
+                        Count +=3
+
+        for ky, adj_list in Adjacency_Dict.items():
+            for kyz in List_of_your_moves:
+                if kyz == ky:
+                    if key in adj_list:
+                        Your_Adjacency_list.append(key)
+                        Count +=1                
+
+        if key in Opp_Adjacency_list and key in Your_Adjacency_list:
+            Count +=3           
         
         Winning_Line_Count.append(Count)
         Count = 0 
-        Adjacency_list.clear()
-        Adj_list_2.clear()
+        Opp_Adjacency_list.clear()
+        Your_Adjacency_list.clear()
         Winning_lines_Containers.clear()        
         index +=1
         Keys_Remaining -=1
@@ -1835,7 +1823,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 361, 14, )
+Play_Game(800, 121, 10, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
