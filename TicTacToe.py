@@ -1453,19 +1453,19 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     while Keys_Remaining > 0:
         
         key = Remaining_Keys[index]
-
+        #value winning lines highly to stop opponent, value count highly
         for Winning_Line, value in Opponent_Dictionary.items():
             if value == Starting_count:
                 if key in Winning_Line:
-                    Count +=1
-        
+                    Count +=5
+        #improve your winning line if possible, value count highly
         for Winning_lines, values in Opponent_Dictionary.items():
             for Winning_linez, valuez in Your_Dictionary.items():
                 if Winning_lines == Winning_linez:
                     if values < Starting_count and valuez == Starting_count:
                         if key in Winning_lines:
-                            Count +=1
-        
+                            Count +=5
+        #Value 2nd highly if spot is in adjacency Dict of opponent moves
         for keys, adjacency_list in Adjacency_Dict.items():
             for keyz in List_of_Opponent_Moves:
                 if keyz == keys:
@@ -1473,14 +1473,14 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         Opp_Adjacency_list.append(key)
 
                         Count +=3
-
+        #Value 2nd highly if spot is in adjacency Dict of your moves
         for ky, adj_list in Adjacency_Dict.items():
             for kyz in List_of_your_moves:
                 if kyz == ky:
                     if key in adj_list:
                         Your_Adjacency_list.append(key)
-                        Count +=1                
-
+                        Count +=3               
+        #Added bonus if the key happens to be in both opponent's adjacency list and your own
         if key in Opp_Adjacency_list and key in Your_Adjacency_list:
             Count +=3           
         
