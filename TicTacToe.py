@@ -1440,8 +1440,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
             # print(Random_Key)
                     return
 
-    #In the case that the computer can not win, can not block final block, can not MOVE to opening of 3, and can not block
-    # third spot, it then has the following loop to choose where exactly it moves...this is still sort of a work in progress
+    #In the case that the computer can not win, can not block final block, can not MOVE to good attacking spot, and can not block
+    # this equivalent attacking spot, it then has the following loop to choose where exactly it moves...
     
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
@@ -1457,21 +1457,26 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         
         key = Remaining_Keys[index]
         #value winning lines highly to stop opponent, value count highly
-        for Winning_Line, value in Opponent_Dictionary.items():
-            if value == Starting_count:
-                if key in Winning_Line:
-                    Opp_winning_lines.append(key)
-                    Special_Case_Count +=1
-                    Count +=5
+        for Winning_lines, valuess in Your_Dictionary.items():
+            for Winning_linez, valuezz in Opponent_Dictionary.items():
+                if Winning_lines == Winning_linez:
+                    if valuezz < Starting_count and valuess == Starting_count:
+                        if key in Winning_lines:
+                            Your_winning_lines.append(key)
+                            Special_Case_Count +=1
+                            if valuess - valuezz <= .5 * Starting_count:
+                                Count +=  (valuess - valuezz)**2
+                            elif valuess - valuezz >= .5 * Starting_count:
+                                Count +=  (valuess - valuezz)**4  
         #improve your winning line if possible, value count highly
         for Winning_lines, values in Opponent_Dictionary.items():
             for Winning_linez, valuez in Your_Dictionary.items():
                 if Winning_lines == Winning_linez:
-                    if values < Starting_count and valuez == Starting_count:
+                    if valuez < Starting_count and values == Starting_count:
                         if key in Winning_lines:
                             Your_winning_lines.append(key)
                             Special_Case_Count +=1
-                            Count +=5
+                            Count +=  (values - valuez)**2
         #Value 2nd highly if spot is in adjacency Dict of opponent moves
         for keys, adjacency_list in Adjacency_Dict.items():
             for keyz in List_of_Opponent_Moves:
@@ -1489,10 +1494,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         Your_Adjacency_list.append(key)
                         Special_Case_Count +=1
                         Count +=3               
-        #Added bonus if the key happens to be in both opponent's adjacency list and your own
-                  
+        
+        #Added bonuses, exponential bonus, based on how many of the previous conditions it meets          
         Count += (Special_Case_Count**2)      
-
+        #Append the count, clear all the containers, repeat
         Winning_Line_Count.append(Count)
         Count = 0
         Special_Case_Count = 0 
@@ -1835,7 +1840,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 121, 10, )
+Play_Game(800, 225, 10, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
