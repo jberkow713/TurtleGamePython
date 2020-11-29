@@ -1448,6 +1448,9 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     Winning_lines_Containers = []
     Count = 0
     index = 0
+    Special_Case_Count = 0
+    Opp_winning_lines = []
+    Your_winning_lines = []
     Opp_Adjacency_list = []
     Your_Adjacency_list = []
     while Keys_Remaining > 0:
@@ -1457,6 +1460,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         for Winning_Line, value in Opponent_Dictionary.items():
             if value == Starting_count:
                 if key in Winning_Line:
+                    Opp_winning_lines.append(key)
+                    Special_Case_Count +=1
                     Count +=5
         #improve your winning line if possible, value count highly
         for Winning_lines, values in Opponent_Dictionary.items():
@@ -1464,6 +1469,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if Winning_lines == Winning_linez:
                     if values < Starting_count and valuez == Starting_count:
                         if key in Winning_lines:
+                            Your_winning_lines.append(key)
+                            Special_Case_Count +=1
                             Count +=5
         #Value 2nd highly if spot is in adjacency Dict of opponent moves
         for keys, adjacency_list in Adjacency_Dict.items():
@@ -1471,6 +1478,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if keyz == keys:
                     if key in adjacency_list:
                         Opp_Adjacency_list.append(key)
+                        Special_Case_Count +=1
 
                         Count +=3
         #Value 2nd highly if spot is in adjacency Dict of your moves
@@ -1479,13 +1487,17 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if kyz == ky:
                     if key in adj_list:
                         Your_Adjacency_list.append(key)
+                        Special_Case_Count +=1
                         Count +=3               
         #Added bonus if the key happens to be in both opponent's adjacency list and your own
-        if key in Opp_Adjacency_list and key in Your_Adjacency_list:
-            Count +=3           
-        
+                  
+        Count += (Special_Case_Count**2)      
+
         Winning_Line_Count.append(Count)
-        Count = 0 
+        Count = 0
+        Special_Case_Count = 0 
+        Opp_winning_lines.clear()
+        Your_winning_lines.clear()
         Opp_Adjacency_list.clear()
         Your_Adjacency_list.clear()
         Winning_lines_Containers.clear()        
