@@ -737,16 +737,22 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                             Opp_winning_lines.append(key)
                             Special_Case_Count +=1
                             if valuess - valuezz <= .5 * Starting_count:
-                                if Starting_count < 6:
+                                #Make incentive on smaller board to block quicker, as one slip up early can cost game
+                                if Starting_count <= 6:
                                     Count +=  (valuess - valuezz)**8
+                                #Disincentivize blocking early on big boards, no need, better to expand
                                 elif Starting_count > 6:
                                     Count +=  (valuess - valuezz)**2
 
                             elif valuess - valuezz > .5 * Starting_count:
+                                #Not as important to block once it's too late in small games, by that point, it should have 
+                                #already blocked
                                 if Starting_count < 6:
                                     Count +=  (valuess - valuezz)**3
+                                #Make the incentive on a bigger board, to wait until blocks are >half the amount to win
+                                #Before you force the block, allow for more expansion
                                 elif Starting_count > 6:
-                                    Count +=  (valuess - valuezz)**5
+                                    Count +=  (valuess - valuezz)**7
 
         #improve your winning line if possible, value count highly, this is only to improve existing winning lines
         for Winning_lines, values in Opponent_Dictionary.items():
@@ -756,8 +762,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         if key in Winning_lines:
                             Your_winning_lines.append(key)
                             Special_Case_Count +=1
+                            #incentivizing continuing the winning lines in progress on any board size
                             if values - valuez < .5 * Starting_count:
                                 Count += (valuess - valuezz)**6
+                            #this here should allow for more expansion, as it's not forcing to continue winning lines early
                             elif values - valuez >= .5 * Starting_count:
                                 Count +=  (values - valuez)**4
         #We need something to implement finding new winning lines
@@ -777,7 +785,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         Opp_Adjacency_list.append(key)
                         Special_Case_Count +=1
 
-                        Count +=3
+                        Count +=len(adjacency_list)
         #Value 2nd highly if spot is in adjacency Dict of your moves
         for ky, adj_list in Adjacency_Dict.items():
             for kyz in List_of_your_moves:
@@ -785,7 +793,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                     if key in adj_list:
                         Your_Adjacency_list.append(key)
                         Special_Case_Count +=1
-                        Count +=3               
+                        Count +=len(adjacency_list)              
         
         #Added bonuses, exponential bonus, based on how many of the previous conditions it meets          
         Count += (Special_Case_Count**2)
@@ -813,6 +821,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Random_Best_Choice.append(value)
     # print(Random_Best_Choice) 
     max_val = max(Random_Best_Choice)
+    print(max_val)
         
     for key, value in Best_Choice.items():
         if value == max_val:
@@ -1099,7 +1108,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 if Count == Squares:
                     break
 
-Play_Game(800, 169, 10, )
+Play_Game(800, 225, 11, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
