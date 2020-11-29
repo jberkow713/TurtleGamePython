@@ -1644,7 +1644,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 25, 4, )
+Play_Game(800, 361, 13, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
