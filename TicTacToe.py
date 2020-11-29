@@ -1223,8 +1223,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 computer.setpos(coordinates[0],coordinates[1])
                 List_of_your_moves.append(Keys_to_Remove[0])
                 return
-            
-    
+     
     
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
@@ -1300,7 +1299,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         Count +=3               
         
         #Added bonuses, exponential bonus, based on how many of the previous conditions it meets          
-        Count += (Special_Case_Count**2)      
+        Count += (Special_Case_Count**2)
+        #Most of the time, this special case count will not matter, until winning lines and blocking come to an end,
+        # At which case you will see players only playing adjacent, because of the small added incentive      
+        
         #Append the count, clear all the containers, repeat
         Winning_Line_Count.append(Count)
         Count = 0
@@ -1371,10 +1373,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     List_of_O_moves = []
     Updated_Dict = create_updated_dictionary(Remaining_Dict_O, Squares_to_win)
     # player = turtle.Turtle()
-    
-    
-      
-    
+       
 
     if Player==False:
 
@@ -1449,8 +1448,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
         Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
         player.setposition(Starting_pos_x , Starting_pos_y )
         player.setheading(90)        
-        
-        
+                
                         
         movement = (Boardsize/Squares)*1.5
 
@@ -1496,8 +1494,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 # redo some math, but other than that, it works great!
                 
                 # while True:
-                    
-                
+                             
 
                 movement = (Boardsize/Squares)*1.5
 
@@ -1596,12 +1593,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 # turtle.onkey(draw_circle, "o") 
                 turtle.onkey(draw_x, "x")
                     
-                
-                      
-                   
-                            
-                
-                
+                       
                 #So basically, if we can get this Coordinat object to be set equal to 
                 # the return object from the draw(x) function, this will work
                 
@@ -1625,13 +1617,6 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     break
 
                 # turtle.mainloop()    
-
-
-
-
-
-
-
 
 
     # So the idea here is , you have the same while loop, only one computer player is replaced by a human player
