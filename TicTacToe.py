@@ -1224,221 +1224,221 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 List_of_your_moves.append(Keys_to_Remove[0])
                 return
             
-    Pre_lines = []
-    Set_list = []
-    Linez_to_make_triples = []
-    Keys_to_move_to = []
-    adjacency_keys = []
+    # Pre_lines = []
+    # Set_list = []
+    # Linez_to_make_triples = []
+    # Keys_to_move_to = []
+    # adjacency_keys = []
 
-    for Ln, value in Your_Dictionary.items():
-        if value == Starting_count-2:
-            for Line, Val in Opponent_Dictionary.items():
-                if Ln == Line and Val == Starting_count:
-                    Pre_lines.append(Ln)
+    # for Ln, value in Your_Dictionary.items():
+    #     if value == Starting_count-2:
+    #         for Line, Val in Opponent_Dictionary.items():
+    #             if Ln == Line and Val == Starting_count:
+    #                 Pre_lines.append(Ln)
     
-    for lst in Pre_lines:
-        setlists = set(lst)
-        Set_list.append(setlists)
+    # for lst in Pre_lines:
+    #     setlists = set(lst)
+    #     Set_list.append(setlists)
 
-    #Finding the specific 2 lines to operate on
-    Len_Pre_lines = len(Pre_lines)
-    Count = 0
-    index = 0
-    while Len_Pre_lines > 0:
+    # #Finding the specific 2 lines to operate on
+    # Len_Pre_lines = len(Pre_lines)
+    # Count = 0
+    # index = 0
+    # while Len_Pre_lines > 0:
 
-        key = Pre_lines[index]
-        Keys_Set = set(key)
-        #so we want to turn all lists inside Pre_Lines into sets, this is found in Set_list
-        #Now we want to compare Keys_Set to all the sets inside Set_list
-        for Lsts in Set_list:
-            A = Keys_Set.intersection(Lsts)
-            Count += len(A)
+    #     key = Pre_lines[index]
+    #     Keys_Set = set(key)
+    #     #so we want to turn all lists inside Pre_Lines into sets, this is found in Set_list
+    #     #Now we want to compare Keys_Set to all the sets inside Set_list
+    #     for Lsts in Set_list:
+    #         A = Keys_Set.intersection(Lsts)
+    #         Count += len(A)
 
-        if Count >= (Starting_count + (Starting_count-1)):
-            Linez_to_make_triples.append(key)
+    #     if Count >= (Starting_count + (Starting_count-1)):
+    #         Linez_to_make_triples.append(key)
 
-        Count = 0
-        index +=1
-        Len_Pre_lines -=1
+    #     Count = 0
+    #     index +=1
+    #     Len_Pre_lines -=1
                            
-    #This will trigger if computer CAN make an optimal line of 3, at any given point in the game
-    if len(Linez_to_make_triples) == 2:
+    # #This will trigger if computer CAN make an optimal line of 3, at any given point in the game
+    # if len(Linez_to_make_triples) == 2:
         
-        # print(Linez_to_make_triples) 
+    #     # print(Linez_to_make_triples) 
         
-        for position in Linez_to_make_triples:
-            for spot in position:
-                if spot in List_of_your_moves:
-                    if spot not in adjacency_keys:
-                        adjacency_keys.append(spot)
-                elif spot not in List_of_your_moves:
-                    if spot not in Keys_to_move_to:
-                        Keys_to_move_to.append(spot)
+    #     for position in Linez_to_make_triples:
+    #         for spot in position:
+    #             if spot in List_of_your_moves:
+    #                 if spot not in adjacency_keys:
+    #                     adjacency_keys.append(spot)
+    #             elif spot not in List_of_your_moves:
+    #                 if spot not in Keys_to_move_to:
+    #                     Keys_to_move_to.append(spot)
        
 
-        Len_Keys = len(Keys_to_move_to)
-        Shared_adjacency_list_value = []
-        Count = 0
-        index = 0 
-        while Len_Keys > 0:
-            #Keys to move to represents the possible OPEN spot to move to
-            key = Keys_to_move_to[index]
+    #     Len_Keys = len(Keys_to_move_to)
+    #     Shared_adjacency_list_value = []
+    #     Count = 0
+    #     index = 0 
+    #     while Len_Keys > 0:
+    #         #Keys to move to represents the possible OPEN spot to move to
+    #         key = Keys_to_move_to[index]
 
-            for keys, adjacency_list in Adjacency_Dict.items():
-                for KYS in adjacency_keys:
-                    if KYS == keys:
-                        if key in adjacency_list:
-                            Count +=1
+    #         for keys, adjacency_list in Adjacency_Dict.items():
+    #             for KYS in adjacency_keys:
+    #                 if KYS == keys:
+    #                     if key in adjacency_list:
+    #                         Count +=1
 
-            if Count == 2:
-                Shared_adjacency_list_value.append(key)
-            else:
-                Count = 0
-                index +=1
-                Len_Keys -=1
+    #         if Count == 2:
+    #             Shared_adjacency_list_value.append(key)
+    #         else:
+    #             Count = 0
+    #             index +=1
+    #             Len_Keys -=1
 
-            #This while loop is basically checking if one of the keys is in between 2 keys in existence...in which case, 
-            # you move to it, such as __ X __ X __  it will always move to the middle value
+    #         #This while loop is basically checking if one of the keys is in between 2 keys in existence...in which case, 
+    #         # you move to it, such as __ X __ X __  it will always move to the middle value
 
-        if len(Shared_adjacency_list_value) == 1:
-            # print(Shared_adjacency_list_value[0])
-            for position, coord in Key_Dictionary.items():
-                if Shared_adjacency_list_value[0] == position:
-                    coordinates = coord
-                    computer.setpos(coordinates[0],coordinates[1])
-                    List_of_your_moves.append(Shared_adjacency_list_value[0])
-                    return
-        #If the key is not between 2 open keys, we have to decide which key to move to
-        # Take the 3 keys to check, check their adjacency values, choose one with longest list
-        elif len(Shared_adjacency_list_value) == 0:
+    #     if len(Shared_adjacency_list_value) == 1:
+    #         # print(Shared_adjacency_list_value[0])
+    #         for position, coord in Key_Dictionary.items():
+    #             if Shared_adjacency_list_value[0] == position:
+    #                 coordinates = coord
+    #                 computer.setpos(coordinates[0],coordinates[1])
+    #                 List_of_your_moves.append(Shared_adjacency_list_value[0])
+    #                 return
+    #     #If the key is not between 2 open keys, we have to decide which key to move to
+    #     # Take the 3 keys to check, check their adjacency values, choose one with longest list
+    #     elif len(Shared_adjacency_list_value) == 0:
             
-            Mx_adj_val = []
+    #         Mx_adj_val = []
                
-            for KYs in Keys_to_move_to:
-                for keys, adjacency_list in Adjacency_Dict.items():
+    #         for KYs in Keys_to_move_to:
+    #             for keys, adjacency_list in Adjacency_Dict.items():
                 
-                    if KYs == keys:
-                        Mx_adj_val.append(len(adjacency_list))
+    #                 if KYs == keys:
+    #                     Mx_adj_val.append(len(adjacency_list))
                        
-            #                 Ky_to_Block.append(KYs)
-            Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
-            # print(Max_Adjacent_Dict)
-            Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
-            for position, coord in Key_Dictionary.items():
-                if Best_Key == position:
-                    coordinates = coord 
+    #         #                 Ky_to_Block.append(KYs)
+    #         Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
+    #         # print(Max_Adjacent_Dict)
+    #         Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
+    #         for position, coord in Key_Dictionary.items():
+    #             if Best_Key == position:
+    #                 coordinates = coord 
 
-                    computer.setpos(coordinates[0],coordinates[1])
-                    List_of_your_moves.append(Best_Key)
-            # print(Random_Key)
-                    return 
+    #                 computer.setpos(coordinates[0],coordinates[1])
+    #                 List_of_your_moves.append(Best_Key)
+    #         # print(Random_Key)
+    #                 return 
 
-    # This is exactly the same functionality as above, but instead it decides if it MUST block line of 3 instead 
-    Pre_lines = []
-    Set_list = []
-    Linez_to_block_triples = []
-    Keys_to_move_to = []
-    adjacency_keys = []
+    # # This is exactly the same functionality as above, but instead it decides if it MUST block line of 3 instead 
+    # Pre_lines = []
+    # Set_list = []
+    # Linez_to_block_triples = []
+    # Keys_to_move_to = []
+    # adjacency_keys = []
 
-    for Ln, value in Opponent_Dictionary.items():
-        if value == Starting_count-2:
-            for Line, Val in Your_Dictionary.items():
-                if Ln == Line and Val == Starting_count:
-                    Pre_lines.append(Ln)
+    # for Ln, value in Opponent_Dictionary.items():
+    #     if value == Starting_count-2:
+    #         for Line, Val in Your_Dictionary.items():
+    #             if Ln == Line and Val == Starting_count:
+    #                 Pre_lines.append(Ln)
     
-    for lst in Pre_lines:
-        setlists = set(lst)
-        Set_list.append(setlists)
+    # for lst in Pre_lines:
+    #     setlists = set(lst)
+    #     Set_list.append(setlists)
     
                     
-    Len_Pre_lines = len(Pre_lines)
-    Count = 0
-    index = 0
-    while Len_Pre_lines > 0:
+    # Len_Pre_lines = len(Pre_lines)
+    # Count = 0
+    # index = 0
+    # while Len_Pre_lines > 0:
 
-        key = Pre_lines[index]
-        Keys_Set = set(key)
+    #     key = Pre_lines[index]
+    #     Keys_Set = set(key)
         
-        for Lsts in Set_list:
-            A = Keys_Set.intersection(Lsts)
-            Count += len(A)
+    #     for Lsts in Set_list:
+    #         A = Keys_Set.intersection(Lsts)
+    #         Count += len(A)
 
-        if Count >= (Starting_count + (Starting_count-1)):
-            Linez_to_block_triples.append(key)
+    #     if Count >= (Starting_count + (Starting_count-1)):
+    #         Linez_to_block_triples.append(key)
 
-        Count = 0
-        index +=1
-        Len_Pre_lines -=1
+    #     Count = 0
+    #     index +=1
+    #     Len_Pre_lines -=1
     
-    #Now you have the optimal 2 lines to block, you want to find exact position to move to                 
+    # #Now you have the optimal 2 lines to block, you want to find exact position to move to                 
     
-    if len(Linez_to_block_triples) == 2:
-        # print(Linez_to_block_triples)
-        # print(Linez_to_make_triples) 
+    # if len(Linez_to_block_triples) == 2:
+    #     # print(Linez_to_block_triples)
+    #     # print(Linez_to_make_triples) 
         
-        for position in Linez_to_block_triples:
-            for spot in position:
-                if spot in List_of_Opponent_Moves:
-                    if spot not in adjacency_keys:
-                        adjacency_keys.append(spot)
-                elif spot not in List_of_Opponent_Moves:
-                    if spot not in Keys_to_move_to:
-                        Keys_to_move_to.append(spot)
+    #     for position in Linez_to_block_triples:
+    #         for spot in position:
+    #             if spot in List_of_Opponent_Moves:
+    #                 if spot not in adjacency_keys:
+    #                     adjacency_keys.append(spot)
+    #             elif spot not in List_of_Opponent_Moves:
+    #                 if spot not in Keys_to_move_to:
+    #                     Keys_to_move_to.append(spot)
         
 
-        Len_Keys = len(Keys_to_move_to)
-        Shared_adjacency_list_value = []
-        Count = 0
-        index = 0 
-        while Len_Keys > 0:
-            #Keys to move to represents the possible OPEN spot to move to
-            key = Keys_to_move_to[index]
+    #     Len_Keys = len(Keys_to_move_to)
+    #     Shared_adjacency_list_value = []
+    #     Count = 0
+    #     index = 0 
+    #     while Len_Keys > 0:
+    #         #Keys to move to represents the possible OPEN spot to move to
+    #         key = Keys_to_move_to[index]
 
-            for keys, adjacency_list in Adjacency_Dict.items():
-                for KYS in adjacency_keys:
-                    if KYS == keys:
-                        if key in adjacency_list:
-                            Count +=1
+    #         for keys, adjacency_list in Adjacency_Dict.items():
+    #             for KYS in adjacency_keys:
+    #                 if KYS == keys:
+    #                     if key in adjacency_list:
+    #                         Count +=1
 
-            if Count == 2:
-                Shared_adjacency_list_value.append(key)
-            else:
-                Count = 0
-                index +=1
-                Len_Keys -=1
+    #         if Count == 2:
+    #             Shared_adjacency_list_value.append(key)
+    #         else:
+    #             Count = 0
+    #             index +=1
+    #             Len_Keys -=1
 
-            # Same as above, check if gap exists in this line, move there
+    #         # Same as above, check if gap exists in this line, move there
 
-        if len(Shared_adjacency_list_value) == 1:
-            # print(Shared_adjacency_list_value[0])
-            for position, coord in Key_Dictionary.items():
-                if Shared_adjacency_list_value[0] == position:
-                    coordinates = coord
-                    computer.setpos(coordinates[0],coordinates[1])
-                    List_of_your_moves.append(Shared_adjacency_list_value[0])
-                    return
-        #If the key is not between 2 open keys, we have to decide which key to move to to block opponent
-        elif len(Shared_adjacency_list_value) == 0:
+    #     if len(Shared_adjacency_list_value) == 1:
+    #         # print(Shared_adjacency_list_value[0])
+    #         for position, coord in Key_Dictionary.items():
+    #             if Shared_adjacency_list_value[0] == position:
+    #                 coordinates = coord
+    #                 computer.setpos(coordinates[0],coordinates[1])
+    #                 List_of_your_moves.append(Shared_adjacency_list_value[0])
+    #                 return
+    #     #If the key is not between 2 open keys, we have to decide which key to move to to block opponent
+    #     elif len(Shared_adjacency_list_value) == 0:
             
-            Mx_adj_val = []
+    #         Mx_adj_val = []
                
-            for KYs in Keys_to_move_to:
-                for keys, adjacency_list in Adjacency_Dict.items():
+    #         for KYs in Keys_to_move_to:
+    #             for keys, adjacency_list in Adjacency_Dict.items():
                 
-                    if KYs == keys:
-                        Mx_adj_val.append(len(adjacency_list))
+    #                 if KYs == keys:
+    #                     Mx_adj_val.append(len(adjacency_list))
                         
-            Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
-            # print(Max_Adjacent_Dict)
-            Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
-            for position, coord in Key_Dictionary.items():
-                if Best_Key == position:
-                    coordinates = coord 
+    #         Max_Adjacent_Dict = dict(zip(Keys_to_move_to, Mx_adj_val))
+    #         # print(Max_Adjacent_Dict)
+    #         Best_Key = max(Max_Adjacent_Dict, key=Max_Adjacent_Dict.get)
+    #         for position, coord in Key_Dictionary.items():
+    #             if Best_Key == position:
+    #                 coordinates = coord 
 
-                    computer.setpos(coordinates[0],coordinates[1])
-                    List_of_your_moves.append(Best_Key)
-            # print(Random_Key)
-                    return
+    #                 computer.setpos(coordinates[0],coordinates[1])
+    #                 List_of_your_moves.append(Best_Key)
+    #         # print(Random_Key)
+    #                 return
 
     #In the case that the computer can not win, can not block final block, can not MOVE to good attacking spot, and can not block
     # this equivalent attacking spot, it then has the following loop to choose where exactly it moves...
@@ -1462,12 +1462,12 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 if Winning_lines == Winning_linez:
                     if valuezz < Starting_count and valuess == Starting_count:
                         if key in Winning_lines:
-                            Your_winning_lines.append(key)
+                            Opp_winning_lines.append(key)
                             Special_Case_Count +=1
                             if valuess - valuezz <= .5 * Starting_count:
-                                Count +=  (valuess - valuezz)**2
-                            elif valuess - valuezz >= .5 * Starting_count:
-                                Count +=  (valuess - valuezz)**4  
+                                Count +=  (valuess - valuezz)**8
+                            elif valuess - valuezz > .5 * Starting_count:
+                                Count +=  (valuess - valuezz)**3  
         #improve your winning line if possible, value count highly
         for Winning_lines, values in Opponent_Dictionary.items():
             for Winning_linez, valuez in Your_Dictionary.items():
@@ -1476,7 +1476,10 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         if key in Winning_lines:
                             Your_winning_lines.append(key)
                             Special_Case_Count +=1
-                            Count +=  (values - valuez)**2
+                            if values - valuez < .5 * Starting_count:
+                                Count += (valuess - valuezz)**2
+                            elif values - valuez >= .5 * Starting_count:
+                                Count +=  (values - valuez)**3
         #Value 2nd highly if spot is in adjacency Dict of opponent moves
         for keys, adjacency_list in Adjacency_Dict.items():
             for keyz in List_of_Opponent_Moves:
@@ -1840,7 +1843,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     # The computer player will essentially not do ANYTHING until the player has moved, it will have no choice 
 
 
-Play_Game(800, 225, 10, )
+Play_Game(800, 25, 4, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
