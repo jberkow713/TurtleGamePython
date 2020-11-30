@@ -738,6 +738,8 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                             Special_Case_Count +=1
                             if valuess - valuezz <= .5 * Starting_count:
                                 #Make incentive on smaller board to block quicker, as one slip up early can cost game
+                                #Notice it is to the 8th power here, again bigger than continuing winning line, which is 
+                                # only raised to the 6th power
                                 if Starting_count <= 6:
                                     Count +=  (valuess - valuezz)**8
                                 #Disincentivize blocking early on big boards, no need, better to expand
@@ -746,11 +748,12 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
                             elif valuess - valuezz > .5 * Starting_count:
                                 #Not as important to block once it's too late in small games, by that point, it should have 
-                                #already blocked
+                                #already blocked, but still more value than adjacency moves
                                 if Starting_count < 6:
                                     Count +=  (valuess - valuezz)**3
                                 #Make the incentive on a bigger board, to wait until blocks are >half the amount to win
-                                #Before you force the block, allow for more expansion
+                                #Before you force the block, allow for more expansion...notice its to the 7th power here,
+                                # which makes it more important than continuing your original line, which is only raised to 6th
                                 elif Starting_count > 6:
                                     Count +=  (valuess - valuezz)**7
 
@@ -762,10 +765,13 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                         if key in Winning_lines:
                             Your_winning_lines.append(key)
                             Special_Case_Count +=1
-                            #incentivizing continuing the winning lines in progress on any board size
+                            #incentivizing continuing the winning lines in progress on any board size, 
+                            #This incentivizes expanding on early winning lines
                             if values - valuez < .5 * Starting_count:
                                 Count += (valuess - valuezz)**6
-                            #this here should allow for more expansion, as it's not forcing to continue winning lines early
+                            #After blocking opponents early lines in small games, or late lines in big games, 
+                            # raising to the power of 4 here trumps the 3rd and 2nd power in the other games, 
+                            # meaning this will take precendence over blocking in those situations
                             elif values - valuez >= .5 * Starting_count:
                                 Count +=  (values - valuez)**4
         #We need something to implement finding new winning lines
@@ -1108,7 +1114,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 if Count == Squares:
                     break
 
-Play_Game(800, 225, 11, )
+Play_Game(800, 196, 9, )
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
