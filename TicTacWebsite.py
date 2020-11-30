@@ -6,27 +6,34 @@ from copy import deepcopy
 import numpy as np
 
 Variable1 = 800
-
+Var2 = 0
 Choice = False
 while Choice == False:
+    list_nums = str([i for i in range(3,26)])
+    Variable2 = (input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
+    if Variable2 in list_nums:
+        Variable2 = int(Variable2)
+       
     
-    Variable2 = int(input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
-        
-    if Variable2 >2 and Variable2 < 26:
-        Choice = True
+    if isinstance(Variable2, int):
+
+        if Variable2 >2 and Variable2 < 26:
+            Var2 = Variable2 
+            Choice = True
         
 Variable3 = int(Variable2) ** 2
 
 Choice2 = False
 while Choice2 == False:
+    
+    list_nums2 = str([i for i in range(3, Var2)])
 
-    Variable4 = int(input("Please enter how many spots in a row make up a win. Value must be less than the number of selected rows and columns, but not less than half: \n"))
-    if Variable4 < Variable2 and Variable4 > (.5* Variable2):
-        Choice2 = True 
+    Variable4 = input("Please enter how many spots in a row make up a win. Value must be less than the number of selected rows and columns, but not less than half: \n")
+    if Variable4 in list_nums2:
+        Variable4 = int(Variable4)
 
-
-
-
+        if Variable4 < Variable2 and Variable4 > (.5* Variable2):
+            Choice2 = True 
 
 
 computer = turtle.Turtle()
@@ -1150,7 +1157,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 if Count == Squares:
                     break
                 
-                turtle.mainloop()    
+                # turtle.mainloop()    
 
 # Play_Game(800, 16, 3, )
 Play_Game(Variable1, Variable3, Variable4) #Player=True)
