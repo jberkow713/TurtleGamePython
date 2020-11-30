@@ -12,10 +12,8 @@ while Choice == False:
     list_nums = str([i for i in range(3,26)])
     Variable2 = (input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
     if Variable2 in list_nums:
-        Variable2 = int(Variable2)
-       
-    
-    if isinstance(Variable2, int):
+        Variable2 = int(Variable2)    
+    # if isinstance(Variable2, int):
 
         if Variable2 >2 and Variable2 < 26:
             Var2 = Variable2 
