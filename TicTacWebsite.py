@@ -20,8 +20,8 @@ Variable3 = int(Variable2) ** 2
 Choice2 = False
 while Choice2 == False:
 
-    Variable4 = int(input("Please enter how many spots in a row make up a win. Value must be less than the number of selected rows and columns: \n"))
-    if Variable4 < Variable2:
+    Variable4 = int(input("Please enter how many spots in a row make up a win. Value must be less than the number of selected rows and columns, but not less than half: \n"))
+    if Variable4 < Variable2 and Variable4 > (.5* Variable2):
         Choice2 = True 
 
 
