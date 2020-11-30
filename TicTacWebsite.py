@@ -5,6 +5,30 @@ import random
 from copy import deepcopy
 import numpy as np
 
+Variable1 = 800
+
+Choice = False
+while Choice == False:
+    
+    Variable2 = int(input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
+        
+    if Variable2 >2 and Variable2 < 26:
+        Choice = True
+        
+Variable3 = int(Variable2) ** 2
+
+Choice2 = False
+while Choice2 == False:
+
+    Variable4 = int(input("Please enter how many spots in a row make up a win. Value must be less than the number of selected rows and columns: \n"))
+    if Variable4 < Variable2:
+        Choice2 = True 
+
+
+
+
+
+
 computer = turtle.Turtle()
 computer.color("blue")
 computer.shape("square")
@@ -857,15 +881,22 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     return
 
 
+
 def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     '''
     Function to play entire game using all other functions. One ring, to rule them all!
     '''
+    
     Create_Board(Boardsize, Squares, "white", "Tic-Tac-Toe", "black", 2.5)
     Key_Dictionary = create_key_dict_and_coords(Boardsize, Squares)
+    # print(Key_Dictionary)
+    # print('-------------------------')
     Remaining_Dict_O = create_remaining_dict(Squares, Squares_to_win)
+    # print(Remaining_Dict_O)
+    # print('-------------------------')
     Remaining_Dict_X = create_remaining_dict(Squares, Squares_to_win)
     Adjacency_Dict1 = Adjacency_Dict(Squares)
+    # print(Adjacency_Dict1)
     List_of_X_moves = []
     List_of_O_moves = []
     Updated_Dict = create_updated_dictionary(Remaining_Dict_O, Squares_to_win)
@@ -1095,8 +1126,12 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 #So basically, if we can get this Coordinat object to be set equal to 
                 # the return object from the draw(x) function, this will work
                 
-                input("Press enter once you have finished making your play.") 
-                                
+                # input("Press enter once you have finished making your play.") 
+                #This stuff below needs to only be triggered in an if statement that occurs if the player has 
+                # used the draw function
+                # so like "if draw: "                 
+                
+
                 key = (key_name(Key_Dictionary, Player_COORD))
                 print(key)
                 List_of_X_moves.append(key)
@@ -1111,10 +1146,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 Variable *=-1
                 Count +=1
 
+                
                 if Count == Squares:
                     break
+                
+                turtle.mainloop()    
 
-Play_Game(800, 196, 9, )
+# Play_Game(800, 16, 3, )
+Play_Game(Variable1, Variable3, Variable4) #Player=True)
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
