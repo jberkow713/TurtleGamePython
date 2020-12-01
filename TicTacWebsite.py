@@ -1094,11 +1094,21 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     # decrease_values(Remaining_dict_X, key)
                     if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
                         print("X WINS!!!")
-                        
+                        turtle.bye()
+                    
+                    
+                       
                                             
                     remove_dict(Key_Dictionary, Player_COORD)
-                    #This next part runs the computer side of the mainloop, and lets the player interact, but the while loop
-                    # will never get triggered                    
+                    Len_list = []
+                    for key in Key_Dictionary.keys():
+                        Len_list.append(key)
+                    if len(Len_list) == 0:
+                        turtle.bye()    
+                       
+                    
+                    #We want to test manually the size of the key dictionary here , if it is 0, or empty, we want to force
+                    # close the screen                   
 
                     Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
@@ -1111,11 +1121,20 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         turtle.bye()
                         
 
-                                      
+                    list_o_keys = []                  
                     remove_dict(Key_Dictionary, Coordinat)
+                    for key in Key_Dictionary.keys():
+                        list_o_keys.append(key)
+                    if (len(list_o_keys)) == 0:
+                        turtle.bye()
+                    # Len_list2 = []
+                    # for key in Key_Dictionary.keys():
+                    #     Len_list.append(key)
+                    # print(len(Len_list2)) 
                     
-                    #     sys.exit()                  
-                    
+                                     
+                    #We want to test manually the size of the key dictionary here , if it is 0, or empty, we want to force
+                    # close the screen     
                    
                         
                     
