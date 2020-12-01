@@ -139,7 +139,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         
         player.setx(x)
         player.setpos(x, player.ycor())
-        print(player.pos())
+        # print(player.pos())
     def move_right():
         x = player.xcor()
         x += speed
@@ -147,7 +147,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
             x = (Boardsize/2) - .5*(Square_Length)
         player.setx(x)
         player.setpos(x, player.ycor())
-        print(player.pos())
+        # print(player.pos())
     def move_up():
         y = player.ycor()
         y += speed
@@ -155,7 +155,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
             y = (Boardsize/2) - .5*(Square_Length)
         player.sety(y)
         player.setpos(player.xcor(), y)
-        print(player.pos())
+        # print(player.pos())
     def move_down():
         y = player.ycor()
         y -= speed
@@ -163,7 +163,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
             y = -(Boardsize/2)+ .5*(Square_Length)
         player.sety(y)
         player.setpos(player.xcor(), y)
-        print(player.pos())
+        # print(player.pos())
     
     def draw_circle():
         turtle.pensize(2.5)
@@ -205,7 +205,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         Player_COORD = coord_value
                
         is_done_with_player_move = True
-        print(is_done_with_player_move)
+        # print(is_done_with_player_move)
                 
         
         
@@ -1035,7 +1035,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                 if Count == Squares:
                     break
-    
+    import sys 
     if Player==True:
         
         Create_Player_Custom_Commands(Boardsize, Squares)
@@ -1050,8 +1050,12 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
         Game_over = False
         # global is_done_with_player_move
               
-        while Count <Squares * .5 and Game_over == False:
-                    
+        while Game_over == False:
+            
+            # if Game_over == True:
+                # print("shouldnt i be quitting?")
+                # break        
+            
             while Player==False:
                 Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
@@ -1061,11 +1065,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 # decrease_values(Remaining_dict_O, key)
                 if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
                     print("O WINS!!!")
-                    Game_over = True 
-                    break
+                    Game_over = True
+                    
+        
+                     
+                    
                                 
                 remove_dict(Key_Dictionary, Coordinat)
-                                    
+                Count +=1                   
                 Player=True
                 
                 
@@ -1073,21 +1080,25 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
             
             while Player==True:
 
+                
+                
                 def switch_players():
-                    import sys 
+                    # This function allows the player to use the prompt to finish their loop, go through the computers loop
+                    # And end up back at their loop again :)
+                    #This will simulate the computer moving, but it won't create this loop
+                    
 
                     key = (key_name(Key_Dictionary, Player_COORD))
-                    print(key)
+                    # print(key)
                     List_of_X_moves.append(key)
                     # decrease_values(Remaining_dict_X, key)
                     if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
                         print("X WINS!!!")
-                        Game_over = True 
                         
-                        
+                                            
                     remove_dict(Key_Dictionary, Player_COORD)
-                    
-                    
+                    #This next part runs the computer side of the mainloop, and lets the player interact, but the while loop
+                    # will never get triggered                    
 
                     Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
@@ -1097,20 +1108,21 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 # decrease_values(Remaining_dict_O, key)
                     if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
                         print("O WINS!!!")
-                        Game_over = True 
-                        # break
-                                    
+                        turtle.bye()
+                        
+
+                                      
                     remove_dict(Key_Dictionary, Coordinat)
-                    # if len(Key_Dictionary <=1):
-                    #     print("Game Over")
+                    
                     #     sys.exit()                  
-                    Player=True
+                    
+                   
                         
                     
                     # Count +=1    
 
                 Square_Length = round((Boardsize / np.sqrt(Squares)))
-    #speed is used for how far player moves with keystroke
+    
                 speed = Square_Length
 
                 player = turtle.Turtle()
@@ -1137,7 +1149,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     
                     player.setx(x)
                     player.setpos(x, player.ycor())
-                    print(player.pos())
+                    # print(player.pos())
                 def move_right():
                     x = player.xcor()
                     x += speed
@@ -1145,7 +1157,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         x = (Boardsize/2) - .5*(Square_Length)
                     player.setx(x)
                     player.setpos(x, player.ycor())
-                    print(player.pos())
+                    # print(player.pos())
                 def move_up():
                     y = player.ycor()
                     y += speed
@@ -1153,7 +1165,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         y = (Boardsize/2) - .5*(Square_Length)
                     player.sety(y)
                     player.setpos(player.xcor(), y)
-                    print(player.pos())
+                    # print(player.pos())
                 def move_down():
                     y = player.ycor()
                     y -= speed
@@ -1161,7 +1173,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         y = -(Boardsize/2)+ .5*(Square_Length)
                     player.sety(y)
                     player.setpos(player.xcor(), y)
-                    print(player.pos())
+                    # print(player.pos())
                 
                 def draw_circle():
                     turtle.pensize(2.5)
@@ -1187,7 +1199,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     b = player.ycor()
                     turtle.hideturtle()
                     turtle.penup()
-                    
+                    turtle.color("blue")
                     coord_value = [a, b]
                         
                     turtle.setposition(a-movement,b+movement)
@@ -1201,9 +1213,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                     global Player_COORD 
                     Player_COORD = coord_value
-                        
-                    is_done_with_player_move = True
-                    print(is_done_with_player_move)
+
+                             
                     switch_players()
                             
                     
@@ -1219,31 +1230,11 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 # turtle.onkey(draw_circle, "o") 
                 turtle.onkey(draw_x, "x")     
 
-
-
-                # is_done_with_player_move = False 
-                
-                if Count == Squares:
-                    break 
+        
 
                 
-                # turtle.onkeyrelease( ,"x")
-
-                # while is_done_with_player_move == False:
-                    
-                #     turtle.listen()
-                #     yield
-                print("hi")                    
-                       
-                #So basically, if we can get this Coordinat object to be set equal to 
-                # the return object from the draw(x) function, this will work
-                                
-                #This stuff below needs to only be triggered in an if statement that occurs if the player has 
-                # used the draw function
-                # so like "if draw: "                 
                 
-                # if is_done_with_player_move == True:
-                delay = input("Press enter to finish.")    
+                # delay = input("Press enter to finish.")    
                 
                 # if Player==False:
                 #     break
@@ -1252,6 +1243,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 if Count == Squares:
                     break
 
+                turtle.mainloop()     
                             
 
                     
