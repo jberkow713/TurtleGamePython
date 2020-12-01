@@ -7,7 +7,7 @@ import numpy as np
   
 sc = turtle.Screen() 
 sc.setup(800, 800) 
-# turtle.textinput("title", "promt")
+
 
 Variable8= ""
 Choice3 = False
@@ -220,13 +220,6 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
     # turtle.onkey(draw_circle, "o") 
     turtle.onkey(draw_x, "x") 
 
-    
-
-       
-    
-
-
-
 
 def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Line_Size):
     #Sets size of screen, used in making squares
@@ -290,12 +283,7 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
         Current_Y -= Distance_in_Between_Lines
         Remaining_lines -=1 
     
-
-
-
-#Store name of spots in a simple list, from 0 to # of squares, and their coordinates  
-# TODO 
-# FIX THIS STUPID FUNCTION , IT IS SCREWING UP MY FUN!     
+   
 def create_key_dict_and_coords(Boardsize, Squares):
     '''
     This function takes Boardsize, number of Squares, creates a list of each Square as a key, 
@@ -340,7 +328,7 @@ def create_key_dict_and_coords(Boardsize, Squares):
     return Key_Dict 
 
 def create_remaining_dict(Squares, Squares_to_win):
-    #We need a matrix, like if it's 5X5
+    
     # We need a matrix with rows and columns, with each value corresponding
 
     Matrix = []
@@ -360,12 +348,10 @@ def create_remaining_dict(Squares, Squares_to_win):
         ending += list_size
         len_matrix -= list_size 
     #Winning_Lines represents all possible winning lines in the grid
-    # print(Matrix)
-    
+        
     Winning_Lines = []
     Horizontal_lines_in_Matrix = int(math.sqrt(Squares))
         
-    
     Total_Squares = 0
     smaller_list = []
     Row_index = 0
@@ -732,9 +718,7 @@ def decrease_values(dictionary, key_name, updated_dictionary):
         for key in dictionary.keys():
             if winning_line == key:
                 dictionary[winning_line] = dictionary[winning_line]-1
-    #We are updating the overall count of each dictionary, and sending it to corresponding updated dictionary
-    #This will only matter if a player can not improve his amount of own winning lines, and can not lower opponents winning lines
-    # Then, player will pick spot that maximizes his current count - new count 
+    
     Count = 0
     for values in dictionary.values():
         Count +=values 
@@ -1066,27 +1050,18 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
                     print("O WINS!!!")
                     Game_over = True
-                    
-        
-                     
-                    
-                                
+                                           
                 remove_dict(Key_Dictionary, Coordinat)
                 Count +=1                   
                 Player=True
-                
-                
-                
+                          
             
             while Player==True:
-
-                
                 
                 def switch_players():
                     # This function allows the player to use the prompt to finish their loop, go through the computers loop
                     # And end up back at their loop again :)
                     #This will simulate the computer moving, but it won't create this loop
-                    
 
                     key = (key_name(Key_Dictionary, Player_COORD))
                     # print(key)
@@ -1096,11 +1071,9 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         turtle.textinput("X has won! ",  "Press Enter to quit")
                         turtle.bye()
                                      
-                       
-                                            
+                                           
                     remove_dict(Key_Dictionary, Player_COORD)
-                    
-                    
+                   
                     #Check to see if game can no longer be won by either player  
                     Winning_line_O_counts= []
                     Winning_line_X_counts = []    
@@ -1116,15 +1089,11 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
                         turtle.bye()
 
-
-
-
                     Len_list = []
                     for key in Key_Dictionary.keys():
                         Len_list.append(key)
                     if len(Len_list) == 0:
                         turtle.bye()    
-                       
                     
                     #We want to test manually the size of the key dictionary here , if it is 0, or empty, we want to force
                     # close the screen                   
@@ -1134,7 +1103,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
                     key = (key_name(Key_Dictionary, Coordinat))
                     
-                # decrease_values(Remaining_dict_O, key)
+                    # decrease_values(Remaining_dict_O, key)
                     if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
                         turtle.textinput("O has won! ",  "Press Enter to quit")
                         turtle.bye()
@@ -1163,11 +1132,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         list_o_keys.append(key)
                     if (len(list_o_keys)) == 0:
                         turtle.bye()
-                    
-
-
-
-
+      
                 Square_Length = round((Boardsize / np.sqrt(Squares)))
     
                 speed = Square_Length
@@ -1222,20 +1187,20 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     player.setpos(player.xcor(), y)
                     # print(player.pos())
                 
-                def draw_circle():
-                    turtle.pensize(2.5)
-                    a = player.xcor()
-                    b = player.ycor()
+                # def draw_circle():
+                #     turtle.pensize(2.5)
+                #     a = player.xcor()
+                #     b = player.ycor()
                     
-                    coord_value = [a, b]
+                #     coord_value = [a, b]
                             
-                    turtle.hideturtle()
-                    turtle.penup()
-                    turtle.setpos(a, (b-movement))
+                #     turtle.hideturtle()
+                #     turtle.penup()
+                #     turtle.setpos(a, (b-movement))
 
-                    turtle.pendown()
-                    turtle.circle(movement)
-                    turtle.hideturtle()
+                #     turtle.pendown()
+                #     turtle.circle(movement)
+                #     turtle.hideturtle()
 
                     # print(coord_value)
                     # return coord_value 
