@@ -4,18 +4,25 @@ import math
 import random 
 from copy import deepcopy
 import numpy as np
+  
+sc = turtle.Screen() 
+sc.setup(800, 800) 
+# turtle.textinput("title", "promt")
 
-Variable1 = 800
+
+Variable1 = 780
 Var2 = 0
 Choice = False
 while Choice == False:
-    list_nums = str([i for i in range(3,26)])
-    Variable2 = (input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
+    list_nums = str([i for i in range(3,21)])
+    Variable2 = turtle.textinput("Dimensions of Board ",  "Enter Rows from 3-20 inclusive")
+    # Variable2 = (input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
+    #Force user input to be in list of values, while not breaking program if they type a string
     if Variable2 in list_nums:
         Variable2 = int(Variable2)    
     # if isinstance(Variable2, int):
 
-        if Variable2 >2 and Variable2 < 26:
+        if Variable2 >2 and Variable2 < 21:
             Var2 = Variable2 
             Choice = True
         
@@ -26,9 +33,10 @@ while Choice2 == False:
     
     list_nums2 = str([i for i in range(3, Var2)])
 
-    Variable4 = input("Please enter how many spots in a row make up a win. Value must be less than the number of selected rows and columns, but not less than half: \n")
+    Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
     if Variable4 in list_nums2:
         Variable4 = int(Variable4)
+        #Force user input to be in list of values, while not breaking program if they type a string
 
         if Variable4 < Variable2 and Variable4 > (.5* Variable2):
             Choice2 = True 
@@ -48,7 +56,8 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
     Setting up custom size movement and x,o drawings to implement player versus computer matches
     Need to test further
     '''
-    
+    global is_done_with_player_move
+    is_done_with_player_move = False
     Square_Length = round((Boardsize / np.sqrt(Squares)))
     #speed is used for how far player moves with keystroke
     speed = Square_Length
@@ -138,7 +147,17 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         turtle.pendown()
         turtle.setposition(a+movement,b+ movement)
         # print(coord_value)
-        return coord_value     
+
+        global Player_COORD 
+        Player_COORD = coord_value
+               
+        is_done_with_player_move = True
+        print(is_done_with_player_move)
+                
+        
+        
+
+             
     
     turtle.listen()
     turtle.onkey(move_left, "Left") 
@@ -148,8 +167,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
     # turtle.onkey(draw_circle, "o") 
     turtle.onkey(draw_x, "x") 
 
-    if turtle.onkey(draw_x, "x"):
-        return draw_x() 
+    
 
        
     
@@ -265,7 +283,7 @@ def create_key_dict_and_coords(Boardsize, Squares):
 
 
     Key_Dict = dict(zip(Name_of_Spots, Coordinate_list))
-    print(Key_Dict)
+    # print(Key_Dict)
     return Key_Dict 
 
 def create_remaining_dict(Squares, Squares_to_win):
@@ -779,7 +797,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                                 #Not as important to block once it's too late in small games, by that point, it should have 
                                 #already blocked, but still more value than adjacency moves
                                 if Starting_count < 6:
-                                    Count +=  (valuess - valuezz)**3
+                                    Count +=  (valuess - valuezz)**7
                                 #Make the incentive on a bigger board, to wait until blocks are >half the amount to win
                                 #Before you force the block, allow for more expansion...notice its to the 7th power here,
                                 # which makes it more important than continuing your original line, which is only raised to 6th
@@ -856,7 +874,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Random_Best_Choice.append(value)
     # print(Random_Best_Choice) 
     max_val = max(Random_Best_Choice)
-    print(max_val)
+    # print(max_val)
         
     for key, value in Best_Choice.items():
         if value == max_val:
@@ -886,12 +904,12 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
     return
 
 
-
+import time
 def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     '''
     Function to play entire game using all other functions. One ring, to rule them all!
     '''
-    
+    Create_Player_Custom_Commands(Boardsize, Squares)
     Create_Board(Boardsize, Squares, "white", "Tic-Tac-Toe", "black", 2.5)
     Key_Dictionary = create_key_dict_and_coords(Boardsize, Squares)
     # print(Key_Dictionary)
@@ -967,37 +985,21 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     
     if Player==True:
         
-        # ABC = Create_Player_Custom_Commands(Boardsize, Squares)
-        Square_Length = round((Boardsize / np.sqrt(Squares)))
-        #speed is used for how far player moves with keystroke
-        speed = Square_Length
-        
-        player = turtle.Turtle()
-        player.color("red")
-        player.shape("triangle")
-        player.penup()
-        player.speed(0)
-        Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
-        Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
-        player.setposition(Starting_pos_x , Starting_pos_y )
-        player.setheading(90)        
-                
-                        
-        movement = (Boardsize/Squares)*1.5
-
+        Create_Player_Custom_Commands(Boardsize, Squares)
         Count = 0
 
         random_start = random.randint(0,1)
         if random_start == 0:
-            Variable = 1
+            Player=False
         else:
-            Variable = -1  
+            Player=True  
 
         Game_over = False
-        
+        # global is_done_with_player_move
+              
         while Count <Squares and Game_over == False:
                     
-            while Variable  == 1:
+            while Player==False:
                 Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
                 Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
@@ -1011,25 +1013,61 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                                 
                 remove_dict(Key_Dictionary, Coordinat)
                                     
-                Variable *= -1
+                Player=True
                 Count +=1
                 
                 if Count == Squares:
                     break
             
-            while Variable == -1:
-                if Count == Squares:
-                    break 
-                #TODO 
-                # Figure out how to add player interaction based on keystroke    
-                       
-                #Need to find a way to stop the program here, until a player draws an X, 
-                #Also need to find a way to make the edge restrictions better so it doesn't cut off the map,
-                # redo some math, but other than that, it works great!
-                
-                # while True:
-                             
+            while Player==True:
 
+                def switch_players():
+
+                    key = (key_name(Key_Dictionary, Player_COORD))
+                    print(key)
+                    List_of_X_moves.append(key)
+                    # decrease_values(Remaining_dict_X, key)
+                    if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
+                        print("X WINS!!!")
+                        Game_over = True 
+                        
+                        
+                    remove_dict(Key_Dictionary, Player_COORD)
+
+                    Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
+                    Adjacency_Dict1)
+                    Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
+                    key = (key_name(Key_Dictionary, Coordinat))
+                    
+                # decrease_values(Remaining_dict_O, key)
+                    if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
+                        print("O WINS!!!")
+                        Game_over = True 
+                        # break
+                                    
+                    remove_dict(Key_Dictionary, Coordinat)
+                                        
+                    Player=True
+                        
+                    
+                    # Count +=1    
+
+                Square_Length = round((Boardsize / np.sqrt(Squares)))
+    #speed is used for how far player moves with keystroke
+                speed = Square_Length
+
+                player = turtle.Turtle()
+                player.color("red")
+                player.shape("triangle")
+                player.penup()
+                player.speed(0)
+                    
+                Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
+                Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
+                
+                player.setposition(Starting_pos_x , Starting_pos_y )
+                player.setheading(90)
+                
                 movement = (Boardsize/Squares)*1.5
 
                 def move_left():
@@ -1043,12 +1081,11 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     player.setx(x)
                     player.setpos(x, player.ycor())
                     print(player.pos())
-                
                 def move_right():
                     x = player.xcor()
                     x += speed
-                    if x > (Boardsize/2) :
-                        x = -(Boardsize/2) + .5*(Square_Length) + ((np.sqrt(Squares) -1) * Square_Length)
+                    if x > (Boardsize/2) - .5*(Square_Length):
+                        x = (Boardsize/2) - .5*(Square_Length)
                     player.setx(x)
                     player.setpos(x, player.ycor())
                     print(player.pos())
@@ -1063,8 +1100,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 def move_down():
                     y = player.ycor()
                     y -= speed
-                    if y < -(Boardsize/2):
-                        y = (Boardsize/2) - .5*(Square_Length) - ((np.sqrt(Squares) -1) * Square_Length)
+                    if y < -(Boardsize/2)+ .5*(Square_Length):
+                        y = -(Boardsize/2)+ .5*(Square_Length)
                     player.sety(y)
                     player.setpos(player.xcor(), y)
                     print(player.pos())
@@ -1086,7 +1123,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                     # print(coord_value)
                     # return coord_value 
-                import keyboard 
+                
                 def draw_x():
                     turtle.pensize(2.5)
                     a = player.xcor()
@@ -1104,61 +1141,68 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     turtle.pendown()
                     turtle.setposition(a+movement,b+ movement)
                     # print(coord_value)
-                    #This actually works haha
+
                     global Player_COORD 
                     Player_COORD = coord_value
-                    from pynput.keyboard import Key, Controller
+                        
+                    is_done_with_player_move = True
+                    print(is_done_with_player_move)
+                    switch_players()
+                            
+                    
+                    
 
-                    keyboard = Controller()
-                    
-                    #So I think it's actually pressing enter, it now has to access console first, 
-                    #So that the enter key is pressed on the actual console
-                    keyboard.press(Key.enter)
-                    
-                    
+                        
                 
-               
-
                 turtle.listen()
                 turtle.onkey(move_left, "Left") 
                 turtle.onkey(move_right, "Right")
                 turtle.onkey(move_up, "Up") 
                 turtle.onkey(move_down, "Down")
                 # turtle.onkey(draw_circle, "o") 
-                turtle.onkey(draw_x, "x")
+                turtle.onkey(draw_x, "x")     
+
+
+
+                # is_done_with_player_move = False 
+                
+                if Count == Squares:
+                    break 
+
+                
+                # turtle.onkeyrelease( ,"x")
+
+                # while is_done_with_player_move == False:
                     
+                #     turtle.listen()
+                #     yield
+                print("hi")                    
                        
                 #So basically, if we can get this Coordinat object to be set equal to 
                 # the return object from the draw(x) function, this will work
-                
-                # input("Press enter once you have finished making your play.") 
+                                
                 #This stuff below needs to only be triggered in an if statement that occurs if the player has 
                 # used the draw function
                 # so like "if draw: "                 
                 
-
-                key = (key_name(Key_Dictionary, Player_COORD))
-                print(key)
-                List_of_X_moves.append(key)
-                # decrease_values(Remaining_dict_X, key)
-                if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
-                    print("X WINS!!!")
-                    Game_over = True 
+                # if is_done_with_player_move == True:
+                delay = input("Press enter to finish.")    
+                
+                if Player==False:
                     break
-                    
-                remove_dict(Key_Dictionary, Player_COORD)
-                    
-                Variable *=-1
-                Count +=1
 
                 
                 if Count == Squares:
                     break
-                
-                # turtle.mainloop()    
+
+                            
+
+                    
+                  
+                 
 
 # Play_Game(800, 16, 3, )
-Play_Game(Variable1, Variable3, Variable4) #Player=True)
+Play_Game(Variable1, Variable3, Variable4, Player=True) #Player=True) #Player=True)
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
@@ -1168,7 +1212,7 @@ Play_Game(Variable1, Variable3, Variable4) #Player=True)
 # Need to inform user of that, recommended boardsize is 800
 
           
-delay = input("Press enter to finish.")                
+# delay = input("Press enter to finish.")                
 
 
 
