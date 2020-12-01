@@ -8,6 +8,7 @@ import numpy as np
 sc = turtle.Screen() 
 sc.setup(800, 800) 
 
+#TODO ---make so if player hits square that is already hit, it will prompt to hit new square, and not give error
 
 Variable8= ""
 Choice3 = False
@@ -1085,7 +1086,10 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     # This function allows the player to use the prompt to finish their loop, go through the computers loop
                     # And end up back at their loop again :)
                     #This will simulate the computer moving, but it won't create this loop
-
+                    # print(Key_Dictionary)
+                    # print(Player_COORD)
+                                        
+                                       
                     key = (key_name(Key_Dictionary, Player_COORD))
                     # print(key)
                     List_of_X_moves.append(key)
@@ -1093,8 +1097,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
                         turtle.textinput("X has won! ",  "Press Enter to quit")
                         turtle.bye()
-                                     
-                                           
+                                    
+                                        
                     remove_dict(Key_Dictionary, Player_COORD)
                    
                     #Check to see if game can no longer be won by either player  
@@ -1254,9 +1258,12 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                     global Player_COORD 
                     Player_COORD = coord_value
-
-                             
-                    switch_players()
+                    list_of_Coords = []
+                    
+                    for key, coordinate in Key_Dictionary.items():
+                        list_of_Coords.append(coordinate)
+                    if Player_COORD in list_of_Coords:
+                        switch_players()
                 
                 def quit_game():
                     turtle.textinput("See you later friend! ",  "Press Enter to quit")
