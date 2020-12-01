@@ -92,6 +92,15 @@ if Variable8 == "yes":
             if Variable4 <= Variable2 and Variable4 > (.5* Variable2):
                 Choice2 = True 
 
+Variable10a= ""
+Choice4 = False
+while Choice4 == False:
+    list_words = ["yes", "no"]
+
+    Variable10 = turtle.textinput("Play game till end?",  "Enter yes, or no")
+    if Variable10 in list_words:
+        Choice4 = True
+        Variable10a = Variable10
 
 
 
@@ -1075,24 +1084,27 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     remove_dict(Key_Dictionary, Player_COORD)
                    
                     #Check to see if game can no longer be won by either player  
-                    Winning_line_O_counts= []
-                    Winning_line_X_counts = []    
-                    for value in Remaining_Dict_O.values():
-                        Winning_line_O_counts.append(value)
-                    for value in Remaining_Dict_X.values():
-                        Winning_line_X_counts.append(value)    
-                    # print(Random_Best_Choice) 
-                    max_val_O = max(Winning_line_O_counts)
-                    max_val_X = max(Winning_line_X_counts)
-                    # print(Remaining_Dict_O)
-                    if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
-                        turtle.bye()
+                    if Variable10a == "no":
+
+                        Winning_line_O_counts= []
+                        Winning_line_X_counts = []    
+                        for value in Remaining_Dict_O.values():
+                            Winning_line_O_counts.append(value)
+                        for value in Remaining_Dict_X.values():
+                            Winning_line_X_counts.append(value)    
+                        # print(Random_Best_Choice) 
+                        max_val_O = max(Winning_line_O_counts)
+                        max_val_X = max(Winning_line_X_counts)
+                        # print(Remaining_Dict_O)
+                        if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
+                            turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                            turtle.bye()
 
                     Len_list = []
                     for key in Key_Dictionary.keys():
                         Len_list.append(key)
                     if len(Len_list) == 0:
+                        turtle.textinput("Thanks for playing! ",  "Press Enter to quit")
                         turtle.bye()    
                     
                     #We want to test manually the size of the key dictionary here , if it is 0, or empty, we want to force
@@ -1111,26 +1123,29 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     list_o_keys = []                  
                     remove_dict(Key_Dictionary, Coordinat)
                     #Check to see if game can no longer be won by either player
-                    Winning_line_O_counts= []
-                    Winning_line_X_counts = []    
-                    for value in Remaining_Dict_O.values():
-                        Winning_line_O_counts.append(value)
-                    for value in Remaining_Dict_X.values():
-                        Winning_line_X_counts.append(value)    
-                    # print(Random_Best_Choice) 
-                    max_val_O = max(Winning_line_O_counts)
-                    max_val_X = max(Winning_line_X_counts)
-                    # print(Remaining_Dict_X)
+                    if Variable10a == "no":
+                    
+                        Winning_line_O_counts= []
+                        Winning_line_X_counts = []    
+                        for value in Remaining_Dict_O.values():
+                            Winning_line_O_counts.append(value)
+                        for value in Remaining_Dict_X.values():
+                            Winning_line_X_counts.append(value)    
+                        # print(Random_Best_Choice) 
+                        max_val_O = max(Winning_line_O_counts)
+                        max_val_X = max(Winning_line_X_counts)
+                        # print(Remaining_Dict_X)
 
-                    if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
-                        turtle.bye()
+                        if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
+                            turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                            turtle.bye()
                     
                     #implement function that tests to see if game can not be won by anyone, and quits 
 
                     for key in Key_Dictionary.keys():
                         list_o_keys.append(key)
                     if (len(list_o_keys)) == 0:
+                        turtle.textinput("Thanks for playing! ",  "Press Enter to quit")
                         turtle.bye()
       
                 Square_Length = round((Boardsize / np.sqrt(Squares)))
