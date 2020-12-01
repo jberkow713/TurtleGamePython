@@ -9,37 +9,85 @@ sc = turtle.Screen()
 sc.setup(800, 800) 
 # turtle.textinput("title", "promt")
 
+Variable8= ""
+Choice3 = False
+while Choice3 == False:
+    list_words = ["True", "False"]
 
-Variable1 = 780
-Var2 = 0
-Choice = False
-while Choice == False:
-    list_nums = str([i for i in range(3,21)])
-    Variable2 = turtle.textinput("Dimensions of Board ",  "Enter Rows from 3-20 inclusive")
-    # Variable2 = (input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
-    #Force user input to be in list of values, while not breaking program if they type a string
-    if Variable2 in list_nums:
-        Variable2 = int(Variable2)    
-    # if isinstance(Variable2, int):
+    Variable8 = turtle.textinput("Play against the computer?? ",  "Enter True for yes, or False for no")
+    if Variable8 in list_words:
+        Choice3 = True
+        Variable8 = Variable8
 
-        if Variable2 >2 and Variable2 < 21:
-            Var2 = Variable2 
-            Choice = True
-        
-Variable3 = int(Variable2) ** 2
+if Variable8 == "False":
 
-Choice2 = False
-while Choice2 == False:
-    
-    list_nums2 = str([i for i in range(3, Var2)])
 
-    Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
-    if Variable4 in list_nums2:
-        Variable4 = int(Variable4)
+    Variable1 = 780
+    Var2 = 0
+    Choice = False
+    while Choice == False:
+        list_nums = str([i for i in range(3,21)])
+        Variable2 = turtle.textinput("Dimensions of Board ",  "Enter Rows from 3-20 inclusive")
+        # Variable2 = (input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
         #Force user input to be in list of values, while not breaking program if they type a string
+        if Variable2 in list_nums:
+            Variable2 = int(Variable2)    
+        # if isinstance(Variable2, int):
 
-        if Variable4 < Variable2 and Variable4 > (.5* Variable2):
-            Choice2 = True 
+            if Variable2 >2 and Variable2 < 21:
+                Var2 = Variable2 
+                Choice = True
+            
+    Variable3 = int(Variable2) ** 2
+
+    Choice2 = False
+    while Choice2 == False:
+        
+        list_nums2 = str([i for i in range(3, Var2)])
+
+        Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
+        if Variable4 in list_nums2:
+            Variable4 = int(Variable4)
+            #Force user input to be in list of values, while not breaking program if they type a string
+
+            if Variable4 < Variable2 and Variable4 > (.5* Variable2):
+                Choice2 = True 
+
+if Variable8 == "True":
+
+        Variable1 = 780
+        Var2 = 0
+        Choice = False
+        while Choice == False:
+            list_nums = str([i for i in range(3,21,2)])
+            Variable2 = turtle.textinput("Dimensions of Board ",  "Enter Rows from 3-20 inclusive, Odd #s Only")
+            # Variable2 = (input("Please enter how many rows and columns you wish the board to have. Input needs to be an integer between 3 and 25, inclusive: \n"))
+            #Force user input to be in list of values, while not breaking program if they type a string
+            if Variable2 in list_nums:
+                
+                Variable2 = int(Variable2)    
+            # if isinstance(Variable2, int):
+
+                if Variable2 >2 and Variable2 < 21:
+                    Var2 = Variable2 
+                    Choice = True
+                
+        Variable3 = int(Variable2) ** 2
+
+        Choice2 = False
+        while Choice2 == False:
+            
+            list_nums2 = str([i for i in range(3, Var2)])
+
+            Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
+            if Variable4 in list_nums2:
+                Variable4 = int(Variable4)
+                #Force user input to be in list of values, while not breaking program if they type a string
+
+                if Variable4 < Variable2 and Variable4 > (.5* Variable2):
+                    Choice2 = True 
+
+
 
 
 computer = turtle.Turtle()
@@ -1188,8 +1236,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 # if is_done_with_player_move == True:
                 delay = input("Press enter to finish.")    
                 
-                if Player==False:
-                    break
+                # if Player==False:
+                #     break
 
                 
                 if Count == Squares:
@@ -1199,10 +1247,11 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                     
                   
-                 
-
-# Play_Game(800, 16, 3, )
-Play_Game(Variable1, Variable3, Variable4, Player=True) #Player=True) #Player=True)
+if Variable8 == "True":
+    Play_Game(Variable1, Variable3, Variable4, Player=True)
+if Variable8 == "False":
+    Play_Game(Variable1, Variable3, Variable4, Player=False)
+         #Player=True) #Player=True)
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
 # Create_Player_Custom_Commands(800, 121)
 # Key_Dictionary = create_key_dict_and_coords(800, 121)
