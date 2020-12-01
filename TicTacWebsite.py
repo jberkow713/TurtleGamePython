@@ -83,11 +83,11 @@ if Variable8 == "yes":
                
             if Var2 == 3:
                 list_nums2 = str([3])
-                print("I am a 3")
+                # print("I am a 3")
             
             elif Var2 == 5:
                 list_nums2 = str([5])
-                print("I am a 5")
+                # print("I am a 5")
             elif Var2 > 5:
                 list_nums2 = str([i for i in range(3, (Var2 + 1))])
             
@@ -96,9 +96,9 @@ if Variable8 == "yes":
             if Variable4 in list_nums2:
                 Variable4 = int(Variable4)
             
-            print(type(Variable4))
+            
             Variable4 = int(Variable4)
-            print(type(Variable4))
+            
                 #Force user input to be in list of values, while not breaking program if they type a string
             if Var2 > 5:
                 if Variable4 <= Var2 and Variable4 > (.5* Var2):
