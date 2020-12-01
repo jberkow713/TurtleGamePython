@@ -42,16 +42,18 @@ if Variable8 == "False":
 
     Choice2 = False
     while Choice2 == False:
-        
-        list_nums2 = str([i for i in range(3, Var2)])
-
+        if Var2 > 3:
+            list_nums2 = str([i for i in range(3, (Var2 + 1))])
+        if Var2 == 3:
+            list_nums2 = str([i for i in range(3, 4)])
+            
         Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
         if Variable4 in list_nums2:
             Variable4 = int(Variable4)
             #Force user input to be in list of values, while not breaking program if they type a string
 
-            if Variable4 < Variable2 and Variable4 > (.5* Variable2):
-                Choice2 = True 
+        if Variable4 <= Variable2 and Variable4 > (.5* Variable2):
+            Choice2 = True 
 
 if Variable8 == "True":
 
@@ -77,15 +79,18 @@ if Variable8 == "True":
         Choice2 = False
         while Choice2 == False:
             
-            list_nums2 = str([i for i in range(3, Var2)])
-
+            if Var2 > 3:
+                list_nums2 = str([i for i in range(3, (Var2 + 1))])
+            if Var2 == 3:
+                list_nums2 = str([i for i in range(3, 4)])
+            
             Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
             if Variable4 in list_nums2:
                 Variable4 = int(Variable4)
                 #Force user input to be in list of values, while not breaking program if they type a string
 
-                if Variable4 < Variable2 and Variable4 > (.5* Variable2):
-                    Choice2 = True 
+            if Variable4 <= Variable2 and Variable4 > (.5* Variable2):
+                Choice2 = True 
 
 
 
@@ -1045,7 +1050,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
         Game_over = False
         # global is_done_with_player_move
               
-        while Count <Squares and Game_over == False:
+        while Count <Squares * .5 and Game_over == False:
                     
             while Player==False:
                 Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
@@ -1062,14 +1067,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 remove_dict(Key_Dictionary, Coordinat)
                                     
                 Player=True
-                Count +=1
                 
-                if Count == Squares:
-                    break
+                
+                
             
             while Player==True:
 
                 def switch_players():
+                    import sys 
 
                     key = (key_name(Key_Dictionary, Player_COORD))
                     print(key)
@@ -1081,6 +1086,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         
                         
                     remove_dict(Key_Dictionary, Player_COORD)
+                    
+                    
 
                     Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
@@ -1094,7 +1101,9 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         # break
                                     
                     remove_dict(Key_Dictionary, Coordinat)
-                                        
+                    # if len(Key_Dictionary <=1):
+                    #     print("Game Over")
+                    #     sys.exit()                  
                     Player=True
                         
                     
