@@ -1235,7 +1235,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                              
                     switch_players()
-                            
+                def quit_game():
+                    turtle.bye()            
                     
                     
 
@@ -1247,7 +1248,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 turtle.onkey(move_up, "Up") 
                 turtle.onkey(move_down, "Down")
                 # turtle.onkey(draw_circle, "o") 
-                turtle.onkey(draw_x, "x")     
+                turtle.onkey(draw_x, "x")
+                turtle.onkey(quit_game, "Escape")     
 
         
 
