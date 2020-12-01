@@ -1093,7 +1093,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     List_of_X_moves.append(key)
                     # decrease_values(Remaining_dict_X, key)
                     if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
-                        print("X WINS!!!")
+                        turtle.textinput("X has won! ",  "Press Enter to quit")
                         turtle.bye()
                                      
                        
@@ -1113,7 +1113,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     max_val_X = max(Winning_line_X_counts)
                     # print(Remaining_Dict_O)
                     if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                        print("Game can no longer be won")
+                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
                         turtle.bye()
 
 
@@ -1136,7 +1136,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     
                 # decrease_values(Remaining_dict_O, key)
                     if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
-                        print("O WINS!!!")
+                        turtle.textinput("O has won! ",  "Press Enter to quit")
                         turtle.bye()
                     
                     list_o_keys = []                  
@@ -1154,7 +1154,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     # print(Remaining_Dict_X)
 
                     if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                        print("Game can no longer be won")
+                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
                         turtle.bye()
                     
                     #implement function that tests to see if game can not be won by anyone, and quits 
