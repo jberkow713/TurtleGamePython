@@ -12,14 +12,14 @@ sc.setup(800, 800)
 Variable8= ""
 Choice3 = False
 while Choice3 == False:
-    list_words = ["True", "False"]
+    list_words = ["yes", "no"]
 
-    Variable8 = turtle.textinput("Play against the computer?? ",  "Enter True for yes, or False for no")
+    Variable8 = turtle.textinput("Play vs computer?",  "Enter yes, or no")
     if Variable8 in list_words:
         Choice3 = True
         Variable8 = Variable8
 
-if Variable8 == "False":
+if Variable8 == "no":
 
 
     Variable1 = 780
@@ -55,7 +55,7 @@ if Variable8 == "False":
         if Variable4 <= Variable2 and Variable4 > (.5* Variable2):
             Choice2 = True 
 
-if Variable8 == "True":
+if Variable8 == "yes":
 
         Variable1 = 780
         Var2 = 0
@@ -1263,7 +1263,9 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                              
                     switch_players()
+                
                 def quit_game():
+                    turtle.textinput("See you later friend! ",  "Press Enter to quit")
                     turtle.bye()            
                     
                     
@@ -1297,9 +1299,9 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
 
                     
                   
-if Variable8 == "True":
+if Variable8 == "yes":
     Play_Game(Variable1, Variable3, Variable4, Player=True)
-if Variable8 == "False":
+if Variable8 == "no":
     Play_Game(Variable1, Variable3, Variable4, Player=False)
          #Player=True) #Player=True)
 # Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
