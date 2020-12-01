@@ -47,6 +47,7 @@ if Variable8 == "no":
         if Var2 == 3:
             list_nums2 = str([i for i in range(3, 4)])
             
+            
         Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
         if Variable4 in list_nums2:
             Variable4 = int(Variable4)
@@ -75,23 +76,36 @@ if Variable8 == "yes":
                     Choice = True
                 
         Variable3 = int(Variable2) ** 2
-
+        #if Variable4 <= Variable2 and Variable4 > (.5* Variable2):
         Choice2 = False
         while Choice2 == False:
             
-            if Var2 > 3:
-                list_nums2 = str([i for i in range(3, (Var2 + 1))])
+               
             if Var2 == 3:
-                list_nums2 = str([i for i in range(3, 4)])
+                list_nums2 = str([3])
+                print("I am a 3")
+            
+            elif Var2 == 5:
+                list_nums2 = str([5])
+                print("I am a 5")
+            elif Var2 > 5:
+                list_nums2 = str([i for i in range(3, (Var2 + 1))])
+            
             
             Variable4 = turtle.textinput("Required number of tiles to win ",  "Enter consecutive squares needed to win")
             if Variable4 in list_nums2:
                 Variable4 = int(Variable4)
+            
+            print(type(Variable4))
+            Variable4 = int(Variable4)
+            print(type(Variable4))
                 #Force user input to be in list of values, while not breaking program if they type a string
-
-            if Variable4 <= Variable2 and Variable4 > (.5* Variable2):
-                Choice2 = True 
-
+            if Var2 > 5:
+                if Variable4 <= Var2 and Variable4 > (.5* Var2):
+                    Choice2 = True  
+            if Var2 <=5:
+                if Variable4 == Var2:
+                    Choice2 = True
 Variable10a= ""
 Choice4 = False
 while Choice4 == False:
