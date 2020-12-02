@@ -1258,23 +1258,33 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     turtle.penup()
                     turtle.color("blue")
                     coord_value = [a, b]
-                        
-                    turtle.setposition(a-movement,b+movement)
-                    turtle.pendown()
-                    turtle.setposition(a+movement,b-movement)
-                    turtle.penup()
-                    turtle.setposition(a-movement,b-movement)
-                    turtle.pendown()
-                    turtle.setposition(a+movement,b+ movement)
-                    # print(coord_value)
-
-                    global Player_COORD 
-                    Player_COORD = coord_value
+                    
+                    
                     list_of_Coords = []
                     
                     for key, coordinate in Key_Dictionary.items():
                         list_of_Coords.append(coordinate)
-                    if Player_COORD in list_of_Coords:
+                    if coord_value in list_of_Coords:
+
+                    
+                        turtle.setposition(a-movement,b+movement)
+                        turtle.pendown()
+                        turtle.setposition(a+movement,b-movement)
+                        turtle.penup()
+                        turtle.setposition(a-movement,b-movement)
+                        turtle.pendown()
+                        turtle.setposition(a+movement,b+ movement)
+                    # print(coord_value)
+
+                    # global Player_COORD 
+                    # Player_COORD = coord_value
+                    # list_of_Coords = []
+                    
+                    # for key, coordinate in Key_Dictionary.items():
+                    #     list_of_Coords.append(coordinate)
+                    # if Player_COORD in list_of_Coords:
+                        global Player_COORD 
+                        Player_COORD = coord_value
                         switch_players()
                 
                 def quit_game():
