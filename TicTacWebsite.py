@@ -970,7 +970,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     '''
     Function to play entire game using all other functions. One ring, to rule them all!
     '''
-    Create_Player_Custom_Commands(Boardsize, Squares)
+    # Create_Player_Custom_Commands(Boardsize, Squares)
     Create_Board(Boardsize, Squares, "white", "Tic-Tac-Toe", "black", 2.5)
     Key_Dictionary = create_key_dict_and_coords(Boardsize, Squares)
     # print(Key_Dictionary)
@@ -1046,7 +1046,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
     import sys 
     if Player==True:
         
-        Create_Player_Custom_Commands(Boardsize, Squares)
+        # Create_Player_Custom_Commands(Boardsize, Squares)
         Count = 0
 
         random_start = random.randint(0,1)
@@ -1131,6 +1131,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
                     Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
+                    
                     key = (key_name(Key_Dictionary, Coordinat))
                     
                     # decrease_values(Remaining_dict_O, key)
@@ -1140,6 +1141,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     
                     list_o_keys = []                  
                     remove_dict(Key_Dictionary, Coordinat)
+                    
+                    
                     #Check to see if game can no longer be won by either player
                     if Variable10a == "no":
                     
@@ -1165,16 +1168,25 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     if (len(list_o_keys)) == 0:
                         turtle.textinput("Thanks for playing! ",  "Press Enter to quit")
                         turtle.bye()
-      
+
+                    # import time
+ 
+
+                    
+
+                    #Do we want to pause the time here
+
+
                 Square_Length = round((Boardsize / np.sqrt(Squares)))
     
                 speed = Square_Length
 
                 player = turtle.Turtle()
-                player.color("red")
-                player.shape("triangle")
+                player.color("green")
+                player.shape("square")
                 player.penup()
-                player.speed(0)
+                player.speed(1)
+                player.shapesize(.5, .5, .5)
                     
                 Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
                 Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
