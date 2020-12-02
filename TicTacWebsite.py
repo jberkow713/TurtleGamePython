@@ -1050,7 +1050,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
     if Player==True:
         
         # Create_Player_Custom_Commands(Boardsize, Squares)
-        Count = 0
+        
 
         random_start = random.randint(0,1)
         if random_start == 0:
@@ -1079,7 +1079,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     Game_over = True
                                            
                 remove_dict(Key_Dictionary, Coordinat)
-                Count +=1                   
+                                
                 Player=True
                           
             
@@ -1328,9 +1328,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                 # if Player==False:
                 #     break
 
-                
-                if Count == Squares:
-                    break
+                                
 
                 turtle.mainloop()     
                             
