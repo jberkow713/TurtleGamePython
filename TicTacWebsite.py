@@ -966,7 +966,9 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
 
 import time
-def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
+global PLAYER_TURN
+PLAYER_TURN = True
+def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
     '''
     Function to play entire game using all other functions. One ring, to rule them all!
     '''
@@ -1044,6 +1046,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 if Count == Squares:
                     break
     import sys 
+    
     if Player==True:
         
         # Create_Player_Custom_Commands(Boardsize, Squares)
@@ -1132,6 +1135,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     Adjacency_Dict1)
                     Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
                     
+                     
+
                     key = (key_name(Key_Dictionary, Coordinat))
                     
                     # decrease_values(Remaining_dict_O, key)
@@ -1170,7 +1175,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         turtle.bye()
 
                     # import time
- 
+                    global PLAYER_TURN
+                    PLAYER_TURN = True    
 
                     
 
@@ -1185,7 +1191,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 player.color("green")
                 player.shape("square")
                 player.penup()
-                player.speed(1)
+                player.speed(7)
                 player.shapesize(.5, .5, .5)
                     
                 Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
@@ -1195,41 +1201,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                 player.setheading(90)
                 
                 movement = (Boardsize/Squares)*1.5
-
-                def move_left():
-                    
-                    x = player.xcor()
-                    x -= speed      
-                    
-                    if x < -(Boardsize/2)+ .5*(Square_Length):
-                        x = -(Boardsize/2)+ .5*(Square_Length)
-                    
-                    player.setx(x)
-                    player.setpos(x, player.ycor())
-                    # print(player.pos())
-                def move_right():
-                    x = player.xcor()
-                    x += speed
-                    if x > (Boardsize/2) - .5*(Square_Length):
-                        x = (Boardsize/2) - .5*(Square_Length)
-                    player.setx(x)
-                    player.setpos(x, player.ycor())
-                    # print(player.pos())
-                def move_up():
-                    y = player.ycor()
-                    y += speed
-                    if y >  (Boardsize/2) - .5*(Square_Length):
-                        y = (Boardsize/2) - .5*(Square_Length)
-                    player.sety(y)
-                    player.setpos(player.xcor(), y)
-                    # print(player.pos())
-                def move_down():
-                    y = player.ycor()
-                    y -= speed
-                    if y < -(Boardsize/2)+ .5*(Square_Length):
-                        y = -(Boardsize/2)+ .5*(Square_Length)
-                    player.sety(y)
-                    player.setpos(player.xcor(), y)
+                
+                
                     # print(player.pos())
                 
                 # def draw_circle():
@@ -1279,7 +1252,53 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                     
                         global Player_COORD 
                         Player_COORD = coord_value
+                        global PLAYER_TURN
+                        PLAYER_TURN = False
                         switch_players()
+                
+                def move_left():
+                    
+                    if PLAYER_TURN == True:
+
+                        x = player.xcor()
+                        x -= speed      
+                        
+                        if x < -(Boardsize/2)+ .5*(Square_Length):
+                            x = -(Boardsize/2)+ .5*(Square_Length)
+                        
+                        player.setx(x)
+                        player.setpos(x, player.ycor())
+                    # print(player.pos())
+                
+                def move_right():
+                    if PLAYER_TURN == True:
+                        x = player.xcor()
+                        x += speed
+                        if x > (Boardsize/2) - .5*(Square_Length):
+                            x = (Boardsize/2) - .5*(Square_Length)
+                        player.setx(x)
+                        player.setpos(x, player.ycor())
+                    # print(player.pos())
+                
+                def move_up():
+                    if PLAYER_TURN == True:
+
+                        y = player.ycor()
+                        y += speed
+                        if y >  (Boardsize/2) - .5*(Square_Length):
+                            y = (Boardsize/2) - .5*(Square_Length)
+                        player.sety(y)
+                        player.setpos(player.xcor(), y)
+                    # print(player.pos())
+                
+                def move_down():
+                    if  PLAYER_TURN == True:
+                        y = player.ycor()
+                        y -= speed
+                        if y < -(Boardsize/2)+ .5*(Square_Length):
+                            y = -(Boardsize/2)+ .5*(Square_Length)
+                        player.sety(y)
+                        player.setpos(player.xcor(), y)
                 
                 def quit_game():
                     turtle.textinput("See you later friend! ",  "Press Enter to quit")
@@ -1290,6 +1309,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         
                 
                 turtle.listen()
+                
+                
                 turtle.onkey(move_left, "Left") 
                 turtle.onkey(move_right, "Right")
                 turtle.onkey(move_up, "Up") 
