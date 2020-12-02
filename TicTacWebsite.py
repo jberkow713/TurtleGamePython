@@ -1266,6 +1266,8 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         list_of_Coords.append(coordinate)
                     if coord_value in list_of_Coords:
 
+                        #Forcing player to be in proper spot when making the X, or it will simply not draw
+                        # And they will be forced to choose new spot...Fixing all potential mischief online    
                     
                         turtle.setposition(a-movement,b+movement)
                         turtle.pendown()
@@ -1274,15 +1276,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False):
                         turtle.setposition(a-movement,b-movement)
                         turtle.pendown()
                         turtle.setposition(a+movement,b+ movement)
-                    # print(coord_value)
-
-                    # global Player_COORD 
-                    # Player_COORD = coord_value
-                    # list_of_Coords = []
                     
-                    # for key, coordinate in Key_Dictionary.items():
-                    #     list_of_Coords.append(coordinate)
-                    # if Player_COORD in list_of_Coords:
                         global Player_COORD 
                         Player_COORD = coord_value
                         switch_players()
