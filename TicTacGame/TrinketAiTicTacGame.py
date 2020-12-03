@@ -5,6 +5,10 @@ import random
 from copy import deepcopy
 import numpy as np
 
+# Use https://trinket.io/features/pygame to convert this to an online embedded game, when the 
+# Website is up
+
+
 sc = turtle.Screen() 
 sc.setup(600, 600) 
  
