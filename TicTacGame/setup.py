@@ -1,27 +1,23 @@
-from setuptools import setup
+import setuptools
 
-setup(
-    # Needed to silence warnings (and to be a worthwhile package)
-    name='TicTacToeAI',
-    url='https://github.com/jladan/package_demo',
-    author='Jesse Berkowitz',
-    author_email='jberkow@brandeis.edu',
-    # Needed to actually package something
-    packages=['TicTacGame'],
-    # Needed for dependencies
-    install_requires=['numpy', 'turtle', 'math', 'random', 'copy', 'deepcopy' ],
-    # *strongly* suggested for sharing
-    version='0.1',
-    # The license can be anything you like
-    license='MIT',
-    description='A game of tictactoe versus a smart computer',
-    # We will also need a readme eventually (there will be a warning)
-    long_description=open('README.md').read(),
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name="TicTacAI", 
+    version="0.0.1",
+    author="Jesse Berkowitz",
+    author_email="jberkow@brandeis.edu",
+    description="Tic-Tac-Toe",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/jberkow713/TurtleGamePython/tree/main/TicTacGame",
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
 )
 
-import turtle
-import os
-import math
-import random 
-from copy import deepcopy
-import numpy as np

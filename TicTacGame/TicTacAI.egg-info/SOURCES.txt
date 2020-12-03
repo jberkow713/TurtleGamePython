@@ -1,0 +1,6 @@
+README.md
+setup.py
+TicTacAI.egg-info/PKG-INFO
+TicTacAI.egg-info/SOURCES.txt
+TicTacAI.egg-info/dependency_links.txt
+TicTacAI.egg-info/top_level.txt

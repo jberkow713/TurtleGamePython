@@ -6,7 +6,7 @@ from copy import deepcopy
 import numpy as np
 
 sc = turtle.Screen() 
-sc.setup(800, 800) 
+sc.setup(600, 600) 
  
 #TODO ---make so if player hits square that is already hit, it will prompt to hit new square, and not give error
 
@@ -23,7 +23,7 @@ while Choice3 == False:
 if Variable8 == "no":
 
 
-    Variable1 = 780
+    Variable1 = 600
     Var2 = 0
     Choice = False
     while Choice == False:
@@ -60,7 +60,7 @@ if Variable8 == "no":
 
 if Variable8 == "yes":
 
-        Variable1 = 780
+        Variable1 = 590
         Var2 = 0
         Choice = False
         while Choice == False:
