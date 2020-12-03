@@ -23,7 +23,7 @@ while Choice3 == False:
 if Variable8 == "no":
 
 
-    Variable1 = 600
+    Variable1 = 580
     Var2 = 0
     Choice = False
     while Choice == False:
@@ -60,7 +60,7 @@ if Variable8 == "no":
 
 if Variable8 == "yes":
 
-        Variable1 = 590
+        Variable1 = 580
         Var2 = 0
         Choice = False
         while Choice == False:
