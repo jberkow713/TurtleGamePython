@@ -1259,6 +1259,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         PLAYER_TURN = False
                         switch_players()
                 
+                
                 def move_left():
                     
                     if PLAYER_TURN == True:
@@ -1278,7 +1279,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         x = player.xcor()
                         x += speed
                         if x > (Boardsize/2) - .5*(Square_Length):
-                            x = (Boardsize/2) - .5*(Square_Length)
+                            x = -(Boardsize/2) + .5*(Square_Length) + ((np.sqrt(Squares)-1) * Square_Length)
                         player.setx(x)
                         player.setpos(x, player.ycor())
                     # print(player.pos())
@@ -1299,7 +1300,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         y = player.ycor()
                         y -= speed
                         if y < -(Boardsize/2)+ .5*(Square_Length):
-                            y = -(Boardsize/2)+ .5*(Square_Length)
+                            y = (Boardsize/2) - .5*(Square_Length) - ((np.sqrt(Squares)-1) * Square_Length)
                         player.sety(y)
                         player.setpos(player.xcor(), y)
                 

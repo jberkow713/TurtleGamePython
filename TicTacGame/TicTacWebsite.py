@@ -6,7 +6,8 @@ from copy import deepcopy
 import numpy as np
 
 sc = turtle.Screen() 
-sc.setup(800, 800) 
+# sc.setup(800, 800)
+sc.setup(width=800, height=800, startx=0, starty=0) 
  
 #TODO ---make so if player hits square that is already hit, it will prompt to hit new square, and not give error
 
