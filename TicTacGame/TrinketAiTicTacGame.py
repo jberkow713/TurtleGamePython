@@ -7,6 +7,7 @@ import numpy as np
 
 # Use https://trinket.io/features/pygame to convert this to an online embedded game, when the 
 # Website is up
+#Webflow 
 
 
 sc = turtle.Screen() 
@@ -95,7 +96,10 @@ if Variable8 == "yes":
             elif Var2 == 5:
                 list_nums2 = str([5])
                 # print("I am a 5")
-            elif Var2 > 5:
+            elif Var2 == 7:
+                list_nums2 = str([5, 6, 7])
+            
+            elif Var2 > 7:
                 list_nums2 = str([i for i in range(3, (Var2 + 1))])
             
             
@@ -108,12 +112,16 @@ if Variable8 == "yes":
             Variable4 = int(Variable4)
             
                 #Force user input to be in list of values, while not breaking program if they type a string
-            if Var2 > 5:
+            if Var2 > 7:
                 if Variable4 <= Var2 and Variable4 > (.5* Var2):
                     Choice2 = True  
             if Var2 <=5:
                 if Variable4 == Var2:
                     Choice2 = True
+            if Var2 == 7:
+                if Variable4 >=5 and Variable4 <=7:
+                    Choice2 = True
+
 Variable10a= ""
 Choice4 = False
 while Choice4 == False:
