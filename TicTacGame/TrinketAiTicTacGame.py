@@ -1030,6 +1030,22 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     break
                                 
                 remove_dict(Key_Dictionary, Coordinat)
+                if Variable10a == "no":
+                    
+                    Winning_line_O_counts= []
+                    Winning_line_X_counts = []    
+                    for value in Remaining_Dict_O.values():
+                        Winning_line_O_counts.append(value)
+                    for value in Remaining_Dict_X.values():
+                        Winning_line_X_counts.append(value)    
+                    # print(Random_Best_Choice) 
+                    max_val_O = max(Winning_line_O_counts)
+                    max_val_X = max(Winning_line_X_counts)
+                    # print(Remaining_Dict_X)
+
+                    if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
+                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                        turtle.bye()
                                     
                 Variable *= -1
                 Count +=1
@@ -1054,7 +1070,23 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     break
                     
                 remove_dict(Key_Dictionary, Coordinat)
+                if Variable10a == "no":
                     
+                    Winning_line_O_counts= []
+                    Winning_line_X_counts = []    
+                    for value in Remaining_Dict_O.values():
+                        Winning_line_O_counts.append(value)
+                    for value in Remaining_Dict_X.values():
+                        Winning_line_X_counts.append(value)    
+                    # print(Random_Best_Choice) 
+                    max_val_O = max(Winning_line_O_counts)
+                    max_val_X = max(Winning_line_X_counts)
+                    # print(Remaining_Dict_X)
+
+                    if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
+                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                        turtle.bye()    
+                
                 Variable *=-1
                 Count +=1
 
