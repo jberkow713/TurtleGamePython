@@ -2,6 +2,9 @@
 # Text is done through HTML, 
 # Embedding is done through Trinket.io
 # Bootstrap 4 should make it look nice
+#To activate virtual env, type virtual/Scripts/activate
+
+# To deactivate virtual environment, simply type deactivate in the console
 from flask import Flask, render_template   
 from flask import Flask
 
