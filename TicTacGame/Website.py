@@ -2,6 +2,7 @@
 # Text is done through HTML, 
 # Embedding is done through Trinket.io
 # Bootstrap 4 should make it look nice
+
 #To activate virtual env, type virtual/Scripts/activate
 
 # To deactivate virtual environment, simply type deactivate in the console
@@ -15,7 +16,10 @@ def home():
     return render_template("home.html")
 @app.route("/about")
 def about():
-    return render_template("about.html")    
+    return render_template("about.html")
+@app.route("/game")
+def game():
+    return render_template("game.html")        
 #Each one of these routes is to a separate part of the page
 if __name__ == "__main__":
     app.run(debug=True)
