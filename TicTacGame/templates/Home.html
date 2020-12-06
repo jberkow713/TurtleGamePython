@@ -3,16 +3,63 @@
   <head>
     <meta charset="utf-8">
     <title>Tic-Tac-Website</title>
+    <style>
+      body{
+        margin: 30px;
+      }
+      .my-container {
+        border: 1px solid green;
+      }
+      .my-row {
+        border: 3px solid red;
+        height: 450px
+      }
+
+      .my-col{
+        border: 3px dotted blue;
+      }
+    </style>
+
   </head>
   <body>
     {% extends "template.html" %}
     {% block content %}  
-    
-    <h1> This site will be created to display my Tic-Tac-Toe Game </h1>
+    <div class="container my-container">
+      <!-- justify content center will center the columns within the row -->
+      <!-- align self center in a single column will center that column only
+        you can center all columns in the row by doing justify-content-center in a row class instead
+      the orders can be added to rows, the lower the order, the further left it will go, 
+    relative to other order numbers -->
+      
+      <div class="row justify-content-around  my-row">
+        <div class="col-6  align-self-center my-col order-lg-2">
+          Row 1 Col 1
+
+          <h1> This site will be created to display my Tic-Tac-Toe Game </h1>
     <p> Currently building the framework 
-  I think I can just type inside here and it adds on...not sure. Ok so it does not 
-  matter where you put this text inside the p, it will simply add on.      
+  
   <p> Every p  divides text from previous lines, and the second p ends the connection to that text</p>
+        </div>
+        <!-- offset pushes the column to the right by 2, but in this case only on larger screens
+        will you see this take effect, it will swap, and offset -->
+        <div class="col-4 offset-2 my-col order-lg-1">
+          Row 2 Col 1
+        </div>
+        
+      
+      </div>
+    
+      <div class="row my-row">
+        
+        <div class="col my-col">
+          Row 2 Col 1
+        </div>
+
+
+      </div>
+
+    </div>
+    
   {% endblock %}     
 
 </body>
