@@ -3,10 +3,34 @@
   <head>
     <meta charset="utf-8">
     <title>Flask Parent Template</title>
-    
+    <style>
+        /* .logo-row {
+        width: 250px;
+        margin: 0 auto;
+    } */
+    header {
+    margin-top: 15px;
+    font-size: x-large;
+    padding-bottom: 10px;
+    padding-top:  10px;
+    border-color: blueviolet;
+    border-bottom: crimson;
+}
+.logo {
+    width: 100%;
+    margin-top: 0px;
+    height: 150px;
+    text-align: center;
+    color: crimson;
+    background-image: url("https://www.fg-a.com/wallpapers/mountain-landscape-clouds-2018.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+    </style>
     <!-- <link rel="stylesheet" href="{{ url_for('static',    filename='css/template.css') }}"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    
 </head>
 
   <body>
@@ -19,7 +43,7 @@
       <div class="container">
         <h1 class="logo">Tic_Tac_Website</h1>
         <strong><nav>
-          <ul class="menu">
+          <ul class="navbar">
             <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('about') }}">About</a></li>
             <li><a href="{{ url_for('game') }}">Game</a></li>
