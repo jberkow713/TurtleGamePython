@@ -9,6 +9,7 @@ import numpy as np
 # Website is up
 #Webflow 
 
+#Setting up initial gameplay variables
 
 sc = turtle.Screen() 
 sc.setup(600, 600) 
@@ -39,7 +40,7 @@ if Variable8 == "no":
         #Force user input to be in list of values, while not breaking program if they type a string
         if Variable2 in list_nums:
             Variable2 = int(Variable2)    
-        # if isinstance(Variable2, int):
+        
 
             if Variable2 >2 and Variable2 < 21:
                 Var2 = Variable2 
@@ -82,7 +83,7 @@ if Variable8 == "yes":
             if Variable2 in list_nums:
                 
                 Variable2 = int(Variable2)    
-            # if isinstance(Variable2, int):
+            
 
                 if Variable2 >2 and Variable2 < 21:
                     Var2 = Variable2 
@@ -156,7 +157,8 @@ computer.hideturtle()
 def Create_Player_Custom_Commands(Boardsize, Squares):
     '''
     Setting up custom size movement and x,o drawings to implement player versus computer matches
-    Need to test further
+    Input: Boardsize, Squares in total on board
+    Output: Custom player controls for the specific board
     '''
     global is_done_with_player_move
     is_done_with_player_move = False
@@ -188,7 +190,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         
         player.setx(x)
         player.setpos(x, player.ycor())
-        # print(player.pos())
+        
     def move_right():
         x = player.xcor()
         x += speed
@@ -196,7 +198,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
             x = (Boardsize/2) - .5*(Square_Length)
         player.setx(x)
         player.setpos(x, player.ycor())
-        # print(player.pos())
+        
     def move_up():
         y = player.ycor()
         y += speed
@@ -204,7 +206,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
             y = (Boardsize/2) - .5*(Square_Length)
         player.sety(y)
         player.setpos(player.xcor(), y)
-        # print(player.pos())
+        
     def move_down():
         y = player.ycor()
         y -= speed
@@ -212,8 +214,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
             y = -(Boardsize/2)+ .5*(Square_Length)
         player.sety(y)
         player.setpos(player.xcor(), y)
-        # print(player.pos())
-    
+            
     def draw_circle():
         turtle.pensize(2.5)
         a = player.xcor()
@@ -229,9 +230,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         turtle.circle(movement)
         turtle.hideturtle()
 
-        # print(coord_value)
-        # return coord_value 
-    
+            
     def draw_x():
         turtle.pensize(2.5)
         a = player.xcor()
@@ -254,12 +253,7 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
         Player_COORD = coord_value
                
         is_done_with_player_move = True
-        # print(is_done_with_player_move)
-                
-        
-        
-
-             
+                    
     
     turtle.listen()
     turtle.onkey(move_left, "Left") 
@@ -271,8 +265,10 @@ def Create_Player_Custom_Commands(Boardsize, Squares):
 
 
 def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Line_Size):
-    #Sets size of screen, used in making squares
-    #Squares has to obviously be a square value, and we're just going to allow it only to be an odd number, aka, 3x3, 5x5, 7x7
+    '''
+    This function creates the board based on custom boardsize, squares, etc
+    '''
+
     Total_Horizontal_Lines = (math.sqrt(Squares)-1)
     Total_Vertical_Lines = (math.sqrt(Squares)-1)
 
@@ -287,10 +283,9 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
 
     screen = turtle.Screen()          
     screen.screensize(Boardsize,Boardsize)
-    screen.bgcolor(Screen_Color) #"white", needs ""
-    screen.title(Screen_Title) # also needs "" 
+    screen.bgcolor(Screen_Color) 
+    screen.title(Screen_Title)  
 
-    #Going to use while loop here instead
     Remaining_lines = Total_Vertical_Lines
     Current_X = First_Vertical_Line_X_Coords
     Current_Y = First_Vertical_Line_Y_Coords
@@ -336,7 +331,7 @@ def Create_Board(Boardsize, Squares, Screen_Color, Screen_Title, Line_Color, Lin
 def create_key_dict_and_coords(Boardsize, Squares):
     '''
     This function takes Boardsize, number of Squares, creates a list of each Square as a key, 
-    and the key's value corresponds to an [X, Y, coordinate] list, returns dictionary
+    and the key's value corresponds to an [X, Y, coordinate] list, returns a dictionary
     '''
     Name_of_Spots = list(range(0, Squares))
     Square_Length = round((Boardsize / np.sqrt(Squares)))
@@ -378,7 +373,11 @@ def create_key_dict_and_coords(Boardsize, Squares):
 
 def create_remaining_dict(Squares, Squares_to_win):
     
-    # We need a matrix with rows and columns, with each value corresponding
+    '''
+    Takes in total squares on the board and squares needed to win
+    Returns a dictionary of all potential winning lines as keys, and how many consecutive squares
+    are needed to win as their values
+    '''
 
     Matrix = []
     list_size = int(np.sqrt(Squares))
@@ -415,11 +414,8 @@ def create_remaining_dict(Squares, Squares_to_win):
                 
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row * Horizontal_lines_in_Matrix):
             
-            # print(Column_Idx)    
             smaller_list.append(Matrix[Row_index][Column_Idx])
-            # print(Row_index)
-            # print(Column_Idx)
-            
+                       
             Column_Idx +=1
             Total_Squares +=1
 
@@ -442,7 +438,6 @@ def create_remaining_dict(Squares, Squares_to_win):
                 b = smaller_list[:]
                 Winning_Lines.append(b)
                 smaller_list.clear()
-                # Row_index = 0 + (Total_Rows - Horizontal_lines_in_Matrix)  
                 Starting_Column +=1
                 Column_Idx = Starting_Column
                 
@@ -464,20 +459,14 @@ def create_remaining_dict(Squares, Squares_to_win):
         
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row * Vertical_lines_in_Matrix):
 
-            # print(Row_index)
-            # print(Column_Idx)    
+                
             smaller_list.append(Matrix[Row_index][Column_Idx])
-            # print(Row_index)
-            # print(Column_Idx)
-            
+                        
             Row_index +=1
             Total_Squares +=1
-
-            #When we come back to this loop, we start off where we last were, only 1 row lower
-                    
+                               
             if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row) :
                 a = smaller_list[:]
-                # print(a)
                 Winning_Lines.append(a)
                 smaller_list.clear()
                 Starting_Column +=1
@@ -492,15 +481,14 @@ def create_remaining_dict(Squares, Squares_to_win):
                 b = smaller_list[:]
                 Winning_Lines.append(b)
                 smaller_list.clear()
-                # Row_index = 0 + (Total_Rows - Horizontal_lines_in_Matrix)  
                 Starting_Row +=1
                 Row_index = Starting_Row
                 
                 break
     
-    Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) #==2
-    Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) #==2
-    Total_Squares_per_iteration = int(Squares_to_win) # ===4
+    Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) 
+    Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) 
+    Total_Squares_per_iteration = int(Squares_to_win) 
 
     Total_Rows = int(Rows_to_iterate_using_Diagonals)
     smaller_list = []
@@ -515,18 +503,13 @@ def create_remaining_dict(Squares, Squares_to_win):
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
                    
             smaller_list.append(Matrix[Row_index][Column_Idx])
-            # print(Row_index)
-            # print(Column_Idx)
-            
+                        
             Row_index +=1
             Column_Idx +=1
             Total_Squares +=1
-
-            #When we come back to this loop, we start off where we last were, only 1 row lower
-                    
+                                
             if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals) :
                 a = smaller_list[:]
-                # print(a)
                 Winning_Lines.append(a)
                 smaller_list.clear()
                 Starting_Row +=1
@@ -541,16 +524,15 @@ def create_remaining_dict(Squares, Squares_to_win):
                 b = smaller_list[:]
                 Winning_Lines.append(b)
                 smaller_list.clear()
-                # Row_index = 0 + (Total_Rows - Rows_to_iterate_using_Diagonals)  
                 Starting_Column +=1
                 Column_Idx = Starting_Column
                 Row_index = Starting_Row
 
                 break 
            
-    Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) #==2
-    Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) #==2
-    Total_Squares_per_iteration = int(Squares_to_win) # ===4
+    Rows_to_iterate_using_Diagonals = int(1 + (math.sqrt(Squares)-Squares_to_win)) 
+    Iterations_per_row_using_Diagonals = 1 + (math.sqrt(Squares)-Squares_to_win) 
+    Total_Squares_per_iteration = int(Squares_to_win) 
 
     Total_Rows = int(Rows_to_iterate_using_Diagonals)
     smaller_list = []
@@ -566,18 +548,13 @@ def create_remaining_dict(Squares, Squares_to_win):
         while Total_Squares < (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals* Rows_to_iterate_using_Diagonals):
                   
             smaller_list.append(Matrix[Row_index][Column_Idx])
-            # print(Row_index)
-            # print(Column_Idx)
-            
+                        
             Row_index -=1
             Column_Idx +=1
             Total_Squares +=1
-
-            #When we come back to this loop, we start off where we last were, only 1 row lower
-                    
+                   
             if Total_Squares == (Total_Squares_per_iteration * Iterations_per_row_using_Diagonals) :
                 a = smaller_list[:]
-                # print(a)
                 Winning_Lines.append(a)
                 smaller_list.clear()
                 Starting_Row -=1
@@ -592,7 +569,6 @@ def create_remaining_dict(Squares, Squares_to_win):
                 b = smaller_list[:]
                 Winning_Lines.append(b)
                 smaller_list.clear()
-                # Row_index = 0 + (Total_Rows - Rows_to_iterate_using_Diagonals)  
                 Starting_Column +=1
                 Column_Idx = Starting_Column
                 Row_index = Starting_Row
@@ -605,10 +581,12 @@ def create_remaining_dict(Squares, Squares_to_win):
 
     Remaining_dict = dict(zip(Winning_Lines_Tuples, Count_Lists))    
     return Remaining_dict
-    # return Remaining_Dict
-
-
+    
 def neighbors(Matrix, row, column):
+    '''
+    Helper function for the adjacency function. Finds all neighbors of each spot on the board,
+    for a given spot. Sorts their values and returns the list of neighbors.
+    '''
     
     Neighbors = []
     len_matrix = len(Matrix)-1
@@ -645,7 +623,8 @@ def neighbors(Matrix, row, column):
 
 def Adjacency_Dict(Squares):
     '''
-    Returns dictionary
+    Returns dictionary of individual squares as keys, and their adjacent spots on the board
+    as values.
     '''
     #Create the Matrix from the Squares
     Matrix = []
@@ -686,8 +665,6 @@ def Adjacency_Dict(Squares):
 
 
     Name_of_Squares = list(range(0, Squares))    
-    # Adjacency_list_Tuples =  [tuple(x) for x in Adjacency_list]
-
     Adjacency_dict = dict(zip(Name_of_Squares, Adjacency_list))    
     
     return(Adjacency_dict)    
@@ -695,6 +672,10 @@ def Adjacency_Dict(Squares):
 
 
 def comp_draw_customized_x(boardsize, squares):
+    '''
+    Creates customized shape drawing of x for the computer based on the boardsize and squares 
+    on the board.
+    '''
     turtle.pensize(2.5)
     turtle.color("blue")
     a = computer.xcor()
@@ -717,7 +698,10 @@ def comp_draw_customized_x(boardsize, squares):
     return coord_value 
 
 def computer_draw_customized_circle(boardsize, squares):
-    
+    '''
+    Creates customized shape drawing of circle for the computer based on the boardsize and squares 
+    on the board.
+    '''
     movement = (boardsize/squares)*1.5
     
     turtle.pensize(2.5)
@@ -726,7 +710,6 @@ def computer_draw_customized_circle(boardsize, squares):
     b = computer.ycor()
 
     coord_value = [a, b]
-    # x = player.position(a, (b-50))
     turtle.hideturtle()
     turtle.penup()
     turtle.setpos(a, (b-movement))
@@ -738,26 +721,29 @@ def computer_draw_customized_circle(boardsize, squares):
     return coord_value 
 
 def create_updated_dictionary(Remaining_dict, Squares_to_win):
-
+    '''
+    Creates an updated dictionary 
+    '''
     
     X_list = ["winning_lines", "opponent_winning_lines", "sum_of_remaining_lines", "Can_increase_winning_lines", "Can_lower_opponent_lines"]
     X_list2 = [0, 0, (len(Remaining_dict) * Squares_to_win), True, True]
 
     Updated_Dict = dict(zip(X_list, X_list2))
-
     return Updated_Dict
 
-
 def key_name(dictionary, coordinate):
+    '''
+    Finds particular key based on the given coordinate.
+    '''
     for key, value in dictionary.items():
         if value == coordinate:
             position = key
     return position        
 
-# print(key_name(TicTacdict, x))
-
-#This function will decrease the count in a dictionary if one part of one of its keys is triggered
 def decrease_values(dictionary, key_name, updated_dictionary):
+    '''
+    Takes in a key, and reduces all winning line values that contain that key.
+    '''
     list_of_keys = []
     for key, value in dictionary.items():
         for keys in key:
@@ -772,36 +758,32 @@ def decrease_values(dictionary, key_name, updated_dictionary):
     for values in dictionary.values():
         Count +=values 
     updated_dictionary["sum_of_remaining_lines"] = Count 
-    # print(updated_dictionary["sum_of_remaining_lines"])    
+        
 
     Values = []
     for value in dictionary.values():
         Values.append(value)
-
-    # print(min(Values))           
+           
     if min(Values) == 0:
         return 0 
     else:
         return dictionary                       
 
-
-#Created function that will remove a key, value pair from a dictionary, based on the dictionary, and a coordinate given 
 def remove_dict(Key_Dictionary,  coordinate):
+    '''
+    Removes the key from the dictionary if the coordinate corresponds to the key. 
+    '''
         
     for key,value in Key_Dictionary.items():
         if value == coordinate:
             storedvalue = key
     Key_Dictionary.pop(storedvalue)
     return Key_Dictionary
-# print(remove_dict(TicTacdict, x))
-# print(len(TicTacdict))
 
 def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starting_count, List_of_Opponent_Moves, List_of_your_moves,\
     Adjacency_Dict):
     '''
-    This will be an improved function, for games where the amount of winning spots is less than the length or width of the board
-    The logic should be stronger, but I have to test it against it's old self once it is completed, in both games, to see which is 
-    Smarter
+    This is the brain of the game. It is the algorithm behind the computer's moves and logic.
     '''
     
     #Remaining Keys represents possible spots to move to in any given move
@@ -845,8 +827,7 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
                 computer.setpos(coordinates[0],coordinates[1])
                 List_of_your_moves.append(Keys_to_Remove[0])
                 return
-     
-    
+       
     Keys_Remaining = len(Remaining_Keys)
     Winning_Line_Count = []
     Winning_lines_Containers = []
@@ -952,16 +933,14 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
         Keys_Remaining -=1
 
     Best_Choice = dict(zip(Remaining_Keys, Winning_Line_Count))
-    # print(Best_Choice)
     Random_Final_Choiz = []
     Random_Best_Choice = []
     Random_Key = []    
     for key, value in Best_Choice.items():
         Random_Best_Choice.append(value)
-    # print(Random_Best_Choice) 
+    
     max_val = max(Random_Best_Choice)
-    # print(max_val)
-        
+            
     for key, value in Best_Choice.items():
         if value == max_val:
             Random_Key.append(key)
@@ -976,7 +955,6 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
                 computer.setpos(coordinates[0],coordinates[1])
                 List_of_your_moves.append(Random_Final_Choiz[0])
-                # print(Random_Key)
                 return     
     
     Best_Key = max(Best_Choice, key=Best_Choice.get)
@@ -986,34 +964,25 @@ def Terminator_Move(Your_Dictionary, Opponent_Dictionary, Key_Dictionary, Starti
 
     computer.setpos(coordinates[0],coordinates[1])
     List_of_your_moves.append(Best_Key)
-    # print(Random_Key)
     return
 
 
-# import time
 global PLAYER_TURN
 PLAYER_TURN = True
 def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
     '''
     Function to play entire game using all other functions. One ring, to rule them all!
     '''
-    # Create_Player_Custom_Commands(Boardsize, Squares)
+    
     Create_Board(Boardsize, Squares, "white", "Tic-Tac-Toe", "black", 2.5)
     Key_Dictionary = create_key_dict_and_coords(Boardsize, Squares)
-    # print(Key_Dictionary)
-    # print('-------------------------')
     Remaining_Dict_O = create_remaining_dict(Squares, Squares_to_win)
-    # print(Remaining_Dict_O)
-    # print('-------------------------')
     Remaining_Dict_X = create_remaining_dict(Squares, Squares_to_win)
     Adjacency_Dict1 = Adjacency_Dict(Squares)
-    # print(Adjacency_Dict1)
     List_of_X_moves = []
     List_of_O_moves = []
     Updated_Dict = create_updated_dictionary(Remaining_Dict_O, Squares_to_win)
-    # player = turtle.Turtle()
-       
-
+    #If the computers are playing versus themselves:
     if Player==False:
 
         Count = 0
@@ -1033,13 +1002,13 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                 Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
                 key = (key_name(Key_Dictionary, Coordinat))
                 
-                # decrease_values(Remaining_dict_O, key)
                 if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
                     print("O WINS!!!")
                     Game_over = True 
                     break
                                 
                 remove_dict(Key_Dictionary, Coordinat)
+                
                 if Variable10a == "no":
                     
                     Winning_line_O_counts= []
@@ -1048,11 +1017,10 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         Winning_line_O_counts.append(value)
                     for value in Remaining_Dict_X.values():
                         Winning_line_X_counts.append(value)    
-                    # print(Random_Best_Choice) 
+                    
                     max_val_O = max(Winning_line_O_counts)
                     max_val_X = max(Winning_line_X_counts)
-                    # print(Remaining_Dict_X)
-
+                    
                     if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
                         turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
                         turtle.bye()
@@ -1066,20 +1034,19 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
             while Variable == -1:
                 if Count == Squares:
                     break 
-                
-                # Thoughtful_Move(Remaining_Dict_X, Remaining_Dict_X, Key_Dictionary, Squares_to_win, Updated_Dict, Updated_Dict, \
-                # List_of_X_moves)         
+                                      
                 Terminator_Move(Remaining_Dict_X, Remaining_Dict_O, Key_Dictionary, Squares_to_win, List_of_O_moves, List_of_X_moves,\
                    Adjacency_Dict1)
                 Coordinat = (comp_draw_customized_x(Boardsize, Squares))
                 key = (key_name(Key_Dictionary, Coordinat))
-                # decrease_values(Remaining_dict_X, key)
+                
                 if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
                     print("X WINS!!!")
                     Game_over = True 
                     break
                     
                 remove_dict(Key_Dictionary, Coordinat)
+                
                 if Variable10a == "no":
                     
                     Winning_line_O_counts= []
@@ -1088,11 +1055,9 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         Winning_line_O_counts.append(value)
                     for value in Remaining_Dict_X.values():
                         Winning_line_X_counts.append(value)    
-                    # print(Random_Best_Choice) 
                     max_val_O = max(Winning_line_O_counts)
                     max_val_X = max(Winning_line_X_counts)
-                    # print(Remaining_Dict_X)
-
+                    
                     if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
                         turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
                         turtle.bye()    
@@ -1102,13 +1067,9 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
 
                 if Count == Squares:
                     break
-    # import sys 
-    
+    #If the player is interacting with the computer:    
     if Player==True:
         
-        # Create_Player_Custom_Commands(Boardsize, Squares)
-        
-
         random_start = random.randint(0,1)
         if random_start == 0:
             Player=False
@@ -1116,21 +1077,15 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
             Player=True  
 
         Game_over = False
-        # global is_done_with_player_move
-              
+                      
         while Game_over == False:
-            
-            # if Game_over == True:
-                # print("shouldnt i be quitting?")
-                # break        
-            
+                                   
             while Player==False:
                 Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
                 Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
                 key = (key_name(Key_Dictionary, Coordinat))
-                
-                # decrease_values(Remaining_dict_O, key)
+                                
                 if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
                     print("O WINS!!!")
                     Game_over = True
@@ -1143,17 +1098,15 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
             while Player==True:
                 
                 def switch_players():
-                    # This function allows the player to use the prompt to finish their loop, go through the computers loop
-                    # And end up back at their loop again :)
-                    #This will simulate the computer moving, but it won't create this loop
-                    # print(Key_Dictionary)
-                    # print(Player_COORD)
-                                        
-                                       
+                    '''
+                    This function allows the player to use the prompt to finish their loop, 
+                    go through the computers loop and end up back at their loop again.
+                    This allows us to run the turtle commands while keeping the game open 
+                    with minimum interruption.                                                           
+                    '''
                     key = (key_name(Key_Dictionary, Player_COORD))
-                    # print(key)
                     List_of_X_moves.append(key)
-                    # decrease_values(Remaining_dict_X, key)
+                    
                     if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
                         turtle.textinput("X has won! ",  "Press Enter to quit")
                         turtle.bye()
@@ -1166,14 +1119,15 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
 
                         Winning_line_O_counts= []
                         Winning_line_X_counts = []    
+                        
                         for value in Remaining_Dict_O.values():
                             Winning_line_O_counts.append(value)
                         for value in Remaining_Dict_X.values():
                             Winning_line_X_counts.append(value)    
-                        # print(Random_Best_Choice) 
+                        
                         max_val_O = max(Winning_line_O_counts)
                         max_val_X = max(Winning_line_X_counts)
-                        # print(Remaining_Dict_O)
+                        
                         if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
                             turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
                             turtle.bye()
@@ -1184,62 +1138,49 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     if len(Len_list) == 0:
                         turtle.textinput("Thanks for playing! ",  "Press Enter to quit")
                         turtle.bye()    
-                    
-                    #We want to test manually the size of the key dictionary here , if it is 0, or empty, we want to force
-                    # close the screen                   
+                                             
 
                     Terminator_Move(Remaining_Dict_O, Remaining_Dict_X, Key_Dictionary, Squares_to_win, List_of_X_moves, List_of_O_moves,\
                     Adjacency_Dict1)
                     Coordinat = (computer_draw_customized_circle(Boardsize, Squares))
                     
-                     
-
                     key = (key_name(Key_Dictionary, Coordinat))
-                    
-                    # decrease_values(Remaining_dict_O, key)
+                                        
                     if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
                         turtle.textinput("O has won! ",  "Press Enter to quit")
                         turtle.bye()
                     
                     list_o_keys = []                  
                     remove_dict(Key_Dictionary, Coordinat)
-                    
-                    
+                                        
                     #Check to see if game can no longer be won by either player
                     if Variable10a == "no":
                     
                         Winning_line_O_counts= []
                         Winning_line_X_counts = []    
+                        
                         for value in Remaining_Dict_O.values():
                             Winning_line_O_counts.append(value)
                         for value in Remaining_Dict_X.values():
                             Winning_line_X_counts.append(value)    
-                        # print(Random_Best_Choice) 
+                        
                         max_val_O = max(Winning_line_O_counts)
                         max_val_X = max(Winning_line_X_counts)
-                        # print(Remaining_Dict_X)
-
+                        
                         if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
                             turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
                             turtle.bye()
                     
-                    #implement function that tests to see if game can not be won by anyone, and quits 
-
                     for key in Key_Dictionary.keys():
                         list_o_keys.append(key)
+                    
                     if (len(list_o_keys)) == 0:
                         turtle.textinput("Thanks for playing! ",  "Press Enter to quit")
                         turtle.bye()
-
-                    # import time
+                    
                     global PLAYER_TURN
                     PLAYER_TURN = True    
-
-                    
-
-                    #Do we want to pause the time here
-
-
+   
                 Square_Length = round((Boardsize / np.sqrt(Squares)))
     
                 speed = Square_Length
@@ -1249,8 +1190,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                 player.shape("square")
                 player.penup()
                 player.speed(0)
-                # player.shapesize(.5, .5, .5)
-                    
+                                    
                 Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
                 Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
                 
@@ -1259,28 +1199,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                 
                 movement = (Boardsize/Squares)*1.5
                 
-                
-                    # print(player.pos())
-                
-                # def draw_circle():
-                #     turtle.pensize(2.5)
-                #     a = player.xcor()
-                #     b = player.ycor()
-                    
-                #     coord_value = [a, b]
-                            
-                #     turtle.hideturtle()
-                #     turtle.penup()
-                #     turtle.setpos(a, (b-movement))
-
-                #     turtle.pendown()
-                #     turtle.circle(movement)
-                #     turtle.hideturtle()
-
-                    # print(coord_value)
-                    # return coord_value 
-                
+                                
                 def draw_x():
+                    '''
+                    This is the player interaction function. Will allow the player to mark an x
+                    when it is his or her turn to move. Will force the player to be in an unmarked
+                    spot before allowing the X to be marked. Will then loop into the switch_players
+                    function.
+                    '''
                     turtle.pensize(2.5)
                     a = player.xcor()
                     b = player.ycor()
@@ -1295,10 +1221,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     for key, coordinate in Key_Dictionary.items():
                         list_of_Coords.append(coordinate)
                     if coord_value in list_of_Coords:
-
-                        #Forcing player to be in proper spot when making the X, or it will simply not draw
-                        # And they will be forced to choose new spot...Fixing all potential mischief online    
-                    
+                        
                         turtle.setposition(a-movement,b+movement)
                         turtle.pendown()
                         turtle.setposition(a+movement,b-movement)
@@ -1311,11 +1234,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         Player_COORD = coord_value
                         global PLAYER_TURN
                         PLAYER_TURN = False
+                        
                         switch_players()
                 
                 
                 def move_left():
-                    
+                    '''
+                    Left command if it is the player's turn
+                    '''
                     if PLAYER_TURN == True:
 
                         x = player.xcor()
@@ -1326,49 +1252,63 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         
                         player.setx(x)
                         player.setpos(x, player.ycor())
-                    # print(player.pos())
+                    
                 
                 def move_right():
+                    '''
+                    Right command if it is the player's turn
+                    '''
                     if PLAYER_TURN == True:
+
                         x = player.xcor()
                         x += speed
+                        
                         if x > (Boardsize/2) - .5*(Square_Length):
                             x = -(Boardsize/2) + .5*(Square_Length) + ((np.sqrt(Squares)-1) * Square_Length)
+                        
                         player.setx(x)
                         player.setpos(x, player.ycor())
-                    # print(player.pos())
-                
+                                    
                 def move_up():
+                    '''
+                    Up command if it is the player's turn
+                    '''
                     if PLAYER_TURN == True:
 
                         y = player.ycor()
                         y += speed
+
                         if y >  (Boardsize/2) - .5*(Square_Length):
                             y = (Boardsize/2) - .5*(Square_Length)
+                        
                         player.sety(y)
                         player.setpos(player.xcor(), y)
-                    # print(player.pos())
-                
+                                    
                 def move_down():
+                    '''
+                    Down command if it is the player's turn
+                    '''
                     if  PLAYER_TURN == True:
+
                         y = player.ycor()
                         y -= speed
+                        
                         if y < -(Boardsize/2)+ .5*(Square_Length):
                             y = (Boardsize/2) - .5*(Square_Length) - ((np.sqrt(Squares)-1) * Square_Length)
+                        
                         player.sety(y)
                         player.setpos(player.xcor(), y)
                 
                 def quit_game():
+                    '''
+                    Allows player to quit game by pressing Esc at any time.
+                    '''
                     turtle.textinput("See you later friend! ",  "Press Enter to quit")
                     turtle.bye()            
-                    
-                    
-
-                        
+                                     
                 
                 turtle.listen()
-                
-                
+                                
                 turtle.onkey(move_left, "Left") 
                 turtle.onkey(move_right, "Right")
                 turtle.onkey(move_up, "Up") 
@@ -1377,37 +1317,18 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                 turtle.onkey(draw_x, "x")
                 turtle.onkey(quit_game, "Escape")     
 
-        
-
-                
-                
-                # delay = input("Press enter to finish.")    
-                
-                # if Player==False:
-                #     break
-
-                                
-
                 turtle.mainloop()     
                             
 
                     
-                  
+#This sets the main game loop using the prompts from the beginning
+# If player chooses to play computer, use this loop                   
 if Variable8 == "yes":
     Play_Game(Variable1, Variable3, Variable4, Player=True)
+# If player chooses not to play computer, use this loop    
 if Variable8 == "no":
     Play_Game(Variable1, Variable3, Variable4, Player=False)
-         #Player=True) #Player=True)
-# Create_Board(800, 121, "white", "Tic-Tac-Toe", "black", 2.5)
-# Create_Player_Custom_Commands(800, 121)
-# Key_Dictionary = create_key_dict_and_coords(800, 121)
-# print(player.pos())
-
-#Game will always work if 2nd number is a square, and if 3rd number is <= np.sqrt of 2nd number
-# Need to inform user of that, recommended boardsize is 800
-
           
-# delay = input("Press enter to finish.")                
 
 
 
