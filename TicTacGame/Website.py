@@ -4,7 +4,9 @@
 # Bootstrap 4 should make it look nice
 
 #To activate virtual env, type virtual/Scripts/activate
-
+#
+# https://virtual-tic-tac-toe.herokuapp.com/ | https://git.heroku.com/virtual-tic-tac-toe.git
+#
 # To deactivate virtual environment, simply type deactivate in the console
 from flask import Flask, render_template   
 from flask import Flask
