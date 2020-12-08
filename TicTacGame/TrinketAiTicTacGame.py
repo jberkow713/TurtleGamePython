@@ -55,10 +55,13 @@ if Variable8 == "no":
         if Var2 == 3:
             list_nums2 = str([3])
             # print("I am a 3")
-        
+        elif Var2 == 4:
+            list_nums2 = str([4])
         elif Var2 == 5:
             list_nums2 = str([5])
             # print("I am a 5")
+        elif Var2 == 6:
+            list_nums2 = str([6])
         elif Var2 == 7:
             list_nums2 = str([5, 6, 7])
         
@@ -70,6 +73,12 @@ if Variable8 == "no":
         
         choice3 = False
         while choice3 == False:
+            if Variable2 <=6:
+                print(f"You must choose {Variable2} tiles needed to win")
+            elif Variable2 == 7:
+                print(f"You can choose 5,6, or 7 tiles needed to win")    
+            else:
+                print(f"You must choose between {math.ceil(Variable2/2)} and {Variable2} tiles needed to win, inclusive.")
             Variable4 = input("Required number of tiles to win ? Enter consecutive squares needed to win: \n")
 
             if Variable4 in list_nums2:
@@ -83,7 +92,7 @@ if Variable8 == "no":
         if Var2 > 7:
             if Variable4 <= Var2 and Variable4 > (.5* Var2):
                 Choice2 = True  
-        if Var2 <=5:
+        if Var2 <=6:
             if Variable4 == Var2:
                 Choice2 = True
         if Var2 == 7:
@@ -119,10 +128,13 @@ if Variable8 == "yes":
             if Var2 == 3:
                 list_nums2 = str([3])
                 # print("I am a 3")
-            
+            elif Var2 == 4:
+                list_nums2 = str([4])
             elif Var2 == 5:
                 list_nums2 = str([5])
                 # print("I am a 5")
+            elif Var2 == 6:
+                list_nums2 = str([6])
             elif Var2 == 7:
                 list_nums2 = str([5, 6, 7])
             
@@ -134,6 +146,12 @@ if Variable8 == "yes":
             
             choice3 = False
             while choice3 == False:
+                if Variable2 <=6:
+                    print(f"You must choose {Variable2} tiles needed to win")
+                elif Variable2 == 7:
+                    print(f"You can choose 5,6, or 7 tiles needed to win")    
+                else:
+                    print(f"You must choose between {math.ceil(Variable2/2)} and {Variable2} tiles needed to win, inclusive.")
                 Variable4 = input("Required number of tiles to win ? Enter consecutive squares needed to win: \n")
 
                 if Variable4 in list_nums2:
@@ -147,7 +165,7 @@ if Variable8 == "yes":
             if Var2 > 7:
                 if Variable4 <= Var2 and Variable4 > (.5* Var2):
                     Choice2 = True  
-            if Var2 <=5:
+            if Var2 <=6:
                 if Variable4 == Var2:
                     Choice2 = True
             if Var2 == 7:
@@ -1043,7 +1061,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     max_val_X = max(Winning_line_X_counts)
                     
                     if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                        turtle.textinput("The game can no longer be won! ", "Press Stop to restart the game")
                         turtle.bye()
                                     
                 Variable *= -1
@@ -1080,7 +1098,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     max_val_X = max(Winning_line_X_counts)
                     
                     if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                        turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                        turtle.textinput("The game can no longer be won! ", "Press Stop to restart the game")
                         turtle.bye()    
                 
                 Variable *=-1
@@ -1129,7 +1147,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     List_of_X_moves.append(key)
                     
                     if decrease_values(Remaining_Dict_X, key, Updated_Dict) == 0:
-                        turtle.textinput("X has won! ",  "Press Enter to quit")
+                        turtle.textinput("X has won!", "Press Stop to restart the game")
                         turtle.bye()
                                     
                                         
@@ -1150,14 +1168,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         max_val_X = max(Winning_line_X_counts)
                         
                         if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                            turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                            turtle.textinput("The game can no longer be won!", "Press Stop to restart the game")
                             turtle.bye()
 
                     Len_list = []
                     for key in Key_Dictionary.keys():
                         Len_list.append(key)
                     if len(Len_list) == 0:
-                        turtle.textinput("Thanks for playing! ",  "Press Enter to quit")
+                        turtle.textinput("Thanks for playing!", "Press Stop to restart the game")
                         turtle.bye()    
                                              
 
@@ -1168,7 +1186,7 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                     key = (key_name(Key_Dictionary, Coordinat))
                                         
                     if decrease_values(Remaining_Dict_O, key, Updated_Dict) == 0:
-                        turtle.textinput("O has won! ",  "Press Enter to quit")
+                        turtle.textinput("O has won! ", "Press Stop to restart the game")
                         turtle.bye()
                     
                     list_o_keys = []                  
@@ -1189,14 +1207,14 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
                         max_val_X = max(Winning_line_X_counts)
                         
                         if max_val_O < Squares_to_win and max_val_X < Squares_to_win:
-                            turtle.textinput("The game can no longer be won! ",  "Press Enter to quit")
+                            turtle.textinput("The game can no longer be won! ", "Press Stop to restart the game")
                             turtle.bye()
                     
                     for key in Key_Dictionary.keys():
                         list_o_keys.append(key)
                     
                     if (len(list_o_keys)) == 0:
-                        turtle.textinput("Thanks for playing! ",  "Press Enter to quit")
+                        turtle.textinput("Thanks for playing! ", "Press Stop to restart the game")
                         turtle.bye()
                     
                     global PLAYER_TURN
@@ -1208,9 +1226,10 @@ def Play_Game(Boardsize, Squares, Squares_to_win, Player=False,):
 
                 player = turtle.Turtle()
                 player.color("green")
-                player.shape("square")
+                player.shape("triangle")
                 player.penup()
                 player.speed(0)
+                player.shapesize(.8, .8, .8)
                                     
                 Starting_pos_x = -(Boardsize/2) + .5*(Square_Length) + (((np.sqrt(Squares)-1)/2) * Square_Length)
                 Starting_pos_y = (Boardsize/2) - .5*(Square_Length) - (((np.sqrt(Squares)-1)/2) * Square_Length)
