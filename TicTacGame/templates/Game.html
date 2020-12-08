@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <!-- <title>Tic-Tac-Website</title> -->
+        
         <style>
           body{
             margin: 60px ;
@@ -22,7 +22,18 @@
   
 }
                        
-            
+.logo {
+    width: 100%;
+    margin-top: 0px;
+    height: 150px;
+    text-align: center;
+    color: crimson;
+    background-image: url("https://www.fg-a.com/wallpapers/mountain-landscape-clouds-2018.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 0px
+}
             
 
             
@@ -42,16 +53,14 @@
     
       </head>
       <body>
-        {% extends "template.html" %}
-        {% block content %}  
-        <!-- <div class="container my-container"> -->
-            
-          <!-- justify content center will center the columns within the row -->
-          <!-- align self center in a single column will center that column only
-            you can center all columns in the row by doing justify-content-center in a row class instead
-          the orders can be added to rows, the lower the order, the further left it will go, 
-        relative to other order numbers -->
         
+          <header>
+            <h1 class="logo">Tic_Tac_Website</h1>
+          </header>
+          {% extends "template.html" %}
+          {% block content %} 
+            
+          
           <div class="row   ">
               <h1>
                 <p style="font-size: 30px; color: darkviolet;">
@@ -75,8 +84,8 @@
     
         </div>
         
-      {% endblock %}     
     
+        {% endblock %}  
     </body>
     
 

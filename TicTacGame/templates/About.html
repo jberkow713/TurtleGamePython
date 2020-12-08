@@ -23,11 +23,28 @@
       h1 {text-align: center;
 
       }
+      .logo {
+    width: 100%;
+    margin-top: 0px;
+    height: 150px;
+    text-align: center;
+    color: crimson;
+    background-image: url("https://www.fg-a.com/wallpapers/mountain-landscape-clouds-2018.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: 0px
+}  
      
     </style>
 
   </head>
   <body>
+    <header>
+      <h1 class="logo">Tic_Tac_Website</h1>
+    </header>
+    
+    
     {% extends "template.html" %}
     {% block content %}  
     <div class="container my-container">
@@ -47,7 +64,7 @@
           
             
             <p style="font-size: 23px; color: darkviolet;">
-            Link to Game code on Github:    
+            Link to game code on Github:    
             <p style="font-size: 23px; color: darkviolet;">
             https://github.com/jberkow713/TurtleGamePython/blob/main/TicTacGame/TrinketAiTicTacGame.py
             
@@ -65,11 +82,11 @@
     game begins.
     <p style="font-size: 23px; color: rgb(16, 139, 0);">
     The first prompt will ask if you want to play against the computer. If you click no, the computer
-    will play itself. It will be X and O. You can get a good idea of how it plays by watching it.
+    will play itself as both X and O. You can get a good idea of how it plays by watching it.
     The second prompt will ask you to enter the dimensions of the board. This refers to the amount of tiles
     on the board. If you want a 10 by 10 board, simply enter 10 here. If you choose to play against the 
     computer, your answer MUST be an odd number, from 3-19, including 3 and 19. If you choose to watch
-    the computer, your answer can be any number from 3-20, including 3 and 20.
+    the computer play itself, your answer can be any number from 3-20, including 3 and 20.
     <p style="font-size: 23px; color: darkblue;"> 
     The third prompt will ask you to enter the required number of tiles to win. Unlike other Tic-Tac-Toe
     games, my game allows you to choose a number less than the dimensions of the board in this situation.

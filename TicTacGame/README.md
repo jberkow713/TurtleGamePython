@@ -1,6 +1,8 @@
 # TicTacToe AI
 This is TicTacToe. 
+
 The game file is TicTacWebsite.py.
+
 All you need to do to play the game is to run the file.
 
 You will immediately be prompted on the Turtle Screen.
